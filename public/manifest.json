@@ -1,0 +1,21 @@
+{
+  "short_name": "MedTwin AI",
+  "name": "MedTwin AI - 3D Healthcare Digital Twin Studio",
+  "icons": [
+    {
+      "src": "/assets/logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/assets/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#F8FAFC",
+  "theme_color": "#2563EB",
+  "display": "standalone",
+  "orientation": "portrait"
+}

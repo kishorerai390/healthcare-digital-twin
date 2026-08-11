@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2563EB" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>MedTwin AI — Healthcare Digital Twin Studio</title>
+    <!-- Google Fonts: Plus Jakarta Sans, Outfit, Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Google Translate API Script -->
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+          pageLanguage: 'en',
+          autoDisplay: false
+        }, 'google_translate_element');
+      }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <style>
+      /* Hide default Google Translate banner frame & tooltips for clean modern UI */
+      .goog-te-banner-frame { display: none !important; }
+      body { top: 0px !important; position: static !important; }
+      .goog-te-gadget-icon { display: none !important; }
+      .goog-te-gadget-simple {
+        background-color: #f8fafc !important;
+        border: 1px solid #e2e8f0 !important;
+        padding: 6px 12px !important;
+        border-radius: 12px !important;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        color: #0f172a !important;
+      }
+      #goog-gt-tt, .goog-te-balloon-part, .goog-tooltip, .goog-tooltip:hover { display: none !important; }
+      .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
+      #google_translate_element { display: none !important; }
+      .skiptranslate iframe { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <div id="google_translate_element" style="display:none !important;"></div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
