@@ -1557,17 +1557,19 @@ function createAdminBarcodeDataURL(codeText = 'SEC-984021-HIPAA') {
                         <div className="w-full max-w-[32px] flex items-end justify-center gap-1 h-44">
                           {/* Scheduled Bar */}
                           <div
-                            className={`w-3.5 rounded-t-lg transition-all ${
+                            className={`w-3.5 rounded-t-lg transition-all cursor-pointer ${
                               bar.highlight ? 'bg-cyan-400 ring-2 ring-cyan-300 shadow-lg shadow-cyan-400/50' : 'bg-blue-600 group-hover:bg-cyan-500'
                             }`}
                             style={{ height: `${(bar.scheduled / 22) * 100}%` }}
                             title={`${bar.hour} Scheduled: ${bar.scheduled}`}
+                            onClick={() => setShowAddPatientModal(true)}
                           />
                           {/* Walk-ins Bar */}
                           <div
-                            className="w-3.5 bg-purple-500 rounded-t-lg transition-all group-hover:bg-purple-400"
+                            className="w-3.5 bg-purple-500 rounded-t-lg transition-all group-hover:bg-purple-400 cursor-pointer"
                             style={{ height: `${(bar.walkIns / 22) * 100}%` }}
                             title={`${bar.hour} Walk-ins: ${bar.walkIns}`}
+                            onClick={() => setShowAddPatientModal(true)}
                           />
                         </div>
                         <span className="text-[10px] font-mono text-slate-400 font-bold">{bar.hour}</span>
@@ -1599,7 +1601,10 @@ function createAdminBarcodeDataURL(codeText = 'SEC-984021-HIPAA') {
 
                     {/* Breakdown List */}
                     <div className="flex-1 space-y-2.5 text-xs font-semibold">
-                      <div className="flex items-center justify-between p-2 rounded-xl bg-slate-900">
+                      <div
+                        onClick={() => setShowAddPatientModal(true)}
+                        className="flex items-center justify-between p-2 rounded-xl bg-slate-900 hover:bg-slate-800 transition-colors cursor-pointer"
+                      >
                         <div className="flex items-center gap-2">
                           <span className="w-3 h-3 rounded-full bg-cyan-500"></span>
                           <span className="text-slate-200">Consultation</span>
@@ -1607,7 +1612,10 @@ function createAdminBarcodeDataURL(codeText = 'SEC-984021-HIPAA') {
                         <span className="font-mono text-cyan-400 font-extrabold">68</span>
                       </div>
 
-                      <div className="flex items-center justify-between p-2 rounded-xl bg-slate-900">
+                      <div
+                        onClick={() => setShowAddPatientModal(true)}
+                        className="flex items-center justify-between p-2 rounded-xl bg-slate-900 hover:bg-slate-800 transition-colors cursor-pointer"
+                      >
                         <div className="flex items-center gap-2">
                           <span className="w-3 h-3 rounded-full bg-purple-500"></span>
                           <span className="text-slate-200">Procedure</span>
@@ -1615,7 +1623,10 @@ function createAdminBarcodeDataURL(codeText = 'SEC-984021-HIPAA') {
                         <span className="font-mono text-purple-400 font-extrabold">32</span>
                       </div>
 
-                      <div className="flex items-center justify-between p-2 rounded-xl bg-slate-900">
+                      <div
+                        onClick={() => setShowAddPatientModal(true)}
+                        className="flex items-center justify-between p-2 rounded-xl bg-slate-900 hover:bg-slate-800 transition-colors cursor-pointer"
+                      >
                         <div className="flex items-center gap-2">
                           <span className="w-3 h-3 rounded-full bg-rose-500"></span>
                           <span className="text-slate-200">Follow-up</span>
@@ -1653,9 +1664,10 @@ function createAdminBarcodeDataURL(codeText = 'SEC-984021-HIPAA') {
                     ].map((m, idx) => (
                       <div key={idx} className="flex-1 flex flex-col items-center gap-1 h-full justify-end">
                         <div
-                          className="w-full bg-rose-500 rounded-t-lg transition-all hover:bg-rose-400"
+                          className="w-full bg-rose-500 rounded-t-lg transition-all hover:bg-rose-400 cursor-pointer"
                           style={{ height: `${(parseInt(m.pct) / 16) * 100}%` }}
-                          title={`${m.month}: ${m.pct}`}
+                          title={`${m.month}: ${m.pct} No-Show Rate - Click to Register Appointment`}
+                          onClick={() => setShowAddPatientModal(true)}
                         />
                         <span className="text-[10px] font-mono text-slate-400 font-bold">{m.month}</span>
                       </div>
@@ -2046,22 +2058,34 @@ function createAdminBarcodeDataURL(codeText = 'SEC-984021-HIPAA') {
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-xs">
-                  <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
+                  <div
+                    onClick={() => setSelectedInspectPatient(safePatients[0])}
+                    className="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 transition-all cursor-pointer shadow-md"
+                  >
                     <div className="font-mono text-xs text-slate-400">BED 301</div>
                     <div className="font-extrabold text-emerald-400 text-sm mt-1">Occupied</div>
-                    <div className="text-[10px] text-slate-500">Alex Morgan (Stable)</div>
+                    <div className="text-[10px] text-slate-400 font-medium">Alex Morgan (Stable)</div>
                   </div>
-                  <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
+                  <div
+                    onClick={() => setSelectedInspectPatient(safePatients[1] || safePatients[0])}
+                    className="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 transition-all cursor-pointer shadow-md"
+                  >
                     <div className="font-mono text-xs text-slate-400">BED 302</div>
                     <div className="font-extrabold text-emerald-400 text-sm mt-1">Occupied</div>
-                    <div className="text-[10px] text-slate-500">Ava Nguyen (Stable)</div>
+                    <div className="text-[10px] text-slate-400 font-medium">Ava Nguyen (Stable)</div>
                   </div>
-                  <div className="p-4 rounded-xl bg-slate-900 border border-rose-500/50 bg-rose-950/20">
+                  <div
+                    onClick={() => setIsEmergencyModalOpen?.(true)}
+                    className="p-4 rounded-xl bg-slate-900 hover:bg-rose-950/40 border border-rose-500/50 bg-rose-950/20 transition-all cursor-pointer shadow-lg shadow-rose-500/10 active:scale-95"
+                  >
                     <div className="font-mono text-xs text-rose-400 font-bold">BED 304 (ALERT)</div>
                     <div className="font-extrabold text-rose-400 text-sm mt-1 animate-pulse">Sepsis Spike ⚠️</div>
                     <div className="text-[10px] text-rose-300 font-bold">John Doe (Temp 39.2°C)</div>
                   </div>
-                  <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
+                  <div
+                    onClick={() => setShowAddPatientModal(true)}
+                    className="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 transition-all cursor-pointer shadow-md"
+                  >
                     <div className="font-mono text-xs text-slate-400">BED 305</div>
                     <div className="font-extrabold text-cyan-400 text-sm mt-1">Available</div>
                   </div>
