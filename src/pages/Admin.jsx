@@ -6,7 +6,8 @@ import {
   ShieldCheck, Users, Activity, Cpu, Server, Lock, Search, ArrowLeft, 
   CheckCircle2, AlertTriangle, TrendingUp, Database, RefreshCw, Key,
   Eye, EyeOff, ShieldAlert, Zap, Mail, LogOut, FileText, Save, Plus, Download,
-  Globe, PhoneCall, Check, Trash2, Sliders, Stethoscope, Clock, Sparkles
+  Globe, PhoneCall, Check, Trash2, Sliders, Stethoscope, Clock, Sparkles,
+  HeartPulse, Pill, Mic, Camera
 } from 'lucide-react'
 import LanguageSelector from '../components/LanguageSelector'
 import ThemeToggle from '../components/ThemeToggle'
