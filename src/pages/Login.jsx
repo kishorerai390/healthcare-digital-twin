@@ -219,7 +219,7 @@ export default function Login(){
                     placeholder="e.g. TWIN-88412-US"
                     className="w-full px-3.5 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 text-sm font-mono font-extrabold focus:outline-none focus:border-blue-500 focus:bg-white pl-10"
                   />
-                  <Key className="w-4 h-4 text-blue-600 absolute left-3.5 top-3.5" />
+                  <Key className="w-4 h-4 text-blue-600 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                 </div>
               </div>
 
@@ -261,7 +261,7 @@ export default function Login(){
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3.5 top-3.5 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer p-0.5"
                     title={showPassword ? "Hide password" : "Show password"}
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
