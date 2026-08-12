@@ -297,7 +297,7 @@ export default function Login(){
           </div>
 
           <div className="text-xs text-slate-500 text-center font-medium pt-1">
-            Don't have an account? <button onClick={() => nav('/signup')} className="text-blue-600 hover:underline font-extrabold">Sign up</button>
+            Don't have an account? <button type="button" onClick={() => nav('/signup')} className="text-blue-600 hover:underline font-extrabold">Sign up</button>
           </div>
         </div>
       </motion.div>

@@ -93,7 +93,8 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                   Impact: high
                 </span>
                 <button
-                  onClick={() => setActiveActionModal('admission_surge')}
+                  type="button"
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); setActiveActionModal('admission_surge'); }}
                   className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-white font-extrabold text-xs border border-slate-700 transition-all cursor-pointer shadow-md hover:border-cyan-500"
                 >
                   Take Action
@@ -115,7 +116,8 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                   Impact: medium
                 </span>
                 <button
-                  onClick={() => setActiveActionModal('resource_allocation')}
+                  type="button"
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); setActiveActionModal('resource_allocation'); }}
                   className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-white font-extrabold text-xs border border-slate-700 transition-all cursor-pointer shadow-md hover:border-cyan-500"
                 >
                   Take Action
@@ -141,7 +143,8 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
 
               <div className="flex items-center gap-2 bg-slate-950 p-1 rounded-xl border border-slate-800">
                 <button
-                  onClick={() => setActiveTab('reports')}
+                  type="button"
+                  onClick={(e) => { e.preventDefault(); setActiveTab('reports'); }}
                   className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1 ${
                     activeTab === 'reports' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'
                   }`}
@@ -150,7 +153,8 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                   <span>Reports</span>
                 </button>
                 <button
-                  onClick={() => setActiveTab('ask_ai')}
+                  type="button"
+                  onClick={(e) => { e.preventDefault(); setActiveTab('ask_ai'); }}
                   className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1 ${
                     activeTab === 'ask_ai' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'
                   }`}
@@ -176,7 +180,8 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                     Predictive discharge modeling could improve bed turnover by 22%.
                   </p>
                   <button
-                    onClick={() => setActiveActionModal('bed_simulation')}
+                    type="button"
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setActiveActionModal('bed_simulation'); }}
                     className="px-4 py-2 rounded-xl bg-black hover:bg-slate-900 active:scale-95 text-white font-mono font-bold text-xs border border-slate-800 transition-all cursor-pointer shadow-md hover:border-indigo-500"
                   >
                     Run Simulation
@@ -190,7 +195,8 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                     AI recommends shift adjustments to better align with patient influx patterns.
                   </p>
                   <button
-                    onClick={() => setActiveActionModal('staff_schedule')}
+                    type="button"
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setActiveActionModal('staff_schedule'); }}
                     className="px-4 py-2 rounded-xl bg-black hover:bg-slate-900 active:scale-95 text-white font-mono font-bold text-xs border border-slate-800 transition-all cursor-pointer shadow-md hover:border-indigo-500"
                   >
                     View Schedule
@@ -204,7 +210,8 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                     Cross-department equipment sharing could reduce idle time by 35%.
                   </p>
                   <button
-                    onClick={() => setActiveActionModal('equipment_plan')}
+                    type="button"
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setActiveActionModal('equipment_plan'); }}
                     className="px-4 py-2 rounded-xl bg-black hover:bg-slate-900 active:scale-95 text-white font-mono font-bold text-xs border border-slate-800 transition-all cursor-pointer shadow-md hover:border-indigo-500"
                   >
                     See Plan
