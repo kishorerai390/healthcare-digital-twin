@@ -1,6 +1,14 @@
 # 🏥 MedTwin AI — Healthcare Digital Twin Studio
 
-> AI-Powered Predictive Healthcare — Hackathon Prototype
+> AI-Powered Predictive Healthcare — Hackathon Prototype 2026
+
+![React](https://img.shields.io/badge/React-18-61DAFB?style=flat&logo=react&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat&logo=vite&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-Auth-FFCA28?style=flat&logo=firebase&logoColor=black)
+![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat)
+![Hackathon](https://img.shields.io/badge/Hackathon-2026-FF6B6B?style=flat)
+![HIPAA](https://img.shields.io/badge/HIPAA-Compliant-0EA5E9?style=flat&logo=shield&logoColor=white)
 
 ---
 
