@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   HeartPulse, Activity, Zap, TrendingUp, Sparkles, CheckCircle2, 
@@ -264,11 +265,11 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
 
 
       {/* ========================================================= */}
-      {/* INTERACTIVE MODALS FOR ALL BUTTONS                        */}
+      {/* INTERACTIVE MODALS FOR ALL BUTTONS (PORTAL TO BODY)      */}
       {/* ========================================================= */}
-      <AnimatePresence>
-        {activeActionModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+      {typeof document !== 'undefined' && activeActionModal && createPortal(
+        <AnimatePresence>
+          <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md font-sans">
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -277,6 +278,7 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
             >
               {/* Close Button */}
               <button
+                type="button"
                 onClick={() => setActiveActionModal(null)}
                 className="absolute top-5 right-5 p-2 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors cursor-pointer"
               >
@@ -313,15 +315,18 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
 
                   <div className="flex gap-3">
                     <button
+                      type="button"
                       onClick={() => {
                         setActiveActionModal(null)
                         showToast('✅ ER Surge Action Dispatched: 10 Beds reserved & On-call staff notified!')
+                        if (onOpenEmergencyModal) onOpenEmergencyModal()
                       }}
                       className="flex-1 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-xs shadow-lg transition-all cursor-pointer text-center"
                     >
                       Confirm & Dispatch Plan
                     </button>
                     <button
+                      type="button"
                       onClick={() => setActiveActionModal(null)}
                       className="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs cursor-pointer"
                     >
@@ -357,6 +362,7 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
 
                   <div className="flex gap-3">
                     <button
+                      type="button"
                       onClick={() => {
                         setActiveActionModal(null)
                         showToast('✅ Resource Re-balanced: 15% Cardiology capacity assigned to ER overflow!')
@@ -366,6 +372,7 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                       Execute Capacity Re-balance
                     </button>
                     <button
+                      type="button"
                       onClick={() => setActiveActionModal(null)}
                       className="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs cursor-pointer"
                     >
@@ -408,6 +415,7 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
 
                   <div className="flex gap-3">
                     <button
+                      type="button"
                       onClick={() => {
                         setSimulationRunning(true)
                         setTimeout(() => {
@@ -429,6 +437,7 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                       )}
                     </button>
                     <button
+                      type="button"
                       onClick={() => setActiveActionModal(null)}
                       className="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs cursor-pointer"
                     >
@@ -470,6 +479,7 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
 
                   <div className="flex gap-3">
                     <button
+                      type="button"
                       onClick={() => {
                         setActiveActionModal(null)
                         showToast('✅ Staff Schedule Applied: Evening shifts re-aligned to influx!')
@@ -479,6 +489,7 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                       Apply Shift Adjustments
                     </button>
                     <button
+                      type="button"
                       onClick={() => setActiveActionModal(null)}
                       className="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs cursor-pointer"
                     >
@@ -514,6 +525,7 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
 
                   <div className="flex gap-3">
                     <button
+                      type="button"
                       onClick={() => {
                         setActiveActionModal(null)
                         showToast('✅ Equipment Plan Deployed: Device idle time reduced by 35%!')
@@ -523,6 +535,7 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                       Deploy Equipment Route
                     </button>
                     <button
+                      type="button"
                       onClick={() => setActiveActionModal(null)}
                       className="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs cursor-pointer"
                     >
@@ -534,8 +547,9 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
 
             </motion.div>
           </div>
-        )}
-      </AnimatePresence>
+        </AnimatePresence>,
+        document.body
+      )}
 
     </div>
   )
