@@ -72,13 +72,30 @@ export default function WearableSyncCard() {
         })
 
         setScanStatus(`Establishing Realtime Bluetooth GATT stream with ${device.name || 'Smartwatch'}...`)
-        await device.gatt.connect()
+        const server = await device.gatt.connect()
+
+        // Subscribe to real BLE Heart Rate Measurement (0x2A37) notifications if available
+        try {
+          const service = await server.getPrimaryService('heart_rate')
+          const characteristic = await service.getCharacteristic('heart_rate_measurement')
+          await characteristic.startNotifications()
+          characteristic.addEventListener('characteristicvaluechanged', (e) => {
+            const dataView = e.target.value
+            const flags = dataView.getUint8(0)
+            const bpm = (flags & 0x01) ? dataView.getUint16(1, true) : dataView.getUint8(1)
+            if (bpm > 30 && bpm < 220) {
+              setLivePulse(bpm)
+            }
+          })
+        } catch (gattErr) {
+          console.log('GATT Heart Rate Characteristic info:', gattErr)
+        }
 
         const newDev = {
           id: `bt-${Date.now()}`,
           name: device.name || 'Bluetooth Heart Rate Smartwatch',
           battery: '99%',
-          status: 'Realtime Bluetooth LE Active',
+          status: 'Realtime Bluetooth LE Active Stream',
           connected: true
         }
 
