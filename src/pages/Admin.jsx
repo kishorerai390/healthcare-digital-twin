@@ -178,6 +178,7 @@ export default function Admin(){
   const [filterRisk, setFilterRisk] = useState('ALL')
   const [patients, setPatients] = useState(() => loadMergedPatients())
   const [refreshing, setRefreshing] = useState(false)
+  const [flowPeriod, setFlowPeriod] = useState('today') // 'today' | 'weekly'
 
   // Add Patient, Inspect & Comparison Modal State
   const [showAddPatientModal, setShowAddPatientModal] = useState(false)
@@ -1504,8 +1505,24 @@ function createAdminBarcodeDataURL(codeText = 'SEC-984021-HIPAA') {
                       <span>Hourly Patient Flow</span>
                     </h3>
                     <div className="flex p-1 rounded-xl bg-slate-950 border border-slate-800 text-xs font-bold">
-                      <button className="px-3 py-1 rounded-lg bg-cyan-600 text-white font-extrabold shadow-sm">Today</button>
-                      <button className="px-3 py-1 rounded-lg text-slate-400 hover:text-white">Weekly</button>
+                      <button
+                        type="button"
+                        onClick={() => setFlowPeriod('today')}
+                        className={`px-3 py-1 rounded-lg font-extrabold shadow-sm transition-all cursor-pointer ${
+                          flowPeriod === 'today' ? 'bg-cyan-600 text-white' : 'text-slate-400 hover:text-white'
+                        }`}
+                      >
+                        Today
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setFlowPeriod('weekly')}
+                        className={`px-3 py-1 rounded-lg font-extrabold shadow-sm transition-all cursor-pointer ${
+                          flowPeriod === 'weekly' ? 'bg-cyan-600 text-white' : 'text-slate-400 hover:text-white'
+                        }`}
+                      >
+                        Weekly
+                      </button>
                     </div>
                   </div>
 
@@ -1616,7 +1633,11 @@ function createAdminBarcodeDataURL(codeText = 'SEC-984021-HIPAA') {
                       <TrendingUp className="w-5 h-5 text-rose-400" />
                       <span>No-Show Trend</span>
                     </h3>
-                    <button className="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => setShowAddPatientModal(true)}
+                      className="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center gap-1.5 active:scale-95"
+                    >
                       <Plus className="w-4 h-4 text-slate-950" />
                       <span>+ New Appointment</span>
                     </button>
