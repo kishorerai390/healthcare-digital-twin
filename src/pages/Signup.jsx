@@ -51,11 +51,11 @@ export default function Signup(){
       await Promise.race([signup(email, password, name), timeoutPromise])
 
       loginWithCustomUser(email, name)
-      nav('/dashboard')
+      nav('/onboarding')
     } catch (err) {
       console.warn('Signup fallback triggered:', err)
       loginWithCustomUser(email, name)
-      nav('/dashboard')
+      nav('/onboarding')
     } finally {
       setLoading(false)
     }
@@ -66,7 +66,7 @@ export default function Signup(){
     setLoading(true)
     try {
       await signinWithGoogle()
-      nav('/dashboard')
+      nav('/onboarding')
     } catch (err) {
       console.warn('Google signin error, using modal fallback for mobile:', err)
       setShowGoogleModal(true)
@@ -205,7 +205,7 @@ export default function Signup(){
         onSelectAccount={(account) => {
           guestLogin?.()
           setShowGoogleModal(false)
-          nav('/dashboard')
+          nav('/onboarding')
         }}
       />
     </div>
