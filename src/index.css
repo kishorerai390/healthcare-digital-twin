@@ -134,7 +134,12 @@ html.theme-light span[class*="bg-rose-600"],
 html.theme-light span[class*="bg-cyan-600"],
 html.theme-light span[class*="bg-indigo-600"],
 html.theme-light span[class*="bg-blue-600"],
-html.theme-light span[class*="bg-purple-600"] {
+html.theme-light span[class*="bg-purple-600"],
+html.theme-light span[class*="bg-rose-600"] span,
+html.theme-light span[class*="bg-cyan-600"] span,
+html.theme-light span[class*="bg-indigo-600"] span,
+html.theme-light span[class*="bg-blue-600"] span,
+html.theme-light span[class*="bg-purple-600"] span {
   color: #ffffff !important;
 }
 

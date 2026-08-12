@@ -280,71 +280,77 @@ export default function Dashboard() {
         </div>
 
         {/* Unified Studio Navigation Bar (1-Click Feature Switcher - Desktop md+ screens) */}
-        <div id="workspace-view" className="hidden md:flex mb-8 p-1.5 bg-slate-200/70 rounded-2xl items-center gap-2 overflow-x-auto shadow-inner">
+        <div id="workspace-view" className="hidden md:flex mb-8 p-2 bg-slate-900 rounded-2xl items-center gap-2 overflow-x-auto shadow-xl border-2 border-slate-800">
           <button
             onClick={() => setActiveMode('twin')}
-            className={`px-4 py-2.5 rounded-xl font-extrabold text-xs transition-all flex items-center gap-2 whitespace-nowrap ${activeMode === 'twin'
-              ? 'bg-slate-900 text-white shadow-md'
-              : 'text-slate-700 hover:bg-white/60'
-              }`}
+            className={`px-4 py-2.5 rounded-xl font-black text-xs transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+              activeMode === 'twin'
+                ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/20 border border-cyan-400'
+                : 'bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-700'
+            }`}
           >
-            <Activity className="w-4 h-4 text-cyan-400" />
-            <span>3D Living Digital Twin</span>
+            <Activity className="w-4 h-4 text-cyan-300" />
+            <span className="text-white font-black">3D Living Digital Twin</span>
           </button>
 
           <button
             onClick={() => setActiveMode('voice')}
-            className={`px-4 py-2.5 rounded-xl font-extrabold text-xs transition-all flex items-center gap-2 whitespace-nowrap ${activeMode === 'voice'
-              ? 'bg-slate-900 text-white shadow-md'
-              : 'text-slate-700 hover:bg-white/60'
-              }`}
+            className={`px-4 py-2.5 rounded-xl font-black text-xs transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+              activeMode === 'voice'
+                ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/20 border border-cyan-400'
+                : 'bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-700'
+            }`}
           >
-            <Mic className="w-4 h-4 text-cyan-400" />
-            <span>🎙️ 30s Voice Heart Risk Scan</span>
+            <Mic className="w-4 h-4 text-cyan-300" />
+            <span className="text-white font-black">🎙️ 30s Voice Heart Risk Scan</span>
           </button>
 
           <button
             onClick={() => setActiveMode('wound')}
-            className={`px-4 py-2.5 rounded-xl font-extrabold text-xs transition-all flex items-center gap-2 whitespace-nowrap ${activeMode === 'wound'
-              ? 'bg-slate-900 text-white shadow-md'
-              : 'text-slate-700 hover:bg-white/60'
-              }`}
+            className={`px-4 py-2.5 rounded-xl font-black text-xs transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+              activeMode === 'wound'
+                ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-500/20 border border-emerald-400'
+                : 'bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-700'
+            }`}
           >
-            <Camera className="w-4 h-4 text-emerald-400" />
-            <span>🩹 Wound Healing Tracker</span>
+            <Camera className="w-4 h-4 text-emerald-300" />
+            <span className="text-white font-black">🩹 Wound Healing Tracker</span>
           </button>
 
           <button
             onClick={() => setActiveMode('risk')}
-            className={`px-4 py-2.5 rounded-xl font-extrabold text-xs transition-all flex items-center gap-2 whitespace-nowrap ${activeMode === 'risk'
-              ? 'bg-slate-900 text-white shadow-md'
-              : 'text-slate-700 hover:bg-white/60'
-              }`}
+            className={`px-4 py-2.5 rounded-xl font-black text-xs transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+              activeMode === 'risk'
+                ? 'bg-gradient-to-r from-amber-600 to-orange-600 text-white shadow-lg shadow-amber-500/20 border border-amber-400'
+                : 'bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-700'
+            }`}
           >
-            <ShieldAlert className="w-4 h-4 text-amber-400" />
-            <span>🛡️ Preventive Risk Hub & PDF</span>
+            <ShieldAlert className="w-4 h-4 text-amber-300" />
+            <span className="text-white font-black">🛡️ Preventive Risk Hub & PDF</span>
           </button>
 
           <button
             onClick={() => setActiveMode('meds')}
-            className={`px-4 py-2.5 rounded-xl font-extrabold text-xs transition-all flex items-center gap-2 whitespace-nowrap ${activeMode === 'meds'
-              ? 'bg-slate-900 text-white shadow-md'
-              : 'text-slate-700 hover:bg-white/60'
-              }`}
+            className={`px-4 py-2.5 rounded-xl font-black text-xs transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+              activeMode === 'meds'
+                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/20 border border-purple-400'
+                : 'bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-700'
+            }`}
           >
-            <Pill className="w-4 h-4 text-purple-400" />
-            <span>💊 AI Medicine Scanner</span>
+            <Pill className="w-4 h-4 text-purple-300" />
+            <span className="text-white font-black">💊 AI Medicine Scanner</span>
           </button>
 
           <button
             onClick={() => setActiveMode('consult')}
-            className={`px-4 py-2.5 rounded-xl font-extrabold text-xs transition-all flex items-center gap-2 whitespace-nowrap ${activeMode === 'consult'
-              ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/20'
-              : 'text-slate-700 hover:bg-white/60'
-              }`}
+            className={`px-4 py-2.5 rounded-xl font-black text-xs transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+              activeMode === 'consult'
+                ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/20 border border-cyan-400'
+                : 'bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-700'
+            }`}
           >
             <Sparkles className="w-4 h-4 text-cyan-300 animate-pulse" />
-            <span>💬 Live AI Consultation Session</span>
+            <span className="text-white font-black">💬 Live AI Consultation Session</span>
           </button>
         </div>
 

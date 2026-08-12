@@ -143,13 +143,13 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
             <span className="bg-gradient-to-r from-cyan-400 via-sky-200 to-blue-400 bg-clip-text text-transparent drop-shadow-md">Healthcare Digital Data Twin</span>
           </h2>
           <div className="flex items-center gap-3 mt-2 flex-wrap">
-            <span className="px-3 py-1 rounded-full bg-blue-600/30 text-blue-200 text-xs font-black border border-blue-400/50 flex items-center gap-1.5 shadow-xs">
+            <span className="px-3.5 py-1 rounded-full bg-blue-600 text-white text-xs font-black border border-blue-400 flex items-center gap-1.5 shadow-md">
               <span className="animate-pulse">💙</span>
-              <span>AI Clinical Support Active</span>
+              <span className="text-white font-black">AI Clinical Support Active</span>
             </span>
-            <span className="px-3 py-1 rounded-full bg-slate-800 text-slate-100 text-xs font-black border border-slate-600 flex items-center gap-1.5 shadow-xs">
+            <span className="px-3.5 py-1 rounded-full bg-slate-900 text-white text-xs font-black border border-slate-700 flex items-center gap-1.5 shadow-md">
               <span className="animate-pulse">🕒</span>
-              <span>Real-time Monitoring</span>
+              <span className="text-white font-black">Real-time Monitoring</span>
             </span>
           </div>
         </div>
