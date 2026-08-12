@@ -121,10 +121,27 @@ html.theme-light .text-slate-100 {
   color: #0f172a !important;
 }
 
+/* Preserve bright white text on dark/vibrant buttons and badges in light theme */
+html.theme-light button[class*="bg-black"],
+html.theme-light button[class*="bg-slate-900"],
+html.theme-light button[class*="bg-slate-950"],
+html.theme-light button[class*="bg-indigo-600"],
+html.theme-light button[class*="bg-indigo-700"],
+html.theme-light button[class*="bg-rose-600"],
+html.theme-light button[class*="bg-cyan-600"],
+html.theme-light button[class*="bg-purple-600"],
+html.theme-light span[class*="bg-rose-600"],
+html.theme-light span[class*="bg-cyan-600"],
+html.theme-light span[class*="bg-indigo-600"],
+html.theme-light span[class*="bg-blue-600"],
+html.theme-light span[class*="bg-purple-600"] {
+  color: #ffffff !important;
+}
+
 html.theme-light .text-slate-400,
 html.theme-light .text-slate-300,
 html.theme-light .text-slate-200 {
-  color: #475569 !important;
+  color: #334155 !important; /* Darker slate for high contrast */
 }
 
 html.theme-light .text-emerald-300,
