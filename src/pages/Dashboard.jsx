@@ -28,6 +28,7 @@ import LanguageSelector from '../components/LanguageSelector'
 import ThemeToggle from '../components/ThemeToggle'
 import LiveECGHeaderTicker from '../components/LiveECGHeaderTicker'
 import InsightsCarousel from '../components/InsightsCarousel'
+import ClinicalInsightsOptimizationHub from '../components/ClinicalInsightsOptimizationHub'
 import MobileHeader from '../components/mobile/MobileHeader'
 import MobileNavigationFolder from '../components/mobile/MobileNavigationFolder'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -347,9 +348,13 @@ export default function Dashboard() {
           </button>
         </div>
 
-        {/* Auto-Playing AI Telemetry Insights Carousel, Real-Time Wearable Bluetooth Telemetry & Biological Organ Age */}
+        {/* Auto-Playing AI Telemetry Insights Carousel & Clinical Insights Optimization Hub */}
         <div className="mb-8 space-y-6">
           <InsightsCarousel />
+          <ClinicalInsightsOptimizationHub
+            onNavigateSimulation={() => nav('/simulation')}
+            onOpenEmergencyModal={() => setIsEmergencyModalOpen(true)}
+          />
           {activeMode === 'twin' && (
             <>
               <WearableSyncCard />

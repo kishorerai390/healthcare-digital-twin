@@ -11,6 +11,7 @@ import {
 import LanguageSelector from '../components/LanguageSelector'
 import ThemeToggle from '../components/ThemeToggle'
 import GoogleAuthModal from '../components/GoogleAuthModal'
+import ClinicalInsightsOptimizationHub from '../components/ClinicalInsightsOptimizationHub'
 import { useLanguage } from '../context/LanguageContext'
 import { useAuth } from '../context/AuthContext'
 import { 
@@ -1558,58 +1559,9 @@ function createAdminBarcodeDataURL(codeText = 'SEC-984021-HIPAA') {
                   </div>
                 </div>
 
-                {/* AI Insights & Alerts Card (FIXED NO TEXT CLIPPING) */}
-                <div className="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-2xl space-y-4 flex flex-col justify-between">
-                  <div className="space-y-4">
-                    <h3 className="text-base font-extrabold text-white flex items-center gap-2">
-                      <Sparkles className="w-5 h-5 text-amber-400" />
-                      <span>AI Insights & Alerts</span>
-                    </h3>
-
-                    {/* Alert 1: No Show Risk */}
-                    <div className="p-4 rounded-2xl bg-rose-950/20 border border-rose-500/40 space-y-3">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-extrabold text-rose-300 flex items-center gap-1.5">
-                          <AlertTriangle className="w-4 h-4 text-rose-400" />
-                          <span>No-Show Risk Alert</span>
-                        </span>
-                        <span className="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-extrabold border border-rose-500/30 whitespace-nowrap">
-                          High Priority
-                        </span>
-                      </div>
-
-                      <p className="text-xs text-slate-300 leading-relaxed font-medium">
-                        12% higher no-show probability projected today due to inclement weather conditions.
-                      </p>
-
-                      <div className="pt-1 flex items-center justify-between gap-2">
-                        <button className="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer whitespace-nowrap text-center">
-                          Send Reminder SMS
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Alert 2: Schedule Gap */}
-                    <div className="p-4 rounded-2xl bg-amber-950/20 border border-amber-500/40 space-y-3">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-extrabold text-amber-300 flex items-center gap-1.5">
-                          <Clock className="w-4 h-4 text-amber-400" />
-                          <span>Schedule Gap</span>
-                        </span>
-                        <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-extrabold border border-amber-500/30 whitespace-nowrap">
-                          20 min gap
-                        </span>
-                      </div>
-
-                      <p className="text-xs text-slate-300 leading-relaxed font-medium">
-                        20 min idle gap detected at 11:40 AM in Room 3.
-                      </p>
-
-                      <button className="w-full py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 font-extrabold text-xs border border-slate-700 transition-all cursor-pointer whitespace-nowrap text-center">
-                        Optimize Schedule
-                      </button>
-                    </div>
-                  </div>
+                {/* Interactive Clinical Insights & Optimization Hub */}
+                <div className="lg:col-span-3">
+                  <ClinicalInsightsOptimizationHub onNavigateSimulation={() => nav('/simulation')} />
                 </div>
               </div>
 
