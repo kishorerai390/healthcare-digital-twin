@@ -1441,47 +1441,256 @@ function createAdminBarcodeDataURL(codeText = 'SEC-984021-HIPAA') {
 
           {/* TAB 3: APPOINTMENTS */}
           {activePlatformTab === 'appointments' && (
-            <section className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-6">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-                <div>
-                  <h2 className="text-lg font-extrabold text-white flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-amber-400" />
-                    <span>Telemedicine Appointments & Physician Sign-Off Queue</span>
-                  </h2>
-                  <p className="text-xs text-slate-400">18 Patient Digital Twin Telemetry Cases Awaiting Clinical Sign-Off</p>
+            <div className="space-y-6">
+              {/* Top KPI Metrics Header Cards */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3">
+                <div className="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Appointments</span>
+                    <span className="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[9px] font-mono font-bold">+8%</span>
+                  </div>
+                  <div className="text-xl font-black text-white">124</div>
                 </div>
-                <button
-                  onClick={() => nav('/consultation')}
-                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-extrabold text-xs cursor-pointer shadow-md"
-                >
-                  Open AI Doctor Consultation →
-                </button>
+
+                <div className="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Completed</span>
+                    <span className="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[9px] font-mono font-bold">+5.2%</span>
+                  </div>
+                  <div className="text-xl font-black text-white">89</div>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">No-Shows</span>
+                    <span className="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-400 text-[9px] font-mono font-bold">+3.1%</span>
+                  </div>
+                  <div className="text-xl font-black text-white">12</div>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Walk-ins</span>
+                    <span className="px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-400 text-[9px] font-mono font-bold">+12.7%</span>
+                  </div>
+                  <div className="text-xl font-black text-white">23</div>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Avg Wait Time</span>
+                    <span className="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 text-[9px] font-mono font-bold">-2.5%</span>
+                  </div>
+                  <div className="text-xl font-black text-white">18m</div>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Avg Duration</span>
+                    <span className="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[9px] font-mono font-bold">+1.8%</span>
+                  </div>
+                  <div className="text-xl font-black text-white">22m</div>
+                </div>
               </div>
 
-              <div className="space-y-3">
-                {[
-                  { time: '10:30 AM', patient: 'Marcus Vance (54 M)', doctor: 'Dr. Sarah Jenkins (Cardiology)', type: 'Telemetry Review', status: 'Pending Review' },
-                  { time: '11:15 AM', patient: 'David Kim (62 M)', doctor: 'Dr. Robert Vance (Endocrinology)', type: 'Systolic BP Alert', status: 'Urgent Intervention' },
-                  { time: '02:00 PM', patient: 'Elena Rostova (41 F)', doctor: 'Dr. Alex Morgan (Wound Care)', type: 'Diabetic Ulcer Follow-Up', status: 'Confirmed' }
-                ].map((apt, idx) => (
-                  <div key={idx} className="p-4 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <span className="px-3 py-1 rounded-xl bg-slate-900 text-cyan-400 font-mono font-bold text-xs border border-slate-800">{apt.time}</span>
-                      <div>
-                        <div className="font-extrabold text-white text-sm">{apt.patient}</div>
-                        <div className="text-xs text-slate-400 font-medium">{apt.type} • Attending: {apt.doctor}</div>
+              {/* Main Middle Row: Hourly Patient Flow Chart + AI Insights & Alerts */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Hourly Patient Flow Chart Card */}
+                <div className="lg:col-span-2 p-6 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-2xl space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-base font-extrabold text-white flex items-center gap-2">
+                      <Activity className="w-5 h-5 text-cyan-400" />
+                      <span>Hourly Patient Flow</span>
+                    </h3>
+                    <div className="flex p-1 rounded-xl bg-slate-950 border border-slate-800 text-xs font-bold">
+                      <button className="px-3 py-1 rounded-lg bg-cyan-600 text-white font-extrabold shadow-sm">Today</button>
+                      <button className="px-3 py-1 rounded-lg text-slate-400 hover:text-white">Weekly</button>
+                    </div>
+                  </div>
+
+                  {/* Hourly Chart Bar Visualization with High-Contrast Text Box Tooltip */}
+                  <div className="relative h-64 w-full bg-slate-950/60 rounded-2xl p-4 border border-slate-800/80 flex items-end justify-between gap-2 overflow-visible">
+                    
+                    {/* Fixed High Contrast Tooltip Box */}
+                    <div className="absolute top-6 left-[42%] z-30 p-3 rounded-2xl bg-slate-900 border-2 border-cyan-400 shadow-2xl shadow-cyan-500/30 text-white font-mono space-y-1 backdrop-blur-md">
+                      <div className="text-xs font-black text-white border-b border-slate-800 pb-1">14:00</div>
+                      <div className="text-xs font-bold text-cyan-300 flex items-center justify-between gap-3">
+                        <span>scheduled :</span>
+                        <span className="font-mono text-cyan-400 font-extrabold">16</span>
+                      </div>
+                      <div className="text-xs font-bold text-purple-300 flex items-center justify-between gap-3">
+                        <span>walkIns :</span>
+                        <span className="font-mono text-purple-400 font-extrabold">3</span>
                       </div>
                     </div>
-                    <button
-                      onClick={() => nav('/consultation')}
-                      className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 font-bold text-xs border border-slate-700 cursor-pointer"
-                    >
-                      Inspect Appointment →
+
+                    {/* Hourly Bars */}
+                    {[
+                      { hour: '8:00', scheduled: 12, walkIns: 3 },
+                      { hour: '9:00', scheduled: 15, walkIns: 5 },
+                      { hour: '10:00', scheduled: 14, walkIns: 7 },
+                      { hour: '11:00', scheduled: 20, walkIns: 4 },
+                      { hour: '12:00', scheduled: 13, walkIns: 2 },
+                      { hour: '13:00', scheduled: 18, walkIns: 6 },
+                      { hour: '14:00', scheduled: 16, walkIns: 3, highlight: true },
+                      { hour: '15:00', scheduled: 12, walkIns: 2 }
+                    ].map((bar, idx) => (
+                      <div key={idx} className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
+                        <div className="w-full max-w-[32px] flex items-end justify-center gap-1 h-44">
+                          {/* Scheduled Bar */}
+                          <div
+                            className={`w-3.5 rounded-t-lg transition-all ${
+                              bar.highlight ? 'bg-cyan-400 ring-2 ring-cyan-300 shadow-lg shadow-cyan-400/50' : 'bg-blue-600 group-hover:bg-cyan-500'
+                            }`}
+                            style={{ height: `${(bar.scheduled / 22) * 100}%` }}
+                            title={`${bar.hour} Scheduled: ${bar.scheduled}`}
+                          />
+                          {/* Walk-ins Bar */}
+                          <div
+                            className="w-3.5 bg-purple-500 rounded-t-lg transition-all group-hover:bg-purple-400"
+                            style={{ height: `${(bar.walkIns / 22) * 100}%` }}
+                            title={`${bar.hour} Walk-ins: ${bar.walkIns}`}
+                          />
+                        </div>
+                        <span className="text-[10px] font-mono text-slate-400 font-bold">{bar.hour}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* AI Insights & Alerts Card (FIXED NO TEXT CLIPPING) */}
+                <div className="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-2xl space-y-4 flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <h3 className="text-base font-extrabold text-white flex items-center gap-2">
+                      <Sparkles className="w-5 h-5 text-amber-400" />
+                      <span>AI Insights & Alerts</span>
+                    </h3>
+
+                    {/* Alert 1: No Show Risk */}
+                    <div className="p-4 rounded-2xl bg-rose-950/20 border border-rose-500/40 space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-extrabold text-rose-300 flex items-center gap-1.5">
+                          <AlertTriangle className="w-4 h-4 text-rose-400" />
+                          <span>No-Show Risk Alert</span>
+                        </span>
+                        <span className="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-extrabold border border-rose-500/30 whitespace-nowrap">
+                          High Priority
+                        </span>
+                      </div>
+
+                      <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                        12% higher no-show probability projected today due to inclement weather conditions.
+                      </p>
+
+                      <div className="pt-1 flex items-center justify-between gap-2">
+                        <button className="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer whitespace-nowrap text-center">
+                          Send Reminder SMS
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Alert 2: Schedule Gap */}
+                    <div className="p-4 rounded-2xl bg-amber-950/20 border border-amber-500/40 space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-extrabold text-amber-300 flex items-center gap-1.5">
+                          <Clock className="w-4 h-4 text-amber-400" />
+                          <span>Schedule Gap</span>
+                        </span>
+                        <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-extrabold border border-amber-500/30 whitespace-nowrap">
+                          20 min gap
+                        </span>
+                      </div>
+
+                      <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                        20 min idle gap detected at 11:40 AM in Room 3.
+                      </p>
+
+                      <button className="w-full py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 font-extrabold text-xs border border-slate-700 transition-all cursor-pointer whitespace-nowrap text-center">
+                        Optimize Schedule
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Row: Appointment Types Distribution & No-Show Trend */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Appointment Types Distribution Donut Chart */}
+                <div className="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-2xl space-y-4">
+                  <h3 className="text-base font-extrabold text-white flex items-center gap-2">
+                    <Stethoscope className="w-5 h-5 text-indigo-400" />
+                    <span>Appointment Types Distribution</span>
+                  </h3>
+
+                  <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-4 rounded-2xl bg-slate-950 border border-slate-800">
+                    {/* Donut graphic */}
+                    <div className="w-36 h-36 rounded-full border-8 border-cyan-500 border-t-purple-500 border-r-indigo-500 flex items-center justify-center font-extrabold text-white text-base shadow-inner">
+                      118 Total
+                    </div>
+
+                    {/* Breakdown List */}
+                    <div className="flex-1 space-y-2.5 text-xs font-semibold">
+                      <div className="flex items-center justify-between p-2 rounded-xl bg-slate-900">
+                        <div className="flex items-center gap-2">
+                          <span className="w-3 h-3 rounded-full bg-cyan-500"></span>
+                          <span className="text-slate-200">Consultation</span>
+                        </div>
+                        <span className="font-mono text-cyan-400 font-extrabold">68</span>
+                      </div>
+
+                      <div className="flex items-center justify-between p-2 rounded-xl bg-slate-900">
+                        <div className="flex items-center gap-2">
+                          <span className="w-3 h-3 rounded-full bg-purple-500"></span>
+                          <span className="text-slate-200">Procedure</span>
+                        </div>
+                        <span className="font-mono text-purple-400 font-extrabold">32</span>
+                      </div>
+
+                      <div className="flex items-center justify-between p-2 rounded-xl bg-slate-900">
+                        <div className="flex items-center gap-2">
+                          <span className="w-3 h-3 rounded-full bg-rose-500"></span>
+                          <span className="text-slate-200">Follow-up</span>
+                        </div>
+                        <span className="font-mono text-rose-400 font-extrabold">18</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* No-Show Trend Chart Card */}
+                <div className="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-2xl space-y-4 flex flex-col justify-between">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-base font-extrabold text-white flex items-center gap-2">
+                      <TrendingUp className="w-5 h-5 text-rose-400" />
+                      <span>No-Show Trend</span>
+                    </h3>
+                    <button className="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center gap-1.5">
+                      <Plus className="w-4 h-4 text-slate-950" />
+                      <span>+ New Appointment</span>
                     </button>
                   </div>
-                ))}
+
+                  <div className="h-36 w-full bg-slate-950/60 rounded-2xl p-4 border border-slate-800 flex items-end justify-between gap-3">
+                    {[
+                      { month: 'Feb', pct: '6%' },
+                      { month: 'Mar', pct: '8%' },
+                      { month: 'Apr', pct: '10%' },
+                      { month: 'May', pct: '12%' },
+                      { month: 'Jun', pct: '14%' }
+                    ].map((m, idx) => (
+                      <div key={idx} className="flex-1 flex flex-col items-center gap-1 h-full justify-end">
+                        <div
+                          className="w-full bg-rose-500 rounded-t-lg transition-all hover:bg-rose-400"
+                          style={{ height: `${(parseInt(m.pct) / 16) * 100}%` }}
+                          title={`${m.month}: ${m.pct}`}
+                        />
+                        <span className="text-[10px] font-mono text-slate-400 font-bold">{m.month}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </section>
+            </div>
           )}
 
           {/* TAB 4: PATIENTS */}
