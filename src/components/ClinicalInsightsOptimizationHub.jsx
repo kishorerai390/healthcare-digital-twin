@@ -42,6 +42,29 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
     }, 800)
   }
 
+  const handleQuickPromptClick = (promptText) => {
+    setActiveTab('ask_ai')
+    setAiPrompt(promptText)
+
+    let responseText = `Analysis complete: Based on current telemetry data for "${promptText}", recommended action is to maintain 15% surge reserve and optimize bed discharge velocity.`
+    const lower = promptText.toLowerCase()
+    if (lower.includes('patient summary')) {
+      responseText = `📋 Patient Summary: 1,482 Active Digital Twins synced. 94% telemetry compliance rate. 2 critical risk alerts currently under active physician monitoring.`
+    } else if (lower.includes('alert')) {
+      responseText = `🚨 Emergency Vitals Alerts: 1) TWIN-50493-DE (David Kim 62M) - Systolic BP Spike (148 mmHg). 2) TWIN-31092-CA (Marcus Vance 54M) - Sleep Deficit (<4.8 hrs).`
+    } else if (lower.includes('vital')) {
+      responseText = `⚕ Vital Signs Telemetry: Mean Resting HR: 76 BPM, Average BP: 118/78 mmHg, SpO2: 98%, Fasting Blood Glucose: 98 mg/dL. All vitals within normal range.`
+    } else if (lower.includes('medication')) {
+      responseText = `💊 Medication Review: Active Prescriptions scanned - Warfarin Sodium 5mg (Anticoagulant), Metformin HCl 500mg. Drug interaction safety index: 100% Verified.`
+    }
+
+    setAiChatHistory(prev => [
+      ...prev,
+      { sender: 'user', text: promptText },
+      { sender: 'ai', text: responseText }
+    ])
+  }
+
   return (
     <div className="w-full space-y-6 font-sans">
 
@@ -257,11 +280,11 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                     </button>
                   </div>
 
-                  {/* Quick Action Prompt Buttons - Pastes into Input Above */}
+                  {/* Quick Action Prompt Buttons - Pastes into Input Above & Submits Query */}
                   <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
                     <button
                       type="button"
-                      onClick={() => setAiPrompt("Patient Summary")}
+                      onClick={() => handleQuickPromptClick("Patient Summary")}
                       className="px-3 py-1.5 rounded-xl bg-black hover:bg-slate-800 active:scale-95 text-white font-mono font-bold text-xs border border-slate-800 transition-all cursor-pointer shadow-md flex items-center gap-1.5 whitespace-nowrap hover:border-indigo-500"
                     >
                       <span>📄</span>
@@ -269,7 +292,7 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                     </button>
                     <button
                       type="button"
-                      onClick={() => setAiPrompt("View Alerts")}
+                      onClick={() => handleQuickPromptClick("View Alerts")}
                       className="px-3 py-1.5 rounded-xl bg-black hover:bg-slate-800 active:scale-95 text-white font-mono font-bold text-xs border border-slate-800 transition-all cursor-pointer shadow-md flex items-center gap-1.5 whitespace-nowrap hover:border-indigo-500"
                     >
                       <span>ⓘ</span>
@@ -277,7 +300,7 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                     </button>
                     <button
                       type="button"
-                      onClick={() => setAiPrompt("Vital Signs")}
+                      onClick={() => handleQuickPromptClick("Vital Signs")}
                       className="px-3 py-1.5 rounded-xl bg-black hover:bg-slate-800 active:scale-95 text-white font-mono font-bold text-xs border border-slate-800 transition-all cursor-pointer shadow-md flex items-center gap-1.5 whitespace-nowrap hover:border-indigo-500"
                     >
                       <span>⚕</span>
@@ -285,7 +308,7 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                     </button>
                     <button
                       type="button"
-                      onClick={() => setAiPrompt("Medication Review")}
+                      onClick={() => handleQuickPromptClick("Medication Review")}
                       className="px-3 py-1.5 rounded-xl bg-black hover:bg-slate-800 active:scale-95 text-white font-mono font-bold text-xs border border-slate-800 transition-all cursor-pointer shadow-md flex items-center gap-1.5 whitespace-nowrap hover:border-indigo-500"
                     >
                       <span>💊</span>
