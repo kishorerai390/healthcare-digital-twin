@@ -91,34 +91,34 @@ export default function BiologicalAgeCard({ profile }) {
         </div>
 
         {/* Biological Twin Age */}
-        <div className="p-4 rounded-2xl bg-gradient-to-b from-purple-950/40 to-slate-950 border border-purple-500/40 space-y-1 relative overflow-hidden">
-          <span className="text-[11px] font-bold text-purple-300 uppercase tracking-wider block flex items-center gap-1">
-            <Sparkles className="w-3 h-3 text-purple-400" />
-            <span>Biological Organ Age</span>
+        <div className="p-4 rounded-2xl bg-gradient-to-br from-purple-900 via-indigo-900 to-purple-950 border border-purple-400/60 space-y-1 relative overflow-hidden shadow-lg">
+          <span className="text-[11px] font-extrabold text-purple-200 uppercase tracking-wider flex items-center gap-1">
+            <Sparkles className="w-3.5 h-3.5 text-purple-300 animate-pulse" />
+            <span>BIOLOGICAL ORGAN AGE</span>
           </span>
-          <div className="text-3xl font-black text-purple-300 font-mono flex items-baseline gap-1">
-            <span>{bioAge}</span>
-            <span className="text-xs text-purple-400 font-normal">Yrs</span>
+          <div className="text-3xl font-black text-white font-mono flex items-baseline gap-1 drop-shadow-md">
+            <span className="text-white font-black text-3xl">{bioAge}</span>
+            <span className="text-xs text-purple-200 font-bold">Yrs</span>
           </div>
-          <span className="text-[10px] text-purple-300/80 font-bold block">Biomarker Neural Calculation</span>
+          <span className="text-[10px] text-purple-200 font-bold block">Biomarker Neural Calculation</span>
         </div>
 
         {/* Longevity Advantage Delta */}
         <div className={`p-4 rounded-2xl border space-y-1 ${
           isYouthful
-            ? 'bg-emerald-500/15 border-emerald-500/50 text-emerald-700 font-extrabold'
-            : 'bg-rose-500/15 border-rose-500/50 text-rose-700 font-extrabold'
+            ? 'bg-emerald-500/15 border-emerald-500/50 text-emerald-300 font-extrabold'
+            : 'bg-rose-500/15 border-rose-500/50 text-rose-300 font-extrabold'
         }`}>
-          <span className="text-[11px] font-black uppercase tracking-wider block flex items-center gap-1 text-emerald-800">
-            <Award className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Age Advantage Delta</span>
+          <span className="text-[11px] font-black uppercase tracking-wider flex items-center gap-1 text-emerald-300">
+            <Award className="w-3.5 h-3.5 text-emerald-400" />
+            <span>AGE ADVANTAGE DELTA</span>
           </span>
-          <div className="text-3xl font-black font-mono flex items-center gap-1 text-emerald-600">
-            {isYouthful ? <ArrowDown className="w-5 h-5 text-emerald-600" /> : <ArrowUp className="w-5 h-5 text-rose-600" />}
-            <span className="text-emerald-700">{Math.abs(ageDelta)}</span>
-            <span className="text-xs font-bold text-emerald-600">Yrs</span>
+          <div className="text-3xl font-black font-mono flex items-center gap-1 text-emerald-300">
+            {isYouthful ? <ArrowDown className="w-5 h-5 text-emerald-400" /> : <ArrowUp className="w-5 h-5 text-rose-400" />}
+            <span className="text-emerald-300 font-black text-3xl">{Math.abs(ageDelta)}</span>
+            <span className="text-xs font-bold text-emerald-300">Yrs</span>
           </div>
-          <span className="text-[10px] font-black text-emerald-800 block">
+          <span className="text-[10px] font-black text-emerald-300 block">
             {isYouthful ? '🌟 Youthful Advantage (Low Decay)' : '⚠️ Accelerated Biological Strain'}
           </span>
         </div>
