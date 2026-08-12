@@ -201,30 +201,46 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
 
           <div className="space-y-4">
             {/* Item 1: Admission Surge Alert */}
-            <div className="p-5 rounded-2xl bg-rose-950/70 border-2 border-rose-500/60 space-y-3 hover:border-rose-400 transition-all shadow-lg">
+            <div className="p-5 rounded-2xl bg-slate-900 border-2 border-rose-500/80 space-y-3.5 hover:border-rose-400 transition-all shadow-lg">
               <div className="flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-rose-400 animate-bounce" />
-                <h4 className="text-sm font-black text-rose-100 uppercase tracking-wide">Admission Surge Alert</h4>
+                <h4 className="text-sm font-black text-rose-300 uppercase tracking-wide">Admission Surge Alert</h4>
               </div>
               <p className="text-sm text-slate-100 font-bold leading-relaxed">
                 {currentMetrics.admissionsDesc}
               </p>
+
+              {/* Mini Visual Telemetry Meter */}
+              <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1.5">
+                <div className="flex justify-between text-xs font-mono font-bold text-slate-300">
+                  <span>Hospital ER Occupancy Level:</span>
+                  <span className="text-rose-400 font-black">92% [Surge Peak]</span>
+                </div>
+                <div className="w-full h-2.5 rounded-full bg-slate-800 overflow-hidden p-0.5 border border-slate-700">
+                  <div className="h-full rounded-full bg-gradient-to-r from-amber-500 via-rose-500 to-red-600 w-[92%] animate-pulse" />
+                </div>
+              </div>
+
               <div className="flex items-center justify-between pt-1">
-                <span className="px-3.5 py-1 rounded-full bg-rose-600 text-white text-xs font-black border border-rose-400 shadow-xs">
-                  <span className="text-white font-black">Impact: High ({currentMetrics.surgePct})</span>
+                <span
+                  style={{ backgroundColor: '#dc2626', color: '#ffffff' }}
+                  className="px-4 py-1.5 rounded-full text-xs font-black border border-rose-400 shadow-sm flex items-center gap-1"
+                >
+                  <span>Impact: High ({currentMetrics.surgePct})</span>
                 </span>
                 <button
                   type="button"
+                  style={{ backgroundColor: '#be123c', color: '#ffffff' }}
                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); setActiveActionModal('admission_surge'); }}
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 active:scale-95 text-white font-black text-xs border border-rose-400 transition-all cursor-pointer shadow-md"
+                  className="px-6 py-2.5 rounded-xl font-black text-xs border border-rose-300 transition-all cursor-pointer shadow-md active:scale-95 hover:opacity-90"
                 >
-                  <span className="text-white font-black">Take Action</span>
+                  Take Action
                 </button>
               </div>
             </div>
 
             {/* Item 2: Resource Allocation */}
-            <div className="p-5 rounded-2xl bg-slate-900 border-2 border-cyan-500/50 space-y-3 hover:border-cyan-400 transition-all shadow-lg">
+            <div className="p-5 rounded-2xl bg-slate-900 border-2 border-cyan-500/80 space-y-3.5 hover:border-cyan-400 transition-all shadow-lg">
               <div className="flex items-center gap-2">
                 <Zap className="w-5 h-5 text-cyan-400" />
                 <h4 className="text-sm font-black text-cyan-300 uppercase tracking-wide">Resource Allocation</h4>
@@ -232,16 +248,32 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
               <p className="text-sm text-slate-100 font-bold leading-relaxed">
                 {currentMetrics.cardioDesc}
               </p>
+
+              {/* Mini Visual Department Capacity Meter */}
+              <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1.5">
+                <div className="flex justify-between text-xs font-mono font-bold text-slate-300">
+                  <span>Cardiology Capacity Allocation:</span>
+                  <span className="text-cyan-400 font-black">85% Active / 15% Free</span>
+                </div>
+                <div className="w-full h-2.5 rounded-full bg-slate-800 overflow-hidden p-0.5 border border-slate-700">
+                  <div className="h-full rounded-full bg-gradient-to-r from-teal-500 to-cyan-400 w-[85%]" />
+                </div>
+              </div>
+
               <div className="flex items-center justify-between pt-1">
-                <span className="px-3.5 py-1 rounded-full bg-teal-600 text-white text-xs font-black border border-teal-400 shadow-xs">
-                  <span className="text-white font-black">Impact: Medium ({currentMetrics.cardioCapacity})</span>
+                <span
+                  style={{ backgroundColor: '#0d9488', color: '#ffffff' }}
+                  className="px-4 py-1.5 rounded-full text-xs font-black border border-teal-300 shadow-sm flex items-center gap-1"
+                >
+                  <span>Impact: Medium ({currentMetrics.cardioCapacity})</span>
                 </span>
                 <button
                   type="button"
+                  style={{ backgroundColor: '#0284c7', color: '#ffffff' }}
                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); setActiveActionModal('resource_allocation'); }}
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 active:scale-95 text-white font-black text-xs border border-teal-400 transition-all cursor-pointer shadow-md"
+                  className="px-6 py-2.5 rounded-xl font-black text-xs border border-cyan-300 transition-all cursor-pointer shadow-md active:scale-95 hover:opacity-90"
                 >
-                  <span className="text-white font-black">Take Action</span>
+                  Take Action
                 </button>
               </div>
             </div>
@@ -257,17 +289,21 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
           <div className="space-y-5">
             {/* Header with Live Monitoring & Tabs */}
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3.5">
-              <span className="px-3.5 py-1.5 rounded-full bg-indigo-600 text-white text-xs font-black border border-indigo-400 flex items-center gap-1.5 shadow-xs">
+              <span
+                style={{ backgroundColor: '#4f46e5', color: '#ffffff' }}
+                className="px-4 py-1.5 rounded-full text-xs font-black border border-indigo-400 flex items-center gap-1.5 shadow-sm"
+              >
                 <Activity className="w-4 h-4 text-white animate-pulse" />
-                <span className="text-white font-black">Live Monitoring Mode ({timeRange})</span>
+                <span>Live Monitoring Mode ({timeRange})</span>
               </span>
 
               <div className="flex items-center gap-2 bg-slate-900 p-1.5 rounded-xl border border-slate-700">
                 <button
                   type="button"
                   onClick={(e) => { e.preventDefault(); setActiveTab('reports'); }}
+                  style={activeTab === 'reports' ? { backgroundColor: '#4f46e5', color: '#ffffff' } : {}}
                   className={`px-4 py-1.5 rounded-lg text-xs font-black transition-all cursor-pointer flex items-center gap-1.5 ${
-                    activeTab === 'reports' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-300 hover:text-white'
+                    activeTab === 'reports' ? 'shadow-md' : 'text-slate-300 hover:text-white'
                   }`}
                 >
                   <FileText className="w-4 h-4" />
@@ -276,8 +312,9 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                 <button
                   type="button"
                   onClick={(e) => { e.preventDefault(); setActiveTab('ask_ai'); }}
+                  style={activeTab === 'ask_ai' ? { backgroundColor: '#4f46e5', color: '#ffffff' } : {}}
                   className={`px-4 py-1.5 rounded-lg text-xs font-black transition-all cursor-pointer flex items-center gap-1.5 ${
-                    activeTab === 'ask_ai' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-300 hover:text-white'
+                    activeTab === 'ask_ai' ? 'shadow-md' : 'text-slate-300 hover:text-white'
                   }`}
                 >
                   <MessageSquare className="w-4 h-4" />
@@ -302,10 +339,11 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                   </p>
                   <button
                     type="button"
+                    style={{ backgroundColor: '#4f46e5', color: '#ffffff' }}
                     onClick={(e) => { e.preventDefault(); e.stopPropagation(); setActiveActionModal('bed_simulation'); }}
-                    className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 active:scale-95 text-white font-black text-xs border border-indigo-400 transition-all cursor-pointer shadow-md"
+                    className="px-6 py-2.5 rounded-xl font-black text-xs border border-indigo-400 transition-all cursor-pointer shadow-md active:scale-95 hover:opacity-90"
                   >
-                    <span className="text-white font-black">Run Simulation</span>
+                    Run Simulation
                   </button>
                 </div>
 
@@ -317,10 +355,11 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                   </p>
                   <button
                     type="button"
+                    style={{ backgroundColor: '#7c3aed', color: '#ffffff' }}
                     onClick={(e) => { e.preventDefault(); e.stopPropagation(); setActiveActionModal('staff_schedule'); }}
-                    className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 active:scale-95 text-white font-black text-xs border border-indigo-400 transition-all cursor-pointer shadow-md"
+                    className="px-6 py-2.5 rounded-xl font-black text-xs border border-purple-400 transition-all cursor-pointer shadow-md active:scale-95 hover:opacity-90"
                   >
-                    <span className="text-white font-black">View Schedule</span>
+                    View Schedule
                   </button>
                 </div>
 
@@ -332,8 +371,9 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                   </p>
                   <button
                     type="button"
+                    style={{ backgroundColor: '#2563eb', color: '#ffffff' }}
                     onClick={(e) => { e.preventDefault(); e.stopPropagation(); setActiveActionModal('equipment_plan'); }}
-                    className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-black text-xs border border-indigo-400 transition-all cursor-pointer shadow-md"
+                    className="px-6 py-2.5 rounded-xl font-black text-xs border border-blue-400 transition-all cursor-pointer shadow-md active:scale-95 hover:opacity-90"
                   >
                     See Plan
                   </button>
