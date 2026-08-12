@@ -155,30 +155,30 @@ export default function Dashboard() {
         <header className="hidden md:flex flex-col md:flex-row md:items-center justify-between border-b border-slate-200 pb-6 mb-6 gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-              <span className="px-3 py-1 rounded-full bg-sky-100 text-blue-700 text-[10px] font-black uppercase tracking-wider flex items-center gap-1 border border-sky-200 shadow-2xs">
+              <span className="px-3 py-1 rounded-full bg-sky-100 text-blue-950 text-xs font-black uppercase tracking-wider flex items-center gap-1 border border-sky-300 shadow-2xs">
                 <Dna className="w-3.5 h-3.5 text-blue-600 animate-pulse" />
-                <span>3D Digital Twin • {profile?.twinId || 'TWIN-88412-US'}</span>
+                <span className="text-blue-950 font-black">3D Digital Twin • {profile?.twinId || 'TWIN-88412-US'}</span>
               </span>
-              <span className="px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-[10px] font-black uppercase tracking-wider flex items-center gap-1 border border-teal-200 shadow-2xs">
+              <span className="px-3 py-1 rounded-full bg-teal-100 text-teal-950 text-xs font-black uppercase tracking-wider flex items-center gap-1 border border-teal-300 shadow-2xs">
                 <ShieldCheck className="w-3.5 h-3.5 text-teal-600" />
-                <span>256-Bit HIPAA Encrypted</span>
+                <span className="text-teal-950 font-black">256-Bit HIPAA Encrypted</span>
               </span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-display flex items-center gap-2">
               <span>{t('goodMorning')}, {p.fullName}</span>
               <Sparkles className="w-5 h-5 text-amber-500 animate-pulse" />
             </h1>
-            <div className="text-slate-600 text-xs sm:text-sm font-medium mt-0.5">{t('digitalTwinOverview')}</div>
+            <div className="text-slate-700 text-xs sm:text-sm font-bold mt-0.5">{t('digitalTwinOverview')}</div>
           </div>
 
           <div className="flex items-center gap-3 flex-wrap">
             <button
               onClick={() => nav('/')}
-              className="px-4 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-100 text-slate-900 font-extrabold transition-colors text-xs flex items-center gap-2 shadow-xs cursor-pointer"
+              className="px-4 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-100 text-slate-900 font-black transition-colors text-xs flex items-center gap-2 shadow-xs cursor-pointer"
               title="Return to Home Landing Page"
             >
               <Home className="w-3.5 h-3.5 text-blue-600" />
-              <span>Back to Home</span>
+              <span className="text-slate-900 font-black">Back to Home</span>
             </button>
 
             <LanguageSelector />
@@ -186,20 +186,20 @@ export default function Dashboard() {
 
             <button
               onClick={() => setIsPDFModalOpen(true)}
-              className="px-4 py-2.5 rounded-xl border border-blue-300 bg-sky-50 hover:bg-sky-100 text-slate-900 font-black transition-colors text-xs flex items-center gap-2 shadow-xs cursor-pointer"
+              className="px-4 py-2.5 rounded-xl border border-sky-300 bg-sky-50 hover:bg-sky-100 text-sky-950 font-black transition-colors text-xs flex items-center gap-2 shadow-xs cursor-pointer"
               title="Download & Print Clinical PDF Telemetry Report"
             >
               <FileText className="w-3.5 h-3.5 text-blue-600" />
-              <span>Clinical PDF Report</span>
+              <span className="text-sky-950 font-black">Clinical PDF Report</span>
             </button>
 
             <button
               onClick={() => setIsGuardianModalOpen(true)}
-              className="px-4 py-2.5 rounded-xl border border-teal-300 bg-teal-50 hover:bg-teal-100 text-slate-900 font-black transition-colors text-xs flex items-center gap-2 shadow-xs cursor-pointer"
+              className="px-4 py-2.5 rounded-xl border border-teal-300 bg-teal-50 hover:bg-teal-100 text-teal-950 font-black transition-colors text-xs flex items-center gap-2 shadow-xs cursor-pointer"
               title="Configure Guardian SMS Alerts"
             >
               <Bell className="w-3.5 h-3.5 text-teal-600" />
-              <span>Guardian Alerts</span>
+              <span className="text-teal-950 font-black">Guardian Alerts</span>
             </button>
 
             <button
@@ -207,11 +207,11 @@ export default function Dashboard() {
                 clearAdminSession()
                 nav('/admin')
               }}
-              className="px-4 py-2.5 rounded-xl border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 text-slate-900 font-black transition-colors text-xs flex items-center gap-2 shadow-xs cursor-pointer"
+              className="px-4 py-2.5 rounded-xl border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 text-indigo-950 font-black transition-colors text-xs flex items-center gap-2 shadow-xs cursor-pointer"
               title="Switch to Admin User Portal"
             >
               <ShieldCheck className="w-3.5 h-3.5 text-indigo-600" />
-              <span>Admin Portal</span>
+              <span className="text-indigo-950 font-black">Admin Portal</span>
             </button>
 
             <button
@@ -219,22 +219,22 @@ export default function Dashboard() {
               className="px-4 py-2.5 rounded-xl border border-rose-300 bg-rose-50 hover:bg-rose-100 text-rose-950 font-black text-xs shadow-xs flex items-center gap-1.5 cursor-pointer animate-pulse"
               title="Trigger 911 Paramedic Tele-Dispatch Simulation"
             >
-              <span>🚨 Emergency AI Tele-Dispatch</span>
+              <span className="text-rose-950 font-black">🚨 Emergency AI Tele-Dispatch</span>
             </button>
 
             <button
               onClick={handleSyncHealthData}
               disabled={syncing}
-              className="px-4 py-2.5 rounded-xl border border-blue-300 bg-sky-50 hover:bg-sky-100 text-slate-900 font-black transition-colors text-xs flex items-center gap-2 shadow-xs cursor-pointer disabled:opacity-60"
+              className="px-4 py-2.5 rounded-xl border border-sky-300 bg-sky-50 hover:bg-sky-100 text-sky-950 font-black transition-colors text-xs flex items-center gap-2 shadow-xs cursor-pointer disabled:opacity-60"
             >
               <RefreshCw className={`w-3.5 h-3.5 text-blue-600 ${syncing ? 'animate-spin' : ''}`} />
-              <span>{syncing ? 'Syncing...' : t('syncHealthData')}</span>
+              <span className="text-sky-950 font-black">{syncing ? 'Syncing...' : t('syncHealthData')}</span>
             </button>
             <button
               onClick={() => nav('/onboarding')}
-              className="px-4 py-2.5 rounded-xl border border-blue-600 bg-blue-600 hover:bg-blue-700 text-white font-extrabold transition-colors text-xs shadow-md shadow-blue-500/20 cursor-pointer"
+              className="px-4 py-2.5 rounded-xl border border-blue-600 bg-blue-600 hover:bg-blue-500 text-white font-black transition-colors text-xs shadow-md shadow-blue-500/20 cursor-pointer"
             >
-              {t('updateProfile')}
+              <span className="text-white font-black">{t('updateProfile')}</span>
             </button>
           </div>
         </header>

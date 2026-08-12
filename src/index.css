@@ -133,14 +133,7 @@ html.theme-light body {
   color: #020617 !important;
 }
 
-/* Whole-Website Dark Container Overrides in Serene Pastel Light Theme */
-html.theme-light div[class*="bg-slate-950"],
-html.theme-light div[class*="bg-slate-900"],
-html.theme-light section[class*="bg-slate-950"],
-html.theme-light section[class*="bg-slate-900"],
-html.theme-light main[class*="bg-slate-950"],
-html.theme-light header[class*="bg-slate-950"],
-html.theme-light aside[class*="bg-slate-950"],
+/* Container Overrides in Light Theme - Only apply to top-level slate cards, never inner buttons or pills */
 html.theme-light .bg-slate-950,
 html.theme-light .bg-slate-900,
 html.theme-light .bg-slate-900\/95,
@@ -159,57 +152,49 @@ html.theme-light .bg-slate-800\/40 {
   box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.06) !important;
 }
 
-/* White Container Overrides in Light Theme */
-html.theme-light div[class*="bg-white"],
-html.theme-light section[class*="bg-white"],
-html.theme-light header[class*="bg-white"] {
-  background-color: rgba(255, 255, 255, 0.97) !important;
-  border-color: rgba(203, 213, 225, 0.95) !important;
-  color: #020617 !important;
-}
-
 /* Text Color Overrides for High-Contrast Light Theme Readability */
 html.theme-light .text-white,
 html.theme-light .text-slate-100 {
   color: #020617 !important;
 }
 
-/* Preserve bright white text on dark/vibrant buttons and badges in light theme */
-html.theme-light button[class*="bg-black"],
-html.theme-light button[class*="bg-slate-900"],
-html.theme-light button[class*="bg-slate-950"],
-html.theme-light button[class*="from-"],
-html.theme-light button[class*="bg-rose-"],
+/* Ensure buttons and pills WITH vibrant backgrounds keep their vibrant background & white text in Light Mode */
 html.theme-light button[class*="bg-teal-"],
 html.theme-light button[class*="bg-cyan-"],
 html.theme-light button[class*="bg-indigo-"],
 html.theme-light button[class*="bg-purple-"],
+html.theme-light button[class*="bg-rose-"],
 html.theme-light button[class*="bg-blue-"],
+html.theme-light button[class*="bg-emerald-"],
 html.theme-light button[class*="bg-red-"],
-html.theme-light span[class*="bg-rose-"],
+html.theme-light button[class*="from-"],
 html.theme-light span[class*="bg-teal-"],
 html.theme-light span[class*="bg-cyan-"],
 html.theme-light span[class*="bg-indigo-"],
 html.theme-light span[class*="bg-purple-"],
+html.theme-light span[class*="bg-rose-"],
 html.theme-light span[class*="bg-blue-"],
+html.theme-light span[class*="bg-emerald-"],
 html.theme-light span[class*="bg-red-"] {
   color: #ffffff !important;
 }
 
-html.theme-light button[class*="from-"] span,
-html.theme-light button[class*="bg-rose-"] span,
 html.theme-light button[class*="bg-teal-"] span,
 html.theme-light button[class*="bg-cyan-"] span,
 html.theme-light button[class*="bg-indigo-"] span,
 html.theme-light button[class*="bg-purple-"] span,
+html.theme-light button[class*="bg-rose-"] span,
 html.theme-light button[class*="bg-blue-"] span,
+html.theme-light button[class*="bg-emerald-"] span,
 html.theme-light button[class*="bg-red-"] span,
-html.theme-light span[class*="bg-rose-"] span,
+html.theme-light button[class*="from-"] span,
 html.theme-light span[class*="bg-teal-"] span,
 html.theme-light span[class*="bg-cyan-"] span,
 html.theme-light span[class*="bg-indigo-"] span,
 html.theme-light span[class*="bg-purple-"] span,
+html.theme-light span[class*="bg-rose-"] span,
 html.theme-light span[class*="bg-blue-"] span,
+html.theme-light span[class*="bg-emerald-"] span,
 html.theme-light span[class*="bg-red-"] span {
   color: #ffffff !important;
 }
