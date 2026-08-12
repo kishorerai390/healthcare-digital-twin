@@ -1,34 +1,88 @@
-# MedTwin AI — Healthcare Digital Twin (Prototype)
+# 🏥 MedTwin AI — Healthcare Digital Twin Studio
 
-This repository is a hackathon-ready prototype for "Healthcare Digital Twin – AI-Powered Predictive Healthcare".
+> AI-Powered Predictive Healthcare — Hackathon Prototype
 
-Features implemented in this prototype:
-- Landing page with polished hero and digital twin preview
-- Authentication pages (signup / login) — prototype behavior
-- Multi-step patient onboarding with mock device connections
-- Main Digital Twin Dashboard with interactive visual, health score, cards, and AI risk preview
-- Modular AI service (mock predictions) and health service
-- Firebase service placeholder (use .env to configure)
-- Tailwind CSS, Framer Motion (dependency prepared), Recharts included for charts
+---
 
-Getting started
-1. Copy .env.example to .env and fill your Firebase config (optional for prototype).
-2. Run:
-   npm install
-   npm run dev
-3. Open http://localhost:5173
+## 🎥 Demo Video
 
-Notes & Architecture
-- The project uses React + Vite + Tailwind.
-- services/ contains firebase.js (placeholder), aiService.js (mock), healthService.js (mock data).
-- To integrate a real AI model, replace aiService.predict with a call to your model endpoint or a TF.js model.
-- All AI outputs are marked as prototype and not a medical diagnosis.
+[![Watch the Demo](https://img.youtube.com/vi/6EI3lnEVlb4/maxresdefault.jpg)](https://youtu.be/6EI3lnEVlb4)
 
-Future improvements
-- Connect Firebase Auth and Firestore to persist users, metrics, predictions, and reports.
-- Add file upload and server-side AI analysis (secure processing of medical reports).
-- Replace mock AI with a dedicated model and add versioning for prediction models.
-- Add more detailed simulation page, charts, and scenario comparison.
+▶️ **[Watch on YouTube](https://youtu.be/6EI3lnEVlb4)**
 
-License
-This project is provided as-is for hackathon/demo purposes.
+---
+
+## 🚀 Features
+
+- 🌐 **Landing Page** — Polished hero section with digital twin preview
+- 🔐 **Authentication** — Signup / Login pages
+- 🧾 **Patient Onboarding** — Multi-step flow with mock device connections
+- 📊 **Digital Twin Dashboard** — Interactive health score, AI risk preview & charts
+- 💊 **Medicine Scanner** — Scan and analyze medicines
+- 🤖 **AI Health Service** — Modular mock predictions (pluggable real model)
+- 🔔 **Guardian Alerts** — Emergency alert system
+- 🌍 **Multi-language Support** — Language selector built-in
+- 📱 **Mobile Responsive** — Mobile navigation included
+
+---
+
+## 🛠️ Getting Started
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/kishorerai390/healthcare-digital-twin.git
+cd healthcare-digital-twin
+
+# 2. Install dependencies
+npm install
+
+# 3. Configure environment (optional for prototype)
+cp .env.example .env
+# Fill in your Firebase config in .env
+
+# 4. Run development server
+npm run dev
+```
+
+Open **http://localhost:5173** in your browser.
+
+---
+
+## 🏗️ Architecture
+
+```
+src/
+├── pages/          # Landing, Signup, Dashboard, Admin, MedicineScanner, Onboarding
+├── components/     # Reusable UI components (ECG ticker, cards, modals, etc.)
+├── context/        # AuthContext, LanguageContext
+├── services/       # aiService (mock), healthService (mock), Firebase placeholder
+├── firebase/       # Firebase config
+└── utils/          # Utility helpers
+```
+
+- **Stack**: React + Vite + Tailwind CSS + Recharts + Framer Motion
+- **Auth**: Firebase Auth (placeholder — configure via `.env`)
+- **AI**: Mock predictions in `aiService.js` — replace with real model endpoint or TF.js
+
+---
+
+## 🔮 Future Improvements
+
+- [ ] Connect Firebase Firestore to persist users, metrics & predictions
+- [ ] Add real AI model integration with versioning
+- [ ] Server-side secure medical report analysis
+- [ ] Detailed simulation page with scenario comparison
+- [ ] Wearable device real-time data sync
+
+---
+
+## ⚠️ Disclaimer
+
+> All AI outputs are marked as **prototype** and are **not a medical diagnosis**.  
+> This project is provided as-is for hackathon/demo purposes.
+
+---
+
+## 📄 License
+
+MIT License — Free to use for hackathon and demo purposes.
