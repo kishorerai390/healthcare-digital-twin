@@ -102,51 +102,54 @@ export default function PitchDemoMode({ onScenarioSelect }) {
   }
 
   return (
-    <div className="p-4 rounded-3xl bg-slate-900 border-2 border-cyan-500/40 shadow-2xl shadow-cyan-500/10 space-y-3 font-sans relative overflow-hidden">
+    <div className="p-4.5 rounded-3xl bg-slate-950 border-2 border-slate-800 shadow-2xl space-y-3.5 font-sans relative overflow-hidden">
       
       {/* Top Banner */}
-      <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
+      <div className="flex flex-wrap items-center justify-between border-b border-slate-800 pb-3 gap-2">
         <div className="flex items-center gap-2">
           <Activity className="w-5 h-5 text-cyan-400 animate-pulse" />
           <span className="font-black text-white text-xs uppercase tracking-wider flex items-center gap-2 font-display">
             <span>🏥 CLINICAL DIGITAL TWIN SIMULATION SUITE</span>
-            <span className="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 text-[10px] font-mono border border-cyan-500/30 flex items-center gap-1">
-              <Sliders className="w-3 h-3 text-cyan-400" />
-              <span>CLINICAL PROFILES</span>
+            <span
+              style={{ backgroundColor: '#0284c7', color: '#ffffff' }}
+              className="px-2.5 py-0.5 rounded text-xs font-black font-mono border border-cyan-300 flex items-center gap-1 shadow-sm"
+            >
+              <Sliders className="w-3.5 h-3.5 text-white" />
+              <span className="text-white font-black">CLINICAL PROFILES</span>
             </span>
           </span>
         </div>
 
-        <span className="text-[10px] text-slate-400 font-mono">1-Click Clinical Patient Profiles</span>
+        <span className="text-xs text-slate-300 font-mono font-bold">1-Click Clinical Patient Profiles</span>
       </div>
 
       {/* 3 Clinical Profiles Buttons */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {scenarios.map(sc => {
           const isCardiac = sc.id === 'cardiac'
           const isWound = sc.id === 'wound'
           const isDrug = sc.id === 'drug'
 
-          let containerStyle = 'bg-slate-800/80 border-slate-700 text-slate-200'
-          let titleStyle = 'text-white font-extrabold'
-          let descStyle = 'text-slate-300 font-medium'
-          let badgeStyle = 'text-cyan-400 font-bold'
+          let containerStyle = 'bg-slate-900 border-slate-700 text-white'
+          let titleStyle = 'text-slate-900 dark:text-white font-black'
+          let descStyle = 'text-slate-900 dark:text-slate-100 font-extrabold'
+          let badgeStyle = 'text-blue-900 dark:text-cyan-300 font-black'
 
           if (isCardiac) {
-            containerStyle = 'bg-rose-100/90 dark:bg-rose-950/40 border-rose-300 dark:border-rose-500/40 hover:bg-rose-200/90'
-            titleStyle = 'text-rose-950 dark:text-rose-300 font-black'
-            descStyle = 'text-slate-900 dark:text-slate-200 font-extrabold'
-            badgeStyle = 'text-rose-900 dark:text-rose-300 font-black'
+            containerStyle = 'bg-rose-100/95 dark:bg-rose-950/70 border-rose-300 dark:border-rose-500/60 hover:bg-rose-200'
+            titleStyle = 'text-rose-950 dark:text-rose-200 font-black'
+            descStyle = 'text-slate-950 dark:text-slate-100 font-extrabold'
+            badgeStyle = 'text-rose-950 dark:text-rose-300 font-black'
           } else if (isWound) {
-            containerStyle = 'bg-emerald-100/90 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-500/40 hover:bg-emerald-200/90'
-            titleStyle = 'text-emerald-950 dark:text-emerald-300 font-black'
-            descStyle = 'text-slate-900 dark:text-slate-200 font-extrabold'
-            badgeStyle = 'text-emerald-900 dark:text-emerald-300 font-black'
+            containerStyle = 'bg-emerald-100/95 dark:bg-emerald-950/70 border-emerald-300 dark:border-emerald-500/60 hover:bg-emerald-200'
+            titleStyle = 'text-emerald-950 dark:text-emerald-200 font-black'
+            descStyle = 'text-slate-950 dark:text-slate-100 font-extrabold'
+            badgeStyle = 'text-emerald-950 dark:text-emerald-300 font-black'
           } else if (isDrug) {
-            containerStyle = 'bg-purple-100/90 dark:bg-purple-950/40 border-purple-300 dark:border-purple-500/40 hover:bg-purple-200/90'
-            titleStyle = 'text-purple-950 dark:text-purple-300 font-black'
-            descStyle = 'text-slate-900 dark:text-slate-200 font-extrabold'
-            badgeStyle = 'text-purple-900 dark:text-purple-300 font-black'
+            containerStyle = 'bg-purple-100/95 dark:bg-purple-950/70 border-purple-300 dark:border-purple-500/60 hover:bg-purple-200'
+            titleStyle = 'text-purple-950 dark:text-purple-200 font-black'
+            descStyle = 'text-slate-950 dark:text-slate-100 font-extrabold'
+            badgeStyle = 'text-purple-950 dark:text-purple-300 font-black'
           }
 
           return (
@@ -155,7 +158,7 @@ export default function PitchDemoMode({ onScenarioSelect }) {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => triggerScenario(sc)}
-              className={`p-3.5 rounded-2xl border transition-all text-left cursor-pointer flex flex-col justify-between ${containerStyle} ${
+              className={`p-4 rounded-2xl border-2 transition-all text-left cursor-pointer flex flex-col justify-between ${containerStyle} ${
                 activeScenario === sc.id ? 'ring-2 ring-cyan-400 scale-[1.02] shadow-xl' : ''
               }`}
             >
@@ -164,12 +167,12 @@ export default function PitchDemoMode({ onScenarioSelect }) {
                   <span>{sc.title}</span>
                   {activeScenario === sc.id && <CheckCircle2 className="w-4 h-4 text-cyan-400 flex-shrink-0" />}
                 </div>
-                <p className={`text-[11px] mt-1.5 leading-relaxed ${descStyle}`}>{sc.desc}</p>
+                <p className={`text-xs mt-1.5 leading-relaxed ${descStyle}`}>{sc.desc}</p>
               </div>
 
-              <div className={`pt-3 text-[10px] font-mono font-black uppercase tracking-wider flex items-center gap-1 ${badgeStyle}`}>
+              <div className={`pt-3 text-xs font-mono font-black uppercase tracking-wider flex items-center gap-1 ${badgeStyle}`}>
                 <span>Load Profile</span>
-                <Play className="w-3 h-3 fill-current" />
+                <Play className="w-3.5 h-3.5 fill-current" />
               </div>
             </motion.button>
           )
