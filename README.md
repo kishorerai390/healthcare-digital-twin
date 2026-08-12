@@ -12,6 +12,16 @@
 
 ---
 
+## 📊 Presentation
+
+| Resource | Link |
+|---|---|
+| 🎞️ Google Slides Presentation | [View Presentation](https://docs.google.com/presentation/d/1Hi-CEXLYVCvLz27poDIa2jm6tKHurELK/edit?usp=sharing) |
+| ▶️ Demo Video | [Watch on YouTube](https://youtu.be/6EI3lnEVlb4) |
+| 🔗 GitHub Repository | [kishorerai390/healthcare-digital-twin](https://github.com/kishorerai390/healthcare-digital-twin) |
+
+---
+
 ## 🚀 Features
 
 - 🌐 **Landing Page** — Polished hero section with digital twin preview
