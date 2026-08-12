@@ -2,6 +2,7 @@
 
 > AI-Powered Predictive Healthcare — Hackathon Prototype 2026
 
+![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel-000000?style=flat&logo=vercel&logoColor=white)
 ![React](https://img.shields.io/badge/React-18-61DAFB?style=flat&logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat&logo=vite&logoColor=white)
 ![Firebase](https://img.shields.io/badge/Firebase-Auth-FFCA28?style=flat&logo=firebase&logoColor=black)
@@ -12,18 +13,20 @@
 
 ---
 
-## 🎥 Demo Video
+## 🎥 Demo Video & Live App
 
 [![Watch the Demo](https://img.youtube.com/vi/6EI3lnEVlb4/maxresdefault.jpg)](https://youtu.be/6EI3lnEVlb4)
 
-▶️ **[Watch on YouTube](https://youtu.be/6EI3lnEVlb4)**
+▶️ **[Watch on YouTube](https://youtu.be/6EI3lnEVlb4)**  
+🌐 **[Try Live Application](https://healthcare-digital-twin.vercel.app)**
 
 ---
 
-## 📊 Presentation
+## 📊 Presentation & Links
 
 | Resource | Link |
 |---|---|
+| 🌐 Live Web Application | [healthcare-digital-twin.vercel.app](https://healthcare-digital-twin.vercel.app) |
 | 🎞️ Google Slides Presentation | [View Presentation](https://docs.google.com/presentation/d/1Hi-CEXLYVCvLz27poDIa2jm6tKHurELK/edit?usp=sharing) |
 | ▶️ Demo Video | [Watch on YouTube](https://youtu.be/6EI3lnEVlb4) |
 | 🔗 GitHub Repository | [kishorerai390/healthcare-digital-twin](https://github.com/kishorerai390/healthcare-digital-twin) |
