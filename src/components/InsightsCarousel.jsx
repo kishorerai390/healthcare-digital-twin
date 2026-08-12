@@ -55,41 +55,41 @@ export default function InsightsCarousel(){
   const Icon = current.icon
 
   return (
-    <div className="w-full p-5 rounded-2xl bg-slate-900 text-white shadow-xl relative overflow-hidden border border-slate-800">
+    <div className="w-full p-6 rounded-3xl bg-slate-950 text-white shadow-2xl relative overflow-hidden border-2 border-slate-800">
       
       {/* Background Ambient Glow */}
       <div className="absolute -right-10 -bottom-10 w-48 h-48 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none"></div>
 
-      <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+      <div className="flex items-center justify-between border-b border-slate-800 pb-3.5 mb-4">
         <div className="flex items-center gap-2">
           <Sparkles className="w-4 h-4 text-cyan-400 animate-spin duration-3000" />
-          <span className="text-xs font-black uppercase tracking-wider text-cyan-400">
+          <span className="text-xs font-black uppercase tracking-wider text-cyan-400 font-mono">
             Real-Time AI Telemetry Slide ({currentIndex + 1}/{INSIGHT_SLIDES.length})
           </span>
         </div>
 
         {/* Carousel Navigation Buttons */}
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           <button
             onClick={() => setCurrentIndex(prev => (prev - 1 + INSIGHT_SLIDES.length) % INSIGHT_SLIDES.length)}
-            className="p-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition-colors cursor-pointer border border-slate-700"
+            className="p-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white transition-colors cursor-pointer border border-slate-700 shadow-sm"
             title="Previous Slide"
           >
-            <ChevronLeft className="w-4 h-4 text-white" />
+            <ChevronLeft className="w-5 h-5 text-white" />
           </button>
           
           <button
             onClick={() => setCurrentIndex(prev => (prev + 1) % INSIGHT_SLIDES.length)}
-            className="p-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition-colors cursor-pointer border border-slate-700"
+            className="p-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white transition-colors cursor-pointer border border-slate-700 shadow-sm"
             title="Next Slide"
           >
-            <ChevronRight className="w-4 h-4 text-white" />
+            <ChevronRight className="w-5 h-5 text-white" />
           </button>
         </div>
       </div>
 
       {/* Slide Content with Framer Motion AnimatePresence */}
-      <div className="min-h-[70px] relative">
+      <div className="min-h-[80px] relative">
         <AnimatePresence mode="wait">
           <motion.div
             key={current.id}
@@ -99,20 +99,20 @@ export default function InsightsCarousel(){
             transition={{ duration: 0.3 }}
             className="flex flex-col sm:flex-row sm:items-center justify-between gap-4"
           >
-            <div className="flex items-start gap-3">
-              <div className={`w-10 h-10 rounded-xl bg-gradient-to-tr ${current.color} flex items-center justify-center flex-shrink-0 shadow-md mt-0.5`}>
-                <Icon className="w-5 h-5 text-white" />
+            <div className="flex items-start gap-4">
+              <div className={`w-12 h-12 rounded-2xl bg-gradient-to-tr ${current.color} flex items-center justify-center flex-shrink-0 shadow-lg mt-0.5 border border-white/20`}>
+                <Icon className="w-6 h-6 text-white" />
               </div>
 
               <div>
-                <div className="text-[11px] text-cyan-400 font-extrabold uppercase tracking-wider">{current.category}</div>
-                <h4 className="font-extrabold text-sm text-white mt-0.5">{current.title}</h4>
-                <p className="text-xs text-slate-200 font-semibold mt-1 max-w-xl leading-relaxed">{current.description}</p>
+                <div className="text-xs text-cyan-300 font-mono font-black uppercase tracking-wider">{current.category}</div>
+                <h4 className="font-black text-base sm:text-lg text-white mt-0.5 tracking-tight">{current.title}</h4>
+                <p className="text-sm text-slate-100 font-bold mt-1 max-w-xl leading-relaxed">{current.description}</p>
               </div>
             </div>
 
             <div className="flex-shrink-0">
-              <span className={`px-3 py-1.5 rounded-xl bg-gradient-to-r ${current.color} text-white font-extrabold text-xs shadow-md border border-white/20`}>
+              <span className={`px-4 py-2 rounded-xl bg-gradient-to-r ${current.color} text-white font-black text-xs shadow-lg border border-white/30`}>
                 {current.badge}
               </span>
             </div>
@@ -121,13 +121,13 @@ export default function InsightsCarousel(){
       </div>
 
       {/* Pagination Dots */}
-      <div className="flex items-center justify-center gap-1.5 mt-4">
+      <div className="flex items-center justify-center gap-2 mt-4">
         {INSIGHT_SLIDES.map((s, idx) => (
           <button
             key={s.id}
             onClick={() => setCurrentIndex(idx)}
-            className={`h-1.5 rounded-full transition-all cursor-pointer ${
-              currentIndex === idx ? 'w-6 bg-cyan-400' : 'w-1.5 bg-slate-700 hover:bg-slate-600'
+            className={`h-2 rounded-full transition-all cursor-pointer ${
+              currentIndex === idx ? 'w-8 bg-cyan-400' : 'w-2 bg-slate-700 hover:bg-slate-600'
             }`}
           />
         ))}
