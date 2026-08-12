@@ -60,7 +60,10 @@ export default function BiologicalAgeCard({ profile }) {
           <div>
             <h3 className="font-extrabold text-sm text-white flex items-center gap-2 font-display">
               <span>Biological vs. Chronological Twin Age</span>
-              <span className="px-2 py-0.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-[10px] font-black uppercase">
+              <span
+                style={{ backgroundColor: '#6b21a8', color: '#ffffff' }}
+                className="px-2.5 py-0.5 rounded-full border border-purple-400 text-xs font-black uppercase shadow-sm"
+              >
                 AI Telomere Model
               </span>
             </h3>
@@ -69,12 +72,14 @@ export default function BiologicalAgeCard({ profile }) {
         </div>
 
         <button
+          type="button"
+          style={{ backgroundColor: '#7c3aed', color: '#ffffff' }}
           onClick={handleRecalculate}
           disabled={recalculating}
-          className="px-3.5 py-2 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/30 font-extrabold text-xs transition-all flex items-center gap-1.5 cursor-pointer shadow-md"
+          className="px-4 py-2 rounded-xl font-black text-xs transition-all flex items-center gap-1.5 cursor-pointer shadow-md active:scale-95 border border-purple-400"
         >
-          <RefreshCw className={`w-3.5 h-3.5 ${recalculating ? 'animate-spin' : ''}`} />
-          <span>{recalculating ? 'Re-Calibrating...' : 'Re-Calculate Bio Age'}</span>
+          <RefreshCw className={`w-3.5 h-3.5 text-white ${recalculating ? 'animate-spin' : ''}`} />
+          <span className="text-white font-black">{recalculating ? 'Re-Calibrating...' : 'Re-Calculate Bio Age'}</span>
         </button>
       </div>
 

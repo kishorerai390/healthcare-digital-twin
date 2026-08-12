@@ -172,23 +172,23 @@ export default function WearableSyncCard() {
 
         <div className="flex items-center gap-2">
           <button
+            type="button"
+            style={{ backgroundColor: '#0284c7', color: '#ffffff' }}
             onClick={() => setShowPairModal(true)}
-            className="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-black text-xs shadow-lg shadow-cyan-500/20 transition-all flex items-center gap-1.5 cursor-pointer hover:scale-105"
+            className="px-4 py-2 rounded-xl font-black text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer active:scale-95 hover:opacity-90"
           >
-            <Bluetooth className="w-4 h-4 text-cyan-200" />
-            <span>Connect Smartwatch</span>
+            <Bluetooth className="w-4 h-4 text-white" />
+            <span className="text-white font-black">Connect Smartwatch</span>
           </button>
 
           <button
+            type="button"
+            style={isLiveSync ? { backgroundColor: '#059669', color: '#ffffff' } : { backgroundColor: '#334155', color: '#ffffff' }}
             onClick={() => setIsLiveSync(prev => !prev)}
-            className={`px-3 py-2 rounded-xl font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer ${
-              isLiveSync
-                ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                : 'bg-slate-800 text-slate-400 border border-slate-700'
-            }`}
+            className="px-3.5 py-2 rounded-xl font-black text-xs transition-all flex items-center gap-1.5 cursor-pointer shadow-sm active:scale-95"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${isLiveSync ? 'animate-spin' : ''}`} />
-            <span>{isLiveSync ? 'Live Sync' : 'Paused'}</span>
+            <RefreshCw className={`w-3.5 h-3.5 text-white ${isLiveSync ? 'animate-spin' : ''}`} />
+            <span className="text-white font-black">{isLiveSync ? 'Live Sync' : 'Paused'}</span>
           </button>
         </div>
       </div>
@@ -198,41 +198,47 @@ export default function WearableSyncCard() {
         {devices.map(dev => (
           <button
             key={dev.id}
+            type="button"
             onClick={() => setSelectedDevice(dev)}
-            className={`px-3.5 py-2 rounded-xl border transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
-              selectedDevice.id === dev.id
-                ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40 shadow-md ring-1 ring-cyan-500/30'
-                : 'bg-slate-950/60 text-slate-400 border-slate-800 hover:bg-slate-800'
-            }`}
+            style={selectedDevice.id === dev.id ? { backgroundColor: '#0369a1', color: '#ffffff' } : { backgroundColor: '#1e293b', color: '#f8fafc' }}
+            className="px-4 py-2 rounded-xl border border-cyan-400/30 transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 shadow-sm active:scale-95"
           >
-            <Watch className="w-3.5 h-3.5 text-cyan-400" />
-            <span>{dev.name}</span>
-            <span className="text-[9px] px-1.5 py-0.2 rounded bg-slate-800 text-emerald-400 font-mono">
+            <Watch className="w-3.5 h-3.5 text-white" />
+            <span className="text-white font-black">{dev.name}</span>
+            <span
+              style={{ backgroundColor: '#047857', color: '#ffffff' }}
+              className="text-[10px] px-2 py-0.5 rounded font-black font-mono border border-emerald-300"
+            >
               {dev.battery}
             </span>
           </button>
         ))}
 
         <button
+          type="button"
+          style={{ backgroundColor: '#0e7490', color: '#ffffff' }}
           onClick={() => setShowPairModal(true)}
-          className="px-3.5 py-2 rounded-xl border border-dashed border-cyan-500/40 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 font-bold text-xs transition cursor-pointer flex items-center gap-1.5 whitespace-nowrap"
+          className="px-3.5 py-2 rounded-xl font-black text-xs transition cursor-pointer flex items-center gap-1.5 whitespace-nowrap shadow-sm border border-cyan-300 active:scale-95"
         >
-          <Plus className="w-3.5 h-3.5 text-cyan-400" />
-          <span>+ Add Watch</span>
+          <Plus className="w-3.5 h-3.5 text-white" />
+          <span className="text-white font-black">+ Add Watch</span>
         </button>
       </div>
 
       {/* Active Connected Smartwatch Status Badge */}
-      <div className="p-3 rounded-2xl bg-slate-950/80 border border-slate-800/80 flex items-center justify-between text-xs">
+      <div className="p-3.5 rounded-2xl bg-slate-900 border border-slate-700 flex items-center justify-between text-xs shadow-sm">
         <div className="flex items-center gap-2.5">
           <Wifi className="w-4 h-4 text-emerald-400 animate-pulse flex-shrink-0" />
-          <span className="text-slate-300 font-semibold">
-            Active Realtime Device: <strong className="text-white font-bold">{selectedDevice.name}</strong>
+          <span className="text-slate-100 font-bold">
+            Active Realtime Device: <strong className="text-white font-black">{selectedDevice.name}</strong>
           </span>
         </div>
-        <span className="text-[10px] text-emerald-400 font-mono bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20 flex items-center gap-1">
-          <Signal className="w-3 h-3 text-emerald-400" />
-          <span>Bluetooth 5.3 LE • Live Stream</span>
+        <span
+          style={{ backgroundColor: '#047857', color: '#ffffff' }}
+          className="text-xs font-mono font-black px-3 py-1 rounded-full border border-emerald-300 flex items-center gap-1.5 shadow-sm"
+        >
+          <Signal className="w-3.5 h-3.5 text-white" />
+          <span className="text-white font-black">Bluetooth 5.3 LE • Live Stream</span>
         </span>
       </div>
 
