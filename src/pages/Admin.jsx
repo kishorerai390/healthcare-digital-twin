@@ -185,6 +185,12 @@ export default function Admin(){
   const [newPatient, setNewPatient] = useState({ name: '', age: '30', gender: 'Female', risk: 'Low Risk', score: '95' })
   const [exportToast, setExportToast] = useState(false)
 
+  // Platform Navigation & System Modal States for All Buttons Access
+  const [activePlatformTab, setActivePlatformTab] = useState('dashboard') // 'dashboard' | 'ai' | 'appointments' | 'patients' | 'finance' | 'operations' | 'inventory' | 'diagnostics' | 'staff' | 'physical_twin'
+  const [activeSystemModal, setActiveSystemModal] = useState(null) // null | 'ehr' | 'monitoring' | 'labs' | 'pharmacy' | 'staff_sched' | 'devices'
+  const [showActionsDropdown, setShowActionsDropdown] = useState(false)
+  const [showSettingsModal, setShowSettingsModal] = useState(false)
+
   const [viewSource, setViewSource] = useState('USER_ONLY') // 'USER_ONLY' | 'ALL'
 
   const handleAddPatientSubmit = (e) => {
@@ -951,6 +957,71 @@ function createAdminBarcodeDataURL(codeText = 'SEC-984021-HIPAA') {
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
+          {/* Actions Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setShowActionsDropdown(!showActionsDropdown)}
+              className="px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-extrabold text-xs transition-all flex items-center gap-1.5 cursor-pointer shadow-md shadow-purple-500/20"
+            >
+              <Sparkles className="w-4 h-4 text-amber-300" />
+              <span>Actions</span>
+            </button>
+
+            {showActionsDropdown && (
+              <div className="absolute right-0 mt-2 w-56 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-2 z-50 space-y-1 text-xs font-bold text-slate-200">
+                <button
+                  onClick={() => {
+                    setShowActionsDropdown(false)
+                    handleExportAuditReport()
+                  }}
+                  className="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800 flex items-center gap-2 text-cyan-400 cursor-pointer"
+                >
+                  <Download className="w-4 h-4 text-cyan-400" />
+                  <span>Download HIPAA PDF Audit</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setShowActionsDropdown(false)
+                    setShowAddPatientModal(true)
+                  }}
+                  className="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800 flex items-center gap-2 text-white cursor-pointer"
+                >
+                  <Plus className="w-4 h-4 text-emerald-400" />
+                  <span>Register Patient Twin</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setShowActionsDropdown(false)
+                    setActivePlatformTab('operations')
+                  }}
+                  className="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800 flex items-center gap-2 text-rose-400 cursor-pointer"
+                >
+                  <ShieldAlert className="w-4 h-4 text-rose-400" />
+                  <span>Emergency SOS Dispatch</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setShowActionsDropdown(false)
+                    setActivePlatformTab('ai')
+                  }}
+                  className="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800 flex items-center gap-2 text-purple-400 cursor-pointer"
+                >
+                  <Cpu className="w-4 h-4 text-purple-400" />
+                  <span>Deploy Voice & Vision AI Models</span>
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Settings Button */}
+          <button
+            onClick={() => setShowSettingsModal(true)}
+            className="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors cursor-pointer border border-slate-700"
+            title="System Settings & Configuration"
+          >
+            <Sliders className="w-4 h-4 text-cyan-400" />
+          </button>
+
           <button
             onClick={handleExportAuditReport}
             className="px-3.5 py-2.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 font-extrabold text-xs transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
@@ -996,6 +1067,70 @@ function createAdminBarcodeDataURL(codeText = 'SEC-984021-HIPAA') {
         </div>
       </header>
 
+      {/* Connected Healthcare Systems Pills Bar */}
+      <div className="max-w-7xl mx-auto mb-6 p-4 rounded-3xl bg-slate-900/80 border border-slate-800 shadow-xl space-y-2">
+        <div className="text-[11px] font-black uppercase text-cyan-400 tracking-wider flex items-center gap-1.5">
+          <Database className="w-3.5 h-3.5 text-cyan-400" />
+          <span>Connected Healthcare Systems (Click Any Pill to Inspect Telemetry):</span>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2.5 text-xs font-extrabold">
+          <button
+            onClick={() => setActiveSystemModal('ehr')}
+            className="px-3.5 py-2 rounded-2xl bg-slate-950 hover:bg-slate-800 border border-slate-700 text-slate-200 flex items-center gap-2 cursor-pointer shadow-sm"
+          >
+            <Database className="w-3.5 h-3.5 text-cyan-400" />
+            <span>EHR System</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          </button>
+
+          <button
+            onClick={() => setActiveSystemModal('monitoring')}
+            className="px-3.5 py-2 rounded-2xl bg-slate-950 hover:bg-slate-800 border border-slate-700 text-slate-200 flex items-center gap-2 cursor-pointer shadow-sm"
+          >
+            <HeartPulse className="w-3.5 h-3.5 text-rose-400" />
+            <span>Patient Monitoring</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          </button>
+
+          <button
+            onClick={() => setActiveSystemModal('labs')}
+            className="px-3.5 py-2 rounded-2xl bg-slate-950 hover:bg-slate-800 border border-slate-700 text-slate-200 flex items-center gap-2 cursor-pointer shadow-sm"
+          >
+            <Activity className="w-3.5 h-3.5 text-indigo-400" />
+            <span>Lab Systems</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          </button>
+
+          <button
+            onClick={() => setActiveSystemModal('pharmacy')}
+            className="px-3.5 py-2 rounded-2xl bg-slate-950 hover:bg-slate-800 border border-slate-700 text-slate-200 flex items-center gap-2 cursor-pointer shadow-sm"
+          >
+            <Pill className="w-3.5 h-3.5 text-purple-400" />
+            <span>Pharmacy Database</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          </button>
+
+          <button
+            onClick={() => setActiveSystemModal('staff_sched')}
+            className="px-3.5 py-2 rounded-2xl bg-slate-950 hover:bg-slate-800 border border-slate-700 text-slate-200 flex items-center gap-2 cursor-pointer shadow-sm"
+          >
+            <Users className="w-3.5 h-3.5 text-teal-400" />
+            <span>Staff Scheduling</span>
+            <span className="w-2 h-2 rounded-full bg-slate-400"></span>
+          </button>
+
+          <button
+            onClick={() => setActiveSystemModal('devices')}
+            className="px-3.5 py-2 rounded-2xl bg-slate-950 hover:bg-slate-800 border border-slate-700 text-slate-200 flex items-center gap-2 cursor-pointer shadow-sm"
+          >
+            <Cpu className="w-3.5 h-3.5 text-amber-400" />
+            <span>Medical Devices</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          </button>
+        </div>
+      </div>
+
       {/* Export Toast Notification */}
       {exportToast && (
         <div className="max-w-7xl mx-auto mb-6 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-extrabold flex items-center justify-between shadow-lg animate-in fade-in">
@@ -1007,176 +1142,751 @@ function createAdminBarcodeDataURL(codeText = 'SEC-984021-HIPAA') {
         </div>
       )}
 
-      <main className="max-w-7xl mx-auto space-y-8">
-        {/* Top KPI Metrics Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-            className="p-4 rounded-3xl bg-slate-900/80 border border-slate-800 shadow-xl relative overflow-hidden"
-          >
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-bold text-slate-400">Total Active Twins</span>
-              <div className="p-2 rounded-xl bg-cyan-500/10 text-cyan-400">
-                <Users className="w-4 h-4" />
-              </div>
+      {/* 2-Column Platform Layout with Sidebar */}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {/* Left Platform Navigation Sidebar (Matches User Screenshot) */}
+        <aside className="lg:col-span-1 space-y-6">
+          <div className="p-4 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-2xl space-y-4">
+            <div className="text-[10px] font-black uppercase text-slate-400 tracking-wider px-2">
+              Platform Navigation
             </div>
-            <div className="text-2xl font-black text-white mb-1">1,482</div>
-            <div className="flex items-center gap-1 text-[11px] text-emerald-400 font-bold">
-              <TrendingUp className="w-3 h-3" />
-              <span>+12.4% this month</span>
-            </div>
-          </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
-            className="p-4 rounded-3xl bg-slate-900/80 border border-cyan-500/30 shadow-xl relative overflow-hidden bg-gradient-to-b from-cyan-950/20 to-transparent"
-          >
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-bold text-cyan-300">AI Active Telemetry Users</span>
-              <div className="p-2 rounded-xl bg-cyan-500/20 text-cyan-400">
-                <Zap className="w-4 h-4" />
-              </div>
-            </div>
-            <div className="text-2xl font-black text-cyan-400 mb-1">1,248 Users</div>
-            <div className="flex items-center gap-1 text-[11px] text-cyan-300 font-bold">
-              <Sparkles className="w-3 h-3 text-cyan-400 animate-pulse" />
-              <span>84% Daily AI usage</span>
-            </div>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-            className="p-4 rounded-3xl bg-slate-900/80 border border-amber-500/30 shadow-xl relative overflow-hidden bg-gradient-to-b from-amber-950/20 to-transparent"
-          >
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-bold text-amber-300">Cases Pending Review</span>
-              <div className="p-2 rounded-xl bg-amber-500/20 text-amber-400">
-                <AlertTriangle className="w-4 h-4" />
-              </div>
-            </div>
-            <div className="text-2xl font-black text-amber-400 mb-1">18 Cases</div>
-            <div className="flex items-center gap-1 text-[11px] text-amber-300 font-bold">
-              <Clock className="w-3 h-3 text-amber-400" />
-              <span>⚠️ Awaiting Physician Sign-Off</span>
-            </div>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
-            className="p-4 rounded-3xl bg-slate-900/80 border border-slate-800 shadow-xl relative overflow-hidden"
-          >
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-bold text-slate-400">AI Neural Engine</span>
-              <div className="p-2 rounded-xl bg-purple-500/10 text-purple-400">
-                <Cpu className="w-4 h-4" />
-              </div>
-            </div>
-            <div className="text-2xl font-black text-white mb-1">99.8%</div>
-            <div className="flex items-center gap-1 text-[11px] text-purple-400 font-bold">
-              <Zap className="w-3 h-3" />
-              <span>Neural precision score</span>
-            </div>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-            className="p-4 rounded-3xl bg-slate-900/80 border border-slate-800 shadow-xl relative overflow-hidden"
-          >
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-bold text-slate-400">HIPAA Security Audit</span>
-              <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400">
-                <Lock className="w-4 h-4" />
-              </div>
-            </div>
-            <div className="text-2xl font-black text-emerald-400 mb-1">100%</div>
-            <div className="flex items-center gap-1 text-[11px] text-emerald-400 font-bold">
-              <CheckCircle2 className="w-3 h-3" />
-              <span>AES-256 Encrypted</span>
-            </div>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
-            className="p-4 rounded-3xl bg-slate-900/80 border border-slate-800 shadow-xl relative overflow-hidden"
-          >
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-bold text-slate-400">System Latency</span>
-              <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400">
-                <Server className="w-4 h-4" />
-              </div>
-            </div>
-            <div className="text-2xl font-black text-white mb-1">14 ms</div>
-            <div className="flex items-center gap-1 text-[11px] text-slate-400 font-bold">
-              <Activity className="w-3 h-3 text-cyan-400" />
-              <span>Optimal response</span>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Separate Admin Private Notes & Data Storage Card */}
-        <section className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
-            <div>
-              <h2 className="text-base font-extrabold text-white flex items-center gap-2">
-                <ShieldAlert className="w-5 h-5 text-cyan-400" />
-                <span>Separate Admin Vault & Confidential Directives</span>
-                <span className="px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[10px] font-mono font-bold">
-                  AES-256 ENCRYPTED
-                </span>
-              </h2>
-              <p className="text-xs text-slate-400 font-medium mt-0.5">
-                Isolated administrative directives, clinical escalation logs, and executive security notes
-              </p>
-            </div>
-            
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setAdminNotes(DEFAULT_CONFIDENTIAL_DIRECTIVES)
-                  saveAdminCustomData({ adminNotes: DEFAULT_CONFIDENTIAL_DIRECTIVES })
-                  setNotesSaved(true)
-                  setTimeout(() => setNotesSaved(false), 2000)
-                }}
-                className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer border border-slate-700"
-                title="Reset to default confidential directives"
-              >
-                <RefreshCw className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Reset Template</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={handleSaveNotes}
-                className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-extrabold text-xs transition-all flex items-center gap-1.5 cursor-pointer shadow-md shadow-cyan-500/20"
-              >
-                <Save className="w-3.5 h-3.5 text-white" />
-                <span className="text-white font-extrabold">{notesSaved ? 'Saved to Vault!' : 'Save Directives to Vault'}</span>
-              </button>
+            <div className="space-y-1 text-xs font-bold">
+              {[
+                { id: 'dashboard', label: 'Dashboard', icon: Activity, badge: 'Main' },
+                { id: 'ai', label: 'AI Intelligence', icon: Cpu, badge: 'Neural' },
+                { id: 'appointments', label: 'Appointments', icon: Clock, badge: '18 Cases' },
+                { id: 'patients', label: 'Patients', icon: Users, badge: '1,482' },
+                { id: 'finance', label: 'Finance & Claims', icon: TrendingUp, badge: 'HIPAA' },
+                { id: 'operations', label: 'Operations & ER', icon: ShieldAlert, badge: '92%' },
+                { id: 'inventory', label: 'Inventory & Supplies', icon: Database, badge: 'Stock' },
+                { id: 'diagnostics', label: 'Diagnostics & Pharmacy', icon: Pill, badge: 'Rx' },
+                { id: 'staff', label: 'Staff & On-Call', icon: Stethoscope, badge: 'Roster' },
+                { id: 'physical_twin', label: 'Physical Twin Map', icon: Globe, badge: 'Room 304' }
+              ].map(item => {
+                const Icon = item.icon
+                const isActive = activePlatformTab === item.id
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => setActivePlatformTab(item.id)}
+                    className={`w-full p-3 rounded-2xl border text-left transition-all flex items-center justify-between cursor-pointer ${
+                      isActive
+                        ? 'bg-gradient-to-r from-cyan-600 to-blue-600 border-cyan-400 text-white shadow-lg shadow-cyan-500/20 font-extrabold'
+                        : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:bg-slate-800 hover:text-white'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-cyan-400'}`} />
+                      <span>{item.label}</span>
+                    </div>
+                    <span className={`px-2 py-0.5 rounded-full text-[9px] font-mono font-extrabold ${
+                      isActive ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-400'
+                    }`}>
+                      {item.badge}
+                    </span>
+                  </button>
+                )
+              })}
             </div>
           </div>
 
-          {/* Vault Security Metadata Status Row */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="p-3 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs">
-              <span className="text-slate-400 font-medium">Vault Administrator:</span>
-              <span className="text-cyan-400 font-bold font-mono">{adminSession?.email || 'admin.medtwin@gmail.com'}</span>
+          {/* Connected Healthcare Systems Status Card */}
+          <div className="p-4 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-3">
+            <div className="text-[10px] font-black uppercase text-cyan-400 tracking-wider flex items-center gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
+              <span>System Health Status</span>
             </div>
-            <div className="p-3 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs">
-              <span className="text-slate-400 font-medium">Vault Security Mode:</span>
-              <span className="text-emerald-400 font-bold flex items-center gap-1">
-                <Lock className="w-3 h-3 text-emerald-400" />
-                <span>Isolated DB Encryption</span>
-              </span>
-            </div>
-            <div className="p-3 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs">
-              <span className="text-slate-400 font-medium">Compliance Checksum:</span>
-              <span className="text-purple-400 font-mono font-bold">#SEC-98402-HIPAA</span>
+            <div className="space-y-2 text-xs font-semibold text-slate-300">
+              <div className="flex justify-between items-center p-2 rounded-xl bg-slate-950">
+                <span>FHIR v4 Data Bridge</span>
+                <span className="text-emerald-400 font-bold text-[10px]">Active 🟢</span>
+              </div>
+              <div className="flex justify-between items-center p-2 rounded-xl bg-slate-950">
+                <span>AES-256 Vault Encryption</span>
+                <span className="text-emerald-400 font-bold text-[10px]">100% HIPAA</span>
+              </div>
+              <div className="flex justify-between items-center p-2 rounded-xl bg-slate-950">
+                <span>Edge Neural Server</span>
+                <span className="text-cyan-400 font-bold text-[10px]">14 ms</span>
+              </div>
             </div>
           </div>
+        </aside>
 
-          {/* Confidential Directives Textarea */}
-          <textarea
-            value={adminNotes}
-            onChange={(e) => setAdminNotes(e.target.value)}
-            placeholder="Type confidential admin directives or systemic logs here..."
-            className="w-full h-36 p-4 rounded-2xl bg-slate-950 border border-slate-800 text-slate-200 text-xs font-mono focus:outline-none focus:border-cyan-500 leading-relaxed resize-none shadow-inner"
-          />
-        </section>
+        {/* Right Dynamic Platform Content */}
+        <main className="lg:col-span-3 space-y-8">
+          {/* TAB 1: DASHBOARD */}
+          {activePlatformTab === 'dashboard' && (
+            <>
+              {/* Top KPI Metrics Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+                <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+                  className="p-4 rounded-3xl bg-slate-900/80 border border-slate-800 shadow-xl relative overflow-hidden"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[11px] font-bold text-slate-400">Total Active Twins</span>
+                    <div className="p-2 rounded-xl bg-cyan-500/10 text-cyan-400">
+                      <Users className="w-4 h-4" />
+                    </div>
+                  </div>
+                  <div className="text-2xl font-black text-white mb-1">1,482</div>
+                  <div className="flex items-center gap-1 text-[11px] text-emerald-400 font-bold">
+                    <TrendingUp className="w-3 h-3" />
+                    <span>+12.4% this month</span>
+                  </div>
+                </motion.div>
+
+                <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
+                  className="p-4 rounded-3xl bg-slate-900/80 border border-cyan-500/30 shadow-xl relative overflow-hidden bg-gradient-to-b from-cyan-950/20 to-transparent"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[11px] font-bold text-cyan-300">AI Active Telemetry Users</span>
+                    <div className="p-2 rounded-xl bg-cyan-500/20 text-cyan-400">
+                      <Zap className="w-4 h-4" />
+                    </div>
+                  </div>
+                  <div className="text-2xl font-black text-cyan-400 mb-1">1,248 Users</div>
+                  <div className="flex items-center gap-1 text-[11px] text-cyan-300 font-bold">
+                    <Sparkles className="w-3 h-3 text-cyan-400 animate-pulse" />
+                    <span>84% Daily AI usage</span>
+                  </div>
+                </motion.div>
+
+                <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
+                  className="p-4 rounded-3xl bg-slate-900/80 border border-amber-500/30 shadow-xl relative overflow-hidden bg-gradient-to-b from-amber-950/20 to-transparent"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[11px] font-bold text-amber-300">Cases Pending Review</span>
+                    <div className="p-2 rounded-xl bg-amber-500/20 text-amber-400">
+                      <AlertTriangle className="w-4 h-4" />
+                    </div>
+                  </div>
+                  <div className="text-2xl font-black text-amber-400 mb-1">18 Cases</div>
+                  <div className="flex items-center gap-1 text-[11px] text-amber-300 font-bold">
+                    <Clock className="w-3 h-3 text-amber-400" />
+                    <span>⚠️ Awaiting Physician Sign-Off</span>
+                  </div>
+                </motion.div>
+
+                <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
+                  className="p-4 rounded-3xl bg-slate-900/80 border border-slate-800 shadow-xl relative overflow-hidden"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[11px] font-bold text-slate-400">AI Neural Engine</span>
+                    <div className="p-2 rounded-xl bg-purple-500/10 text-purple-400">
+                      <Cpu className="w-4 h-4" />
+                    </div>
+                  </div>
+                  <div className="text-2xl font-black text-white mb-1">99.8%</div>
+                  <div className="flex items-center gap-1 text-[11px] text-purple-400 font-bold">
+                    <Zap className="w-3 h-3" />
+                    <span>Neural precision score</span>
+                  </div>
+                </motion.div>
+
+                <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
+                  className="p-4 rounded-3xl bg-slate-900/80 border border-slate-800 shadow-xl relative overflow-hidden"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[11px] font-bold text-slate-400">HIPAA Security Audit</span>
+                    <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400">
+                      <Lock className="w-4 h-4" />
+                    </div>
+                  </div>
+                  <div className="text-2xl font-black text-emerald-400 mb-1">100%</div>
+                  <div className="flex items-center gap-1 text-[11px] text-emerald-400 font-bold">
+                    <CheckCircle2 className="w-3 h-3" />
+                    <span>AES-256 Encrypted</span>
+                  </div>
+                </motion.div>
+
+                <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
+                  className="p-4 rounded-3xl bg-slate-900/80 border border-slate-800 shadow-xl relative overflow-hidden"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[11px] font-bold text-slate-400">System Latency</span>
+                    <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400">
+                      <Server className="w-4 h-4" />
+                    </div>
+                  </div>
+                  <div className="text-2xl font-black text-white mb-1">14 ms</div>
+                  <div className="flex items-center gap-1 text-[11px] text-slate-400 font-bold">
+                    <Activity className="w-3 h-3 text-cyan-400" />
+                    <span>Optimal response</span>
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Separate Admin Private Notes & Data Storage Card */}
+              <section className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+                  <div>
+                    <h2 className="text-base font-extrabold text-white flex items-center gap-2">
+                      <ShieldAlert className="w-5 h-5 text-cyan-400" />
+                      <span>Separate Admin Vault & Confidential Directives</span>
+                      <span className="px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[10px] font-mono font-bold">
+                        AES-256 ENCRYPTED
+                      </span>
+                    </h2>
+                    <p className="text-xs text-slate-400 font-medium mt-0.5">
+                      Isolated administrative directives, clinical escalation logs, and executive security notes
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAdminNotes(DEFAULT_CONFIDENTIAL_DIRECTIVES)
+                        saveAdminCustomData({ adminNotes: DEFAULT_CONFIDENTIAL_DIRECTIVES })
+                        setNotesSaved(true)
+                        setTimeout(() => setNotesSaved(false), 2000)
+                      }}
+                      className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer border border-slate-700"
+                      title="Reset to default confidential directives"
+                    >
+                      <RefreshCw className="w-3.5 h-3.5 text-cyan-400" />
+                      <span>Reset Template</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handleSaveNotes}
+                      className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-extrabold text-xs transition-all flex items-center gap-1.5 cursor-pointer shadow-md shadow-cyan-500/20"
+                    >
+                      <Save className="w-3.5 h-3.5 text-white" />
+                      <span className="text-white font-extrabold">{notesSaved ? 'Saved to Vault!' : 'Save Directives to Vault'}</span>
+                    </button>
+                  </div>
+                </div>
+
+                <textarea
+                  value={adminNotes}
+                  onChange={(e) => setAdminNotes(e.target.value)}
+                  placeholder="Type confidential admin directives or systemic logs here..."
+                  className="w-full h-36 p-4 rounded-2xl bg-slate-950 border border-slate-800 text-slate-200 text-xs font-mono focus:outline-none focus:border-cyan-500 leading-relaxed resize-none shadow-inner"
+                />
+              </section>
+            </>
+          )}
+
+          {/* TAB 2: AI INTELLIGENCE */}
+          {activePlatformTab === 'ai' && (
+            <section className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-6">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div>
+                  <h2 className="text-lg font-extrabold text-white flex items-center gap-2">
+                    <Cpu className="w-5 h-5 text-purple-400" />
+                    <span>AI Healthcare Neural Models & Computer Vision Engine</span>
+                  </h2>
+                  <p className="text-xs text-slate-400">Live Telemetry & Retraining Controls for Voice, Vision, and Risk AI Models</p>
+                </div>
+                <button
+                  onClick={() => nav('/voice-analysis')}
+                  className="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-extrabold text-xs cursor-pointer shadow-md"
+                >
+                  Test Live Voice AI →
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                      <Mic className="w-4 h-4 text-cyan-400" />
+                      <span>30s Voice Cardiac Model</span>
+                    </span>
+                    <span className="text-[10px] font-mono text-emerald-400 font-bold">99.4% Accuracy</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">Analyses acoustic jitter, shimmer & fundamental frequency for myocardial ischemia detection.</p>
+                  <div className="pt-2 border-t border-slate-800 flex justify-between items-center text-[10px] font-mono">
+                    <span className="text-slate-500">Weights: v4.2-NEURAL</span>
+                    <span className="text-cyan-400 font-bold">Active 🟢</span>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                      <Camera className="w-4 h-4 text-emerald-400" />
+                      <span>Wound Healing Vision AI</span>
+                    </span>
+                    <span className="text-[10px] font-mono text-cyan-400 font-bold">98.9% Precision</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">Calculates diabetic ulcer surface area (cm²), tissue granulation & infection probability.</p>
+                  <div className="pt-2 border-t border-slate-800 flex justify-between items-center text-[10px] font-mono">
+                    <span className="text-slate-500">SegmentNet v2.1</span>
+                    <span className="text-emerald-400 font-bold">Active 🟢</span>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                      <Pill className="w-4 h-4 text-purple-400" />
+                      <span>Pharmacology AI Engine</span>
+                    </span>
+                    <span className="text-[10px] font-mono text-purple-400 font-bold">100% Rule Audit</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">Flags drug-drug contraindications, liver clearance toxicity & dosage schedules.</p>
+                  <div className="pt-2 border-t border-slate-800 flex justify-between items-center text-[10px] font-mono">
+                    <span className="text-slate-500">RxMatch v3.0</span>
+                    <span className="text-purple-400 font-bold">Active 🟢</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* TAB 3: APPOINTMENTS */}
+          {activePlatformTab === 'appointments' && (
+            <section className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-6">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div>
+                  <h2 className="text-lg font-extrabold text-white flex items-center gap-2">
+                    <Clock className="w-5 h-5 text-amber-400" />
+                    <span>Telemedicine Appointments & Physician Sign-Off Queue</span>
+                  </h2>
+                  <p className="text-xs text-slate-400">18 Patient Digital Twin Telemetry Cases Awaiting Clinical Sign-Off</p>
+                </div>
+                <button
+                  onClick={() => nav('/consultation')}
+                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-extrabold text-xs cursor-pointer shadow-md"
+                >
+                  Open AI Doctor Consultation →
+                </button>
+              </div>
+
+              <div className="space-y-3">
+                {[
+                  { time: '10:30 AM', patient: 'Marcus Vance (54 M)', doctor: 'Dr. Sarah Jenkins (Cardiology)', type: 'Telemetry Review', status: 'Pending Review' },
+                  { time: '11:15 AM', patient: 'David Kim (62 M)', doctor: 'Dr. Robert Vance (Endocrinology)', type: 'Systolic BP Alert', status: 'Urgent Intervention' },
+                  { time: '02:00 PM', patient: 'Elena Rostova (41 F)', doctor: 'Dr. Alex Morgan (Wound Care)', type: 'Diabetic Ulcer Follow-Up', status: 'Confirmed' }
+                ].map((apt, idx) => (
+                  <div key={idx} className="p-4 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <span className="px-3 py-1 rounded-xl bg-slate-900 text-cyan-400 font-mono font-bold text-xs border border-slate-800">{apt.time}</span>
+                      <div>
+                        <div className="font-extrabold text-white text-sm">{apt.patient}</div>
+                        <div className="text-xs text-slate-400 font-medium">{apt.type} • Attending: {apt.doctor}</div>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => nav('/consultation')}
+                      className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 font-bold text-xs border border-slate-700 cursor-pointer"
+                    >
+                      Inspect Appointment →
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* TAB 4: PATIENTS */}
+          {(activePlatformTab === 'patients' || activePlatformTab === 'dashboard') && (
+            <section className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h2 className="text-lg font-extrabold text-white flex items-center gap-2">
+                    <Database className="w-5 h-5 text-cyan-400" />
+                    <span>Patient Digital Twin Registry</span>
+                  </h2>
+                  <p className="text-xs text-slate-400 font-medium">
+                    Monitor real-time patient twin vitals, risk escalation, and access permissions
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="relative">
+                    <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="text"
+                      placeholder="Search patient name or ID..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="bg-slate-950 border border-slate-800 text-xs font-semibold rounded-xl pl-9 pr-4 py-2 text-slate-200 focus:outline-none focus:border-cyan-500 w-48 sm:w-64"
+                    />
+                  </div>
+
+                  <select
+                    value={filterRisk}
+                    onChange={(e) => setFilterRisk(e.target.value)}
+                    className="bg-slate-950 border border-slate-800 text-xs font-bold text-slate-300 rounded-xl px-3 py-2 focus:outline-none cursor-pointer"
+                  >
+                    <option value="ALL">All Risk Levels & Records</option>
+                    <option value="PENDING">⏳ Cases Pending Review (18)</option>
+                    <option value="RECENT">⭐ Recent User Entries</option>
+                    <option value="LOW">Low Risk</option>
+                    <option value="MODERATE">Moderate Risk</option>
+                    <option value="HIGH">High Risk</option>
+                  </select>
+
+                  <button
+                    onClick={handleRefresh}
+                    className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors"
+                    title="Refresh Table"
+                  >
+                    <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Table */}
+              <div className="overflow-x-auto rounded-2xl border border-slate-800">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-slate-950/80 text-slate-400 uppercase font-black text-[11px] tracking-wider border-b border-slate-800">
+                    <tr>
+                      <th className="p-4">Patient Twin ID</th>
+                      <th className="p-4">Patient Name</th>
+                      <th className="p-4">Demographics</th>
+                      <th className="p-4">Risk Status</th>
+                      <th className="p-4">Health Score</th>
+                      <th className="p-4">Sync Status</th>
+                      <th className="p-4 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-800/60 font-semibold text-slate-200">
+                    {filteredPatients.map(p => (
+                      <tr key={p.id} className="hover:bg-slate-800/40 transition-colors">
+                        <td className="p-4 font-mono text-cyan-400 font-extrabold">{p.id}</td>
+                        <td className="p-4 font-bold text-white flex items-center gap-2">
+                          <div className="w-7 h-7 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-cyan-400 border border-slate-700">
+                            {(p.name || 'P').charAt(0)}
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="flex items-center gap-1.5">
+                              {p.name}
+                              {(p.isRealUser || p.lastSync?.includes('Just now') || p.lastSync?.includes('Recent')) && (
+                                <span className="px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-[9px] font-black uppercase tracking-wider">
+                                  ⭐ Recent Entry
+                                </span>
+                              )}
+                            </span>
+                            <span className="text-[10px] text-slate-400 font-mono">{p.lastSync}</span>
+                          </div>
+                        </td>
+                        <td className="p-4 text-slate-400">{p.gender}, {p.age} yrs</td>
+                        <td className="p-4">
+                          <span className={`px-2.5 py-1 rounded-full text-[10px] font-black border ${
+                            p.risk === 'High Risk'
+                              ? 'bg-rose-500/10 border-rose-500/30 text-rose-400'
+                              : p.risk === 'Moderate Risk'
+                              ? 'bg-amber-500/10 border-amber-500/30 text-amber-400'
+                              : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                          }`}>
+                            {p.risk}
+                          </span>
+                        </td>
+                        <td className="p-4">
+                          <div className="flex items-center gap-2">
+                            <span className="font-extrabold">{p.score}/100</span>
+                            <div className="w-16 h-1.5 rounded-full bg-slate-800 overflow-hidden">
+                              <div
+                                className={`h-full rounded-full ${
+                                  p.score >= 90 ? 'bg-emerald-500' : p.score >= 70 ? 'bg-amber-500' : 'bg-rose-500'
+                                }`}
+                                style={{ width: `${p.score}%` }}
+                              />
+                            </div>
+                          </div>
+                        </td>
+                        <td className="p-4 text-slate-400">
+                          <div className="flex items-center gap-1.5 text-[11px]">
+                            <span className={`w-2 h-2 rounded-full ${
+                              p.status === 'Pending Review' ? 'bg-amber-400 animate-ping' : p.status === 'Clinical Alert' ? 'bg-rose-500 animate-pulse' : 'bg-emerald-500 animate-pulse'
+                            }`}></span>
+                            <span className={`font-extrabold ${
+                              p.status === 'Pending Review' ? 'text-amber-400' : p.status === 'Clinical Alert' ? 'text-rose-400' : 'text-emerald-400'
+                            }`}>
+                              {p.status}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="p-4 text-right flex items-center justify-end gap-2">
+                          <button
+                            onClick={() => {
+                              setComparePatients(prev => {
+                                if (prev.some(x => x.id === p.id)) {
+                                  return prev.filter(x => x.id !== p.id)
+                                }
+                                if (prev.length >= 2) return [prev[1], p]
+                                return [...prev, p]
+                              })
+                            }}
+                            className={`px-2.5 py-1.5 rounded-lg font-bold text-[11px] transition-colors inline-flex items-center gap-1 cursor-pointer border ${
+                              comparePatients.some(x => x.id === p.id)
+                                ? 'bg-purple-600 text-white border-purple-400 shadow-md'
+                                : 'bg-slate-800 hover:bg-slate-700 text-purple-400 border-slate-700'
+                            }`}
+                            title="Select Patient to Compare Side-by-Side"
+                          >
+                            <Cpu className="w-3.5 h-3.5" />
+                            <span>{comparePatients.some(x => x.id === p.id) ? 'Selected' : 'Compare'}</span>
+                          </button>
+
+                          <button
+                            onClick={() => handleInspectAndSavePatient(p)}
+                            className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-400 font-bold text-[11px] transition-colors inline-flex items-center gap-1 cursor-pointer border border-slate-700"
+                            title="Inspect Patient Twin Details & Sync Profile"
+                          >
+                            <Eye className="w-3.5 h-3.5" />
+                            <span>Inspect</span>
+                          </button>
+
+                          <button
+                            onClick={() => handleDeletePatient(p.id)}
+                            className="p-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 transition-colors cursor-pointer border border-rose-500/20"
+                            title="Delete Patient Record"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          )}
+
+          {/* TAB 5: FINANCE & CLAIMS */}
+          {activePlatformTab === 'finance' && (
+            <section className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-6">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div>
+                  <h2 className="text-lg font-extrabold text-white flex items-center gap-2">
+                    <TrendingUp className="w-5 h-5 text-emerald-400" />
+                    <span>Healthcare Billing, Insurance Claims & ROI Audit</span>
+                  </h2>
+                  <p className="text-xs text-slate-400">$1.2M Saved in Hospital Readmissions via Digital Twin Early Interventions</p>
+                </div>
+                <button
+                  onClick={handleExportAuditReport}
+                  className="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-extrabold text-xs cursor-pointer shadow-md"
+                >
+                  Export Financial Audit PDF →
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-semibold">
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800">
+                  <span className="text-slate-400 block mb-1">Total Claims Audited</span>
+                  <span className="text-xl font-extrabold text-white">$4.82 M</span>
+                  <span className="text-[10px] text-emerald-400 font-bold block mt-1">100% HIPAA Verified</span>
+                </div>
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800">
+                  <span className="text-slate-400 block mb-1">Prevented Emergency Costs</span>
+                  <span className="text-xl font-extrabold text-emerald-400">$1.24 M</span>
+                  <span className="text-[10px] text-cyan-300 font-bold block mt-1">Early AI Screening Savings</span>
+                </div>
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800">
+                  <span className="text-slate-400 block mb-1">Avg Cost per Digital Twin</span>
+                  <span className="text-xl font-extrabold text-cyan-400">$12 / mo</span>
+                  <span className="text-[10px] text-purple-400 font-bold block mt-1">84% Operational ROI</span>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* TAB 6: OPERATIONS & ER */}
+          {activePlatformTab === 'operations' && (
+            <section className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-6">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div>
+                  <h2 className="text-lg font-extrabold text-white flex items-center gap-2">
+                    <ShieldAlert className="w-5 h-5 text-rose-500" />
+                    <span>Hospital Emergency Operations & ER Occupancy Command</span>
+                  </h2>
+                  <p className="text-xs text-slate-400">ER Occupancy: 92% • Avg ER Wait Time: 42 Mins • Staffing Ratio: 1:4</p>
+                </div>
+                <button
+                  onClick={() => setIsEmergencyModalOpen?.(true)}
+                  className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-xs cursor-pointer shadow-md"
+                >
+                  ⚡ Trigger SOS Dispatch Modal
+                </button>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-slate-950 border border-rose-500/40 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-extrabold text-rose-400 flex items-center gap-1.5">
+                    <AlertTriangle className="w-4 h-4 text-rose-500 animate-bounce" />
+                    <span>Room 304 Critical Alert (Patient John Doe)</span>
+                  </span>
+                  <span className="text-[10px] font-mono bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded font-black">URGENT</span>
+                </div>
+                <p className="text-xs text-slate-300">
+                  Alert: Patient in Room 304 shows early signs of sepsis — rising temperature and elevated WBC count. Immediate clinical intervention recommended.
+                </p>
+              </div>
+            </section>
+          )}
+
+          {/* TAB 7: INVENTORY & SUPPLIES */}
+          {activePlatformTab === 'inventory' && (
+            <section className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-6">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div>
+                  <h2 className="text-lg font-extrabold text-white flex items-center gap-2">
+                    <Database className="w-5 h-5 text-cyan-400" />
+                    <span>Pharmacy Stock & Medical Supplies Inventory</span>
+                  </h2>
+                  <p className="text-xs text-slate-400">Real-time pharmaceutical reserve levels and automated restock triggers</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-semibold">
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+                  <div className="flex justify-between font-bold text-white">
+                    <span>Warfarin Sodium 5mg</span>
+                    <span className="text-emerald-400 font-mono">4,200 Units (In Stock)</span>
+                  </div>
+                  <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                    <div className="h-full bg-emerald-500 rounded-full w-[85%]" />
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+                  <div className="flex justify-between font-bold text-white">
+                    <span>Metformin HCl 500mg</span>
+                    <span className="text-cyan-400 font-mono">6,800 Units (Optimal)</span>
+                  </div>
+                  <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                    <div className="h-full bg-cyan-500 rounded-full w-[92%]" />
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+                  <div className="flex justify-between font-bold text-white">
+                    <span>Rapid Insulin Glargine</span>
+                    <span className="text-amber-400 font-mono">320 Units (Low Stock Warning)</span>
+                  </div>
+                  <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                    <div className="h-full bg-amber-500 rounded-full w-[24%]" />
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+                  <div className="flex justify-between font-bold text-white">
+                    <span>Pathology Reagent Kits</span>
+                    <span className="text-emerald-400 font-mono">1,150 Kits (In Stock)</span>
+                  </div>
+                  <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                    <div className="h-full bg-emerald-500 rounded-full w-[78%]" />
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* TAB 8: DIAGNOSTICS & PHARMACY */}
+          {activePlatformTab === 'diagnostics' && (
+            <section className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-6">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div>
+                  <h2 className="text-lg font-extrabold text-white flex items-center gap-2">
+                    <Pill className="w-5 h-5 text-purple-400" />
+                    <span>Diagnostics & Drug Interaction Scanner</span>
+                  </h2>
+                  <p className="text-xs text-slate-400">Scan physical pill boxes and run clinical lab requisitions</p>
+                </div>
+                <button
+                  onClick={() => nav('/medicine-scanner')}
+                  className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs cursor-pointer shadow-md"
+                >
+                  Open Medicine Camera Scanner →
+                </button>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-slate-950 border border-purple-500/40 space-y-2">
+                <span className="text-xs font-bold text-purple-400">Pharmacology Contraindication Alert:</span>
+                <p className="text-xs text-slate-300 font-medium">
+                  Warfarin Sodium 5mg + NSAID Danger Alert — High potency blood thinner interaction. Combining with Aspirin/Ibuprofen increases hemorrhage risk by 4.2x.
+                </p>
+              </div>
+            </section>
+          )}
+
+          {/* TAB 9: STAFF & ON-CALL */}
+          {activePlatformTab === 'staff' && (
+            <section className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-6">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div>
+                  <h2 className="text-lg font-extrabold text-white flex items-center gap-2">
+                    <Stethoscope className="w-5 h-5 text-teal-400" />
+                    <span>Attending Physicians & Nurse Staff Scheduling</span>
+                  </h2>
+                  <p className="text-xs text-slate-400">On-Call Telemetry Duty Roster & ER Shift Assignments</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-semibold">
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
+                  <div className="font-extrabold text-white text-sm">Dr. Sarah Jenkins</div>
+                  <div className="text-cyan-400 font-bold">Senior Telemetry Cardiologist</div>
+                  <div className="text-[10px] text-slate-400 font-mono">Shift: 08:00 AM - 04:00 PM • Room 301</div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
+                  <div className="font-extrabold text-white text-sm">Dr. Robert Vance</div>
+                  <div className="text-teal-400 font-bold">Lead Endocrinologist</div>
+                  <div className="text-[10px] text-slate-400 font-mono">Shift: 12:00 PM - 08:00 PM • Room 304</div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
+                  <div className="font-extrabold text-white text-sm">Dr. Alex Morgan</div>
+                  <div className="text-indigo-400 font-bold">ER Trauma Chief</div>
+                  <div className="text-[10px] text-slate-400 font-mono">Shift: On-Call (24/7 Telemetry Duty)</div>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* TAB 10: PHYSICAL TWIN MAP */}
+          {activePlatformTab === 'physical_twin' && (
+            <section className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-6">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div>
+                  <h2 className="text-lg font-extrabold text-white flex items-center gap-2">
+                    <Globe className="w-5 h-5 text-cyan-400" />
+                    <span>Hospital Physical Twin Facility & Bed Telemetry Map</span>
+                  </h2>
+                  <p className="text-xs text-slate-400">Live Spatial Facility Tracking, Room 304 Sepsis Alert & Bed Sensor Grid</p>
+                </div>
+              </div>
+
+              <div className="p-6 rounded-2xl bg-slate-950 border border-slate-800 space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-white font-mono">HOSPITAL FLOOR 3 — ICU & CARDIAC UNIT</span>
+                  <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-black">SPATIAL SYNC ACTIVE</span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-xs">
+                  <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
+                    <div className="font-mono text-xs text-slate-400">BED 301</div>
+                    <div className="font-extrabold text-emerald-400 text-sm mt-1">Occupied</div>
+                    <div className="text-[10px] text-slate-500">Alex Morgan (Stable)</div>
+                  </div>
+                  <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
+                    <div className="font-mono text-xs text-slate-400">BED 302</div>
+                    <div className="font-extrabold text-emerald-400 text-sm mt-1">Occupied</div>
+                    <div className="text-[10px] text-slate-500">Ava Nguyen (Stable)</div>
+                  </div>
+                  <div className="p-4 rounded-xl bg-slate-900 border border-rose-500/50 bg-rose-950/20">
+                    <div className="font-mono text-xs text-rose-400 font-bold">BED 304 (ALERT)</div>
+                    <div className="font-extrabold text-rose-400 text-sm mt-1 animate-pulse">Sepsis Spike ⚠️</div>
+                    <div className="text-[10px] text-rose-300 font-bold">John Doe (Temp 39.2°C)</div>
+                  </div>
+                  <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
+                    <div className="font-mono text-xs text-slate-400">BED 305</div>
+                    <div className="font-extrabold text-cyan-400 text-sm mt-1">Available</div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
 
         {/* Patient Twin Management Table */}
         <section className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-6">
@@ -1518,7 +2228,8 @@ function createAdminBarcodeDataURL(codeText = 'SEC-984021-HIPAA') {
             ))}
           </div>
         </section>
-      </main>
+        </main>
+      </div>
 
       {/* Add Patient Digital Twin Modal */}
       {showAddPatientModal && (
@@ -1820,6 +2531,157 @@ function createAdminBarcodeDataURL(codeText = 'SEC-984021-HIPAA') {
               ))}
             </div>
 
+          </div>
+        </div>
+      )}
+
+      {/* Connected Healthcare Systems Inspection Telemetry Modal */}
+      {activeSystemModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xl animate-in fade-in">
+          <div className="w-full max-w-lg rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl p-6 text-white space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div className="flex items-center gap-2">
+                <Database className="w-5 h-5 text-cyan-400" />
+                <h3 className="font-extrabold text-white text-base uppercase font-mono">
+                  {activeSystemModal === 'ehr' && 'EHR Integration Telemetry (Epic & Cerner)'}
+                  {activeSystemModal === 'monitoring' && 'Continuous Patient Vitals Telemetry'}
+                  {activeSystemModal === 'labs' && 'Pathology Lab System Telemetry'}
+                  {activeSystemModal === 'pharmacy' && 'Pharmacy Database & Rx Drug Vault'}
+                  {activeSystemModal === 'staff_sched' && 'Physician & Nurse Duty Roster'}
+                  {activeSystemModal === 'devices' && 'IoT Medical Devices & Wearables Grid'}
+                </h3>
+              </div>
+              <button
+                onClick={() => setActiveSystemModal(null)}
+                className="p-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3 text-xs font-medium">
+              {activeSystemModal === 'ehr' && (
+                <>
+                  <div className="flex justify-between font-bold">
+                    <span className="text-slate-400">FHIR API Status:</span>
+                    <span className="text-emerald-400">v4.0.1 Connected 🟢</span>
+                  </div>
+                  <div className="flex justify-between font-bold">
+                    <span className="text-slate-400">Synchronized Twin Records:</span>
+                    <span className="text-cyan-400">1,482 Encrypted Records</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">Real-time bi-directional EHR data sync active with Epic Systems & Cerner Millenium.</p>
+                </>
+              )}
+
+              {activeSystemModal === 'monitoring' && (
+                <>
+                  <div className="flex justify-between font-bold">
+                    <span className="text-slate-400">Live Vitals Telemetry:</span>
+                    <span className="text-rose-400 animate-pulse">112 BPM Alert Active</span>
+                  </div>
+                  <div className="flex justify-between font-bold">
+                    <span className="text-slate-400">Mean SpO2 Oxygenation:</span>
+                    <span className="text-emerald-400">98% (Optimal)</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">Continuous telemetry feed streaming from 48 bedside monitors & wireless ECG patches.</p>
+                </>
+              )}
+
+              {activeSystemModal === 'labs' && (
+                <>
+                  <div className="flex justify-between font-bold">
+                    <span className="text-slate-400">Automated Pathology Scans:</span>
+                    <span className="text-indigo-400">100% Processed</span>
+                  </div>
+                  <div className="flex justify-between font-bold">
+                    <span className="text-slate-400">HbA1c & Fasting Glucose:</span>
+                    <span className="text-cyan-400">Normal Range (98 mg/dL)</span>
+                  </div>
+                </>
+              )}
+
+              {activeSystemModal === 'pharmacy' && (
+                <>
+                  <div className="flex justify-between font-bold">
+                    <span className="text-slate-400">Drug Interaction Engine:</span>
+                    <span className="text-purple-400">Active</span>
+                  </div>
+                  <p className="text-[11px] text-rose-400 font-bold">
+                    ⚠️ Critical Rule: Warfarin Sodium + NSAIDs flagged for high hemorrhage risk.
+                  </p>
+                </>
+              )}
+
+              {activeSystemModal === 'staff_sched' && (
+                <>
+                  <div className="flex justify-between font-bold">
+                    <span className="text-slate-400">On-Call Telemetry Staff:</span>
+                    <span className="text-teal-400">18 Physicians Active</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">Attending: Dr. Sarah Jenkins (Cardiology), Dr. Robert Vance (Endocrinology).</p>
+                </>
+              )}
+
+              {activeSystemModal === 'devices' && (
+                <>
+                  <div className="flex justify-between font-bold">
+                    <span className="text-slate-400">IoT Device Grid:</span>
+                    <span className="text-amber-400">48 Connected Sensors</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">14 ms edge response across Apple Watch, Fitbit, Blood Glucose Patches & Wireless ECGs.</p>
+                </>
+              )}
+            </div>
+
+            <button
+              onClick={() => setActiveSystemModal(null)}
+              className="w-full py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-extrabold text-xs cursor-pointer shadow-md"
+            >
+              Close System Inspection →
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Settings Modal */}
+      {showSettingsModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xl animate-in fade-in">
+          <div className="w-full max-w-md rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl p-6 text-white space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div className="flex items-center gap-2">
+                <Sliders className="w-5 h-5 text-cyan-400" />
+                <h3 className="font-extrabold text-white text-base">System Settings & Controls</h3>
+              </div>
+              <button
+                onClick={() => setShowSettingsModal(false)}
+                className="p-1 rounded-lg text-slate-400 hover:text-white cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="space-y-3 text-xs font-semibold">
+              <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex justify-between items-center">
+                <span>AES-256 Vault Encryption</span>
+                <span className="text-emerald-400 font-bold">ENABLED</span>
+              </div>
+              <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex justify-between items-center">
+                <span>HIPAA Compliance Telemetry</span>
+                <span className="text-emerald-400 font-bold">100% PASSED</span>
+              </div>
+              <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex justify-between items-center">
+                <span>Edge Neural Server Sync</span>
+                <span className="text-cyan-400 font-bold">14 ms Latency</span>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setShowSettingsModal(false)}
+              className="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-extrabold text-xs cursor-pointer"
+            >
+              Close Settings
+            </button>
           </div>
         </div>
       )}
