@@ -12,6 +12,7 @@ import LanguageSelector from '../components/LanguageSelector'
 import ThemeToggle from '../components/ThemeToggle'
 import GoogleAuthModal from '../components/GoogleAuthModal'
 import ClinicalInsightsOptimizationHub from '../components/ClinicalInsightsOptimizationHub'
+import EmergencyDispatchModal from '../components/EmergencyDispatchModal'
 import { useLanguage } from '../context/LanguageContext'
 import { useAuth } from '../context/AuthContext'
 import { 
@@ -182,6 +183,7 @@ export default function Admin(){
 
   // Add Patient, Inspect & Comparison Modal State
   const [showAddPatientModal, setShowAddPatientModal] = useState(false)
+  const [isEmergencyModalOpen, setIsEmergencyModalOpen] = useState(false)
   const [selectedInspectPatient, setSelectedInspectPatient] = useState(null)
   const [comparePatients, setComparePatients] = useState([])
   const [newPatient, setNewPatient] = useState({ name: '', age: '30', gender: 'Female', risk: 'Low Risk', score: '95' })
@@ -2891,6 +2893,12 @@ function createAdminBarcodeDataURL(codeText = 'SEC-984021-HIPAA') {
           </div>
         </div>
       )}
+
+      {/* Emergency Dispatch SOS Modal */}
+      <EmergencyDispatchModal
+        isOpen={isEmergencyModalOpen}
+        onClose={() => setIsEmergencyModalOpen(false)}
+      />
     </div>
   )
 }
