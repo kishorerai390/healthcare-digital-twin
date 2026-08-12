@@ -22,6 +22,7 @@ export default function JudgesHackathonDock() {
       id: 'cardiac',
       title: '🔴 Acute Ischemia Alert',
       desc: '112 BPM • 148/94 BP • 48% Vocal Cardiac Risk',
+      targetRoute: '/voice-analysis',
       profile: {
         twinId: 'TWIN-99104-ALERT',
         healthScore: 68,
@@ -53,6 +54,7 @@ export default function JudgesHackathonDock() {
       id: 'wound',
       title: '🟢 Diabetic Wound Closure',
       desc: 'Day 12 Wound • 92% Granulation • 1.8 cm²',
+      targetRoute: '/wound-tracker',
       profile: {
         twinId: 'TWIN-77402-WOUND',
         healthScore: 91,
@@ -79,6 +81,7 @@ export default function JudgesHackathonDock() {
       id: 'drug',
       title: '🟣 Pharmacology Contraindication',
       desc: 'Warfarin Sodium 5mg + NSAID Danger Alert',
+      targetRoute: '/medicine-scanner',
       profile: {
         twinId: 'TWIN-50493-PHARMA',
         healthScore: 82,
@@ -103,19 +106,25 @@ export default function JudgesHackathonDock() {
     }
   ]
 
-  const handleLoadScenario = (sc, route = '/dashboard') => {
+  const handleLoadScenario = (sc) => {
     guestLogin?.()
     saveHealthProfile(sc.profile)
     setHealthProfile?.(sc.profile)
     setActiveProfileId(sc.id)
     setToastMessage(`✓ Loaded ${sc.title}!`)
     setTimeout(() => setToastMessage(''), 2500)
-    nav(route)
+    setTimeout(() => {
+      nav(sc.targetRoute || '/dashboard')
+    }, 100)
   }
 
   const handleNavFeature = (route) => {
     guestLogin?.()
-    nav(route)
+    setToastMessage(`Launching feature...`)
+    setTimeout(() => setToastMessage(''), 2000)
+    setTimeout(() => {
+      nav(route)
+    }, 100)
   }
 
   return (
