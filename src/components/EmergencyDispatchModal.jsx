@@ -57,9 +57,9 @@ export default function EmergencyDispatchModal({ isOpen, onClose, patientName, h
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-xl animate-in fade-in duration-300 font-sans">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-xl animate-in fade-in duration-300 font-sans overflow-y-auto">
       
-      <div className="w-full max-w-xl rounded-3xl bg-slate-900 border-2 border-rose-500/80 shadow-2xl overflow-hidden text-white p-6 space-y-6 relative">
+      <div className="w-full max-w-xl rounded-3xl bg-slate-900 border-2 border-rose-500/80 shadow-2xl overflow-y-auto max-h-[90vh] text-white p-6 space-y-6 relative">
         
         {/* Top Header */}
         <div className="flex items-center justify-between border-b border-slate-800 pb-4">

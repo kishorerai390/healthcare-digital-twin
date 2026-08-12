@@ -134,7 +134,7 @@ export default function ClinicalPDFReportModal({ isOpen, onClose, profile }) {
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className="w-full max-w-3xl bg-white text-slate-900 rounded-3xl shadow-2xl overflow-hidden border border-slate-200 my-8"
+        className="w-full max-w-3xl bg-white text-slate-900 rounded-3xl shadow-2xl overflow-y-auto max-h-[90vh] border border-slate-200 my-8"
       >
         {/* Modal Top Toolbar (Non-printable) */}
         <div className="p-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800 print:hidden">

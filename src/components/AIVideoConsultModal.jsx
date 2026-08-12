@@ -36,9 +36,9 @@ export default function AIVideoConsultModal({ doctor, isOpen, onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xl animate-in fade-in duration-300 font-sans">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xl animate-in fade-in duration-300 font-sans overflow-y-auto">
       
-      <div className="w-full max-w-4xl rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl overflow-hidden flex flex-col h-[550px] relative">
+      <div className="w-full max-w-4xl rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl overflow-y-auto flex flex-col h-[550px] max-h-[90vh] relative">
         
         {/* Top Floating Video Controls Bar */}
         <div className="p-4 bg-slate-950/80 border-b border-slate-800/80 flex items-center justify-between z-20">
