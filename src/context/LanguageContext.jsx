@@ -47,7 +47,29 @@ export function LanguageProvider({ children }){
   const setLang = (code) => {
     setLangState(code)
     localStorage.setItem('app_lang', code)
-    triggerGoogleTranslate(code)
+    
+    if (code === 'en') {
+      // Clear all Google Translate cookies across paths and domains
+      document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+      const domain = window.location.hostname
+      if (domain) {
+        document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${domain};`
+        document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${domain};`
+      }
+      
+      const selectElem = document.querySelector('.goog-te-combo')
+      if (selectElem) {
+        selectElem.value = ''
+        selectElem.dispatchEvent(new Event('change'))
+      }
+
+      // Automatically reload page to restore clean, un-polluted native English DOM
+      setTimeout(() => {
+        window.location.reload()
+      }, 150)
+    } else {
+      triggerGoogleTranslate(code)
+    }
   }
 
   useEffect(() => {

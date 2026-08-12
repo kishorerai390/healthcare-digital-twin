@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext'
 import { getHealthProfile, saveHealthProfile, DEFAULT_HEALTH_PROFILE } from '../utils/storage'
 
 export default function ProtectedRoute({ children, requireHealthProfile }){
-  const { loading, currentUser } = useAuth()
+  const { loading, currentUser, guestLogin } = useAuth()
   const profile = getHealthProfile()
 
   if(loading){
@@ -17,6 +17,11 @@ export default function ProtectedRoute({ children, requireHealthProfile }){
   }
 
   if(!currentUser){
+    // If a health profile exists in local storage (e.g. preset loaded from Hackathon Dock), auto-authenticate guest user
+    if(profile && Object.keys(profile).length > 0){
+      guestLogin?.()
+      return children
+    }
     return <Navigate to="/login" replace />
   }
 

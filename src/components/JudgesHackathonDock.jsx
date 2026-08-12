@@ -106,25 +106,25 @@ export default function JudgesHackathonDock() {
     }
   ]
 
-  const handleLoadScenario = (sc) => {
+  const handleLoadScenario = (sc, e) => {
+    e?.stopPropagation?.()
+    e?.preventDefault?.()
     guestLogin?.()
     saveHealthProfile(sc.profile)
     setHealthProfile?.(sc.profile)
     setActiveProfileId(sc.id)
-    setToastMessage(`✓ Loaded ${sc.title}!`)
+    setToastMessage(`✓ Loaded ${sc.title}! Opening module...`)
     setTimeout(() => setToastMessage(''), 2500)
-    setTimeout(() => {
-      nav(sc.targetRoute || '/dashboard')
-    }, 100)
+    nav(sc.targetRoute || '/dashboard')
   }
 
-  const handleNavFeature = (route) => {
+  const handleNavFeature = (route, e) => {
+    e?.stopPropagation?.()
+    e?.preventDefault?.()
     guestLogin?.()
     setToastMessage(`Launching feature...`)
     setTimeout(() => setToastMessage(''), 2000)
-    setTimeout(() => {
-      nav(route)
-    }, 100)
+    nav(route)
   }
 
   return (
@@ -189,7 +189,7 @@ export default function JudgesHackathonDock() {
                 {scenarios.map((sc) => (
                   <button
                     key={sc.id}
-                    onClick={() => handleLoadScenario(sc)}
+                    onClick={(e) => handleLoadScenario(sc, e)}
                     className={`w-full p-2.5 rounded-2xl border text-left transition-all cursor-pointer flex items-center justify-between ${
                       activeProfileId === sc.id
                         ? 'bg-cyan-500/20 border-cyan-400 text-white shadow-md'
@@ -217,7 +217,7 @@ export default function JudgesHackathonDock() {
 
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <button
-                  onClick={() => handleNavFeature('/voice-analysis')}
+                  onClick={(e) => handleNavFeature('/voice-analysis', e)}
                   className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-bold flex items-center gap-1.5 cursor-pointer"
                 >
                   <Mic className="w-3.5 h-3.5 text-cyan-400" />
@@ -225,7 +225,7 @@ export default function JudgesHackathonDock() {
                 </button>
 
                 <button
-                  onClick={() => handleNavFeature('/wound-tracker')}
+                  onClick={(e) => handleNavFeature('/wound-tracker', e)}
                   className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-bold flex items-center gap-1.5 cursor-pointer"
                 >
                   <Camera className="w-3.5 h-3.5 text-emerald-400" />
@@ -233,7 +233,7 @@ export default function JudgesHackathonDock() {
                 </button>
 
                 <button
-                  onClick={() => handleNavFeature('/consultation')}
+                  onClick={(e) => handleNavFeature('/consultation', e)}
                   className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-bold flex items-center gap-1.5 cursor-pointer"
                 >
                   <FileText className="w-3.5 h-3.5 text-indigo-400" />
@@ -241,7 +241,7 @@ export default function JudgesHackathonDock() {
                 </button>
 
                 <button
-                  onClick={() => handleNavFeature('/admin')}
+                  onClick={(e) => handleNavFeature('/admin', e)}
                   className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-bold flex items-center gap-1.5 cursor-pointer"
                 >
                   <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
