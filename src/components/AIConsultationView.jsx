@@ -642,8 +642,8 @@ export default function AIConsultationView() {
           {SAMPLE_QUESTIONS.map((q, idx) => (
             <button
               key={idx}
-              onClick={() => handleSendMessage(q)}
-              className="px-3 py-1.5 rounded-full bg-slate-100 hover:bg-cyan-50 hover:text-cyan-700 text-slate-700 font-bold border border-slate-200 transition-all whitespace-nowrap cursor-pointer flex-shrink-0"
+              onClick={() => setInputQuery(q)}
+              className="px-3 py-1.5 rounded-full bg-slate-100 hover:bg-cyan-50 hover:text-cyan-700 text-slate-700 font-bold border border-slate-200 transition-all whitespace-nowrap cursor-pointer flex-shrink-0 active:scale-95"
             >
               {q}
             </button>

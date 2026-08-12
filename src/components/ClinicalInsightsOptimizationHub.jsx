@@ -240,20 +240,58 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                     </div>
                   ))}
                 </div>
-                <form onSubmit={handleSendAiMessage} className="flex gap-2">
-                  <input
-                    type="text"
-                    value={aiPrompt}
-                    onChange={(e) => setAiPrompt(e.target.value)}
-                    placeholder="Ask AI about bed turnover, staffing, or ER surge..."
-                    className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
-                  />
-                  <button
-                    type="submit"
-                    className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-extrabold cursor-pointer transition-all"
-                  >
-                    Send
-                  </button>
+                <form onSubmit={handleSendAiMessage} className="space-y-3">
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={aiPrompt}
+                      onChange={(e) => setAiPrompt(e.target.value)}
+                      placeholder="Ask about patients, lab results, medications, staffing..."
+                      className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                    />
+                    <button
+                      type="submit"
+                      className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-extrabold cursor-pointer transition-all flex items-center gap-1"
+                    >
+                      Send
+                    </button>
+                  </div>
+
+                  {/* Quick Action Prompt Buttons - Pastes into Input Above */}
+                  <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                    <button
+                      type="button"
+                      onClick={() => setAiPrompt("Patient Summary")}
+                      className="px-3 py-1.5 rounded-xl bg-black hover:bg-slate-800 active:scale-95 text-white font-mono font-bold text-xs border border-slate-800 transition-all cursor-pointer shadow-md flex items-center gap-1.5 whitespace-nowrap hover:border-indigo-500"
+                    >
+                      <span>📄</span>
+                      <span>Patient Summary</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setAiPrompt("View Alerts")}
+                      className="px-3 py-1.5 rounded-xl bg-black hover:bg-slate-800 active:scale-95 text-white font-mono font-bold text-xs border border-slate-800 transition-all cursor-pointer shadow-md flex items-center gap-1.5 whitespace-nowrap hover:border-indigo-500"
+                    >
+                      <span>ⓘ</span>
+                      <span>View Alerts</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setAiPrompt("Vital Signs")}
+                      className="px-3 py-1.5 rounded-xl bg-black hover:bg-slate-800 active:scale-95 text-white font-mono font-bold text-xs border border-slate-800 transition-all cursor-pointer shadow-md flex items-center gap-1.5 whitespace-nowrap hover:border-indigo-500"
+                    >
+                      <span>⚕</span>
+                      <span>Vital Signs</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setAiPrompt("Medication Review")}
+                      className="px-3 py-1.5 rounded-xl bg-black hover:bg-slate-800 active:scale-95 text-white font-mono font-bold text-xs border border-slate-800 transition-all cursor-pointer shadow-md flex items-center gap-1.5 whitespace-nowrap hover:border-indigo-500"
+                    >
+                      <span>💊</span>
+                      <span>Medication Review</span>
+                    </button>
+                  </div>
                 </form>
               </div>
             )}
