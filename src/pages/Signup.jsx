@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext'
 import { Home, Eye, EyeOff } from 'lucide-react'
 import LanguageSelector from '../components/LanguageSelector'
 import GoogleAuthModal from '../components/GoogleAuthModal'
-import { saveHealthProfile, DEFAULT_HEALTH_PROFILE } from '../utils/storage'
+import { saveHealthProfile, createFreshHealthProfile } from '../utils/storage'
 
 export default function Signup(){
   const nav = useNavigate()
@@ -35,15 +35,8 @@ export default function Signup(){
 
     setLoading(true)
     try {
-      // Ensure health profile is provisioned for new user
-      const userProfile = {
-        ...DEFAULT_HEALTH_PROFILE,
-        personalInfo: {
-          ...DEFAULT_HEALTH_PROFILE.personalInfo,
-          fullName: name || email.split('@')[0] || 'Patient User',
-          email: email
-        }
-      }
+      // Provision fresh empty health profile for new user onboarding
+      const userProfile = createFreshHealthProfile(name || email.split('@')[0] || 'Patient User', email)
       saveHealthProfile(userProfile)
 
       // Race Firebase signup with a 2-second timeout fallback for network/offline delay

@@ -80,6 +80,30 @@ export default function MedicalHistory(){
   const [analyzingAI, setAnalyzingAI] = useState(false)
   const [aiReport, setAiReport] = useState(null)
 
+  useEffect(() => {
+    // Route Guard: Lock step 3 until step 1 and step 2 are completed
+    const currentProfile = getHealthProfile() || {}
+    const pInfo = currentProfile.personalInfo || {}
+    const lStyle = currentProfile.lifestyle || {}
+    const isStep1Done = Boolean(
+      pInfo.fullName && pInfo.fullName.toString().trim() &&
+      pInfo.age && !isNaN(Number(pInfo.age)) &&
+      pInfo.gender &&
+      pInfo.height && !isNaN(Number(pInfo.height)) &&
+      pInfo.weight && !isNaN(Number(pInfo.weight)) &&
+      pInfo.bloodGroup &&
+      pInfo.location
+    )
+    const isStep2Done = isStep1Done && Boolean(
+      lStyle.exerciseFreq && lStyle.sleepQuality && lStyle.dietType && lStyle.smoking && lStyle.alcohol
+    )
+
+    if (!authLoading) {
+      if (!isStep1Done) nav('/onboarding')
+      else if (!isStep2Done) nav('/onboarding/lifestyle')
+    }
+  }, [authLoading, nav])
+
   const togglePresetText = (currentStr, setStr, preset) => {
     const cleanPreset = preset.replace(' / No Medications', '').replace(' / No Allergies', '').replace(' / No Past Surgeries', '')
     if (cleanPreset.startsWith('None')) {

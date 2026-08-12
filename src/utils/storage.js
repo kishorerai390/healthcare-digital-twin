@@ -18,6 +18,52 @@ export function generateUniqueTwinId(country = 'United States') {
   return `TWIN-${random5}-${cc}`
 }
 
+export function createFreshHealthProfile(name = '', email = '') {
+  return {
+    twinId: generateUniqueTwinId(),
+    createdDate: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+    healthScore: 0,
+    personalInfo: {
+      fullName: name,
+      email: email,
+      age: '',
+      gender: '',
+      height: '',
+      weight: '',
+      bloodGroup: '',
+      country: 'India',
+      state: 'Tamil Nadu',
+      city: 'Chennai',
+      location: ''
+    },
+    vitals: {
+      heartRate: '',
+      systolic: '',
+      diastolic: '',
+      glucose: '',
+      spo2: '',
+      temperature: ''
+    },
+    lifestyle: {
+      dailySteps: '',
+      sleepDuration: '',
+      sleepQuality: '',
+      exerciseFreq: '',
+      dietType: '',
+      smoking: '',
+      alcohol: ''
+    },
+    medicalHistory: {
+      conditions: [],
+      bloodGlucose: ''
+    },
+    scanReports: {
+      hasReports: null,
+      files: []
+    }
+  }
+}
+
 export const DEFAULT_HEALTH_PROFILE = {
   twinId: 'TWIN-88412-US',
   createdDate: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),

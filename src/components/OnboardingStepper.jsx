@@ -121,21 +121,31 @@ export default function OnboardingStepper({ currentStep = 1 }){
                   <Lock className="w-3 h-3 text-slate-500" />
                   <span>Locked</span>
                 </span>
-              ) : (
+              ) : isDone ? (
                 <button
                   onClick={(e) => {
                     e.stopPropagation()
-                    if (!isLocked) nav(s.path)
+                    nav(s.path)
                   }}
-                  className={`px-2 py-1 rounded-lg text-[10px] font-extrabold flex items-center gap-1 transition-all flex-shrink-0 cursor-pointer ${
-                    isActive
-                      ? 'bg-cyan-400/20 text-cyan-300 hover:bg-cyan-400/30'
-                      : 'bg-emerald-200/80 text-emerald-900 hover:bg-emerald-300 shadow-sm'
-                  }`}
+                  className="px-2 py-1 rounded-lg text-[10px] font-extrabold flex items-center gap-1 transition-all flex-shrink-0 cursor-pointer bg-emerald-200/80 text-emerald-900 hover:bg-emerald-300 shadow-sm"
                   title={`Step 0${s.num}: ${s.title}`}
                 >
                   <Pencil className="w-2.5 h-2.5" />
                   <span>{t('edit')}</span>
+                </button>
+              ) : isActive ? (
+                <span className="px-2 py-1 rounded-lg text-[10px] font-bold bg-cyan-400/20 text-cyan-300 flex items-center gap-1">
+                  Active
+                </span>
+              ) : (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    nav(s.path)
+                  }}
+                  className="px-2 py-1 rounded-lg text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center gap-1 cursor-pointer"
+                >
+                  <span>Fill</span>
                 </button>
               )}
             </div>

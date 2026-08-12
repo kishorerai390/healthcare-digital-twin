@@ -15,13 +15,32 @@ export default function Vitals(){
   const savedVitals = existing.vitals || {}
 
   useEffect(() => {
-    // Guard check: Re-fetch fresh profile from storage
+    // Route Guard: Lock step 4 until steps 1, 2, 3 are completed
     const currentProfile = getHealthProfile() || {}
+    const pInfo = currentProfile.personalInfo || {}
+    const lStyle = currentProfile.lifestyle || {}
     const mh = currentProfile.medicalHistory || {}
-    if (!authLoading && (!mh.conditions || mh.conditions.length === 0)) {
-      nav('/onboarding/medical-history')
+    const isStep1Done = Boolean(
+      pInfo.fullName && pInfo.fullName.toString().trim() &&
+      pInfo.age && !isNaN(Number(pInfo.age)) &&
+      pInfo.gender &&
+      pInfo.height && !isNaN(Number(pInfo.height)) &&
+      pInfo.weight && !isNaN(Number(pInfo.weight)) &&
+      pInfo.bloodGroup &&
+      pInfo.location
+    )
+    const isStep2Done = isStep1Done && Boolean(
+      lStyle.exerciseFreq && lStyle.sleepQuality && lStyle.dietType && lStyle.smoking && lStyle.alcohol
+    )
+    const isStep3Done = isStep2Done && Boolean(
+      mh.conditions && mh.conditions.length > 0
+    )
+    if (!authLoading) {
+      if (!isStep1Done) nav('/onboarding')
+      else if (!isStep2Done) nav('/onboarding/lifestyle')
+      else if (!isStep3Done) nav('/onboarding/medical-history')
     }
-  }, [authLoading])
+  }, [authLoading, nav])
 
   const [form, setForm] = useState({
     heartRate: savedVitals.heartRate || '',

@@ -13,17 +13,35 @@ export default function Lifestyle(){
   const { currentUser, healthProfile, lifestyleProfile, loading: authLoading, setLifestyleProfile } = useAuth()
   const existing = getHealthProfile() || {}
   const savedLifestyle = (lifestyleProfile && Object.keys(lifestyleProfile).length > 0) ? lifestyleProfile : (existing.lifestyle || {})
+  useEffect(() => {
+    // Route Guard: Lock step 2 until step 1 (Personal Info) is completed
+    const currentProfile = getHealthProfile() || {}
+    const pInfo = currentProfile.personalInfo || {}
+    const isStep1Done = Boolean(
+      pInfo.fullName && pInfo.fullName.toString().trim() &&
+      pInfo.age && !isNaN(Number(pInfo.age)) &&
+      pInfo.gender &&
+      pInfo.height && !isNaN(Number(pInfo.height)) &&
+      pInfo.weight && !isNaN(Number(pInfo.weight)) &&
+      pInfo.bloodGroup &&
+      pInfo.location
+    )
+    if (!authLoading && !isStep1Done) {
+      nav('/onboarding')
+    }
+  }, [authLoading, nav])
+
   const [form, setForm] = useState({
-    dailySteps: savedLifestyle.dailySteps || '8420',
-    exerciseFreq: savedLifestyle.exerciseFreq || '3-4 times/week',
-    exerciseDuration: savedLifestyle.exerciseDuration || '45',
-    sleepDuration: savedLifestyle.sleepDuration || '7.5',
-    sleepQuality: savedLifestyle.sleepQuality || 'Good Quality',
-    waterIntake: savedLifestyle.waterIntake || '2.5',
-    dietType: savedLifestyle.dietType || 'Balanced Mediterranean',
-    smoking: savedLifestyle.smoking || 'No',
-    alcohol: savedLifestyle.alcohol || 'No',
-    screenTime: savedLifestyle.screenTime || '4',
+    dailySteps: savedLifestyle.dailySteps || '',
+    exerciseFreq: savedLifestyle.exerciseFreq || '',
+    exerciseDuration: savedLifestyle.exerciseDuration || '',
+    sleepDuration: savedLifestyle.sleepDuration || '',
+    sleepQuality: savedLifestyle.sleepQuality || '',
+    waterIntake: savedLifestyle.waterIntake || '',
+    dietType: savedLifestyle.dietType || '',
+    smoking: savedLifestyle.smoking || '',
+    alcohol: savedLifestyle.alcohol || '',
+    screenTime: savedLifestyle.screenTime || '',
     ...savedLifestyle
   })
   const [errors, setErrors] = useState({})
@@ -33,25 +51,21 @@ export default function Lifestyle(){
 
   useEffect(()=>{
     if(!authLoading){
-      const currentSaved = lifestyleProfile || existing.lifestyle || {}
+      const currentSaved = lifestyleProfile || (getHealthProfile() || {}).lifestyle || {}
       setForm(prev => ({ 
-        dailySteps: '8420',
-        exerciseFreq: '3-4 times/week',
-        exerciseDuration: '45',
-        sleepDuration: '7.5',
-        sleepQuality: 'Good Quality',
-        waterIntake: '2.5',
-        dietType: 'Balanced Mediterranean',
-        smoking: 'No',
-        alcohol: 'No',
-        screenTime: '4',
         ...prev, 
         ...currentSaved 
       }))
     }
   }, [authLoading, lifestyleProfile])
 
-  const isFormComplete = true
+  const isFormComplete = Boolean(
+    form.exerciseFreq &&
+    form.sleepQuality &&
+    form.dietType &&
+    form.smoking &&
+    form.alcohol
+  )
 
   const validate = ()=>{
     const e = {}

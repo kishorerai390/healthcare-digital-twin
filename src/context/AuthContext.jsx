@@ -115,13 +115,17 @@ export function AuthProvider({ children }){
       personalInfo: {
         fullName: formattedName,
         email: email || '',
-        age: 32,
-        gender: 'Male',
-        height: '172',
-        weight: '68',
-        bloodGroup: 'O+',
-        location: 'San Francisco, CA'
-      }
+        age: '',
+        gender: '',
+        height: '',
+        weight: '',
+        bloodGroup: '',
+        location: ''
+      },
+      vitals: {},
+      lifestyle: {},
+      medicalHistory: { conditions: [] },
+      scanReports: { hasReports: null }
     }
     setCurrentUser(userObj)
     setUserProfile({ fullName: formattedName, email })

@@ -14,13 +14,37 @@ export default function ScanReports(){
   const scanData = existing.scanReports || {}
 
   useEffect(() => {
-    // Guard check: Re-fetch fresh profile from storage
+    // Route Guard: Lock step 5 until steps 1, 2, 3, 4 are completed
     const currentProfile = getHealthProfile() || {}
+    const pInfo = currentProfile.personalInfo || {}
+    const lStyle = currentProfile.lifestyle || {}
+    const mh = currentProfile.medicalHistory || {}
     const vt = currentProfile.vitals || {}
-    if (!authLoading && (!vt.heartRate || !vt.systolic)) {
-      nav('/onboarding/vitals')
+    const isStep1Done = Boolean(
+      pInfo.fullName && pInfo.fullName.toString().trim() &&
+      pInfo.age && !isNaN(Number(pInfo.age)) &&
+      pInfo.gender &&
+      pInfo.height && !isNaN(Number(pInfo.height)) &&
+      pInfo.weight && !isNaN(Number(pInfo.weight)) &&
+      pInfo.bloodGroup &&
+      pInfo.location
+    )
+    const isStep2Done = isStep1Done && Boolean(
+      lStyle.exerciseFreq && lStyle.sleepQuality && lStyle.dietType && lStyle.smoking && lStyle.alcohol
+    )
+    const isStep3Done = isStep2Done && Boolean(
+      mh.conditions && mh.conditions.length > 0
+    )
+    const isStep4Done = isStep3Done && Boolean(
+      vt.heartRate && vt.systolic && vt.diastolic && vt.spo2
+    )
+    if (!authLoading) {
+      if (!isStep1Done) nav('/onboarding')
+      else if (!isStep2Done) nav('/onboarding/lifestyle')
+      else if (!isStep3Done) nav('/onboarding/medical-history')
+      else if (!isStep4Done) nav('/onboarding/vitals')
     }
-  }, [authLoading])
+  }, [authLoading, nav])
 
   const [hasReportsOption, setHasReportsOption] = useState(scanData.hasReports !== undefined ? scanData.hasReports : null) // true, false, or null
   const [uploadedFiles, setUploadedFiles] = useState(scanData.files || [])
