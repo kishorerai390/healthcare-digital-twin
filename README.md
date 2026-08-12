@@ -26,7 +26,7 @@
 
 | Resource | Link |
 |---|---|
-| 🌐 Live Web Application | [healthcare-digital-twin.vercel.app](https://healthcare-digital-twin.vercel.app) |
+| 🌐 Live Web Application | [https://healthcare-digital-twin.vercel.app](https://healthcare-digital-twin.vercel.app) |
 | 🎞️ Google Slides Presentation | [View Presentation](https://docs.google.com/presentation/d/1Hi-CEXLYVCvLz27poDIa2jm6tKHurELK/edit?usp=sharing) |
 | ▶️ Demo Video | [Watch on YouTube](https://youtu.be/6EI3lnEVlb4) |
 | 🔗 GitHub Repository | [kishorerai390/healthcare-digital-twin](https://github.com/kishorerai390/healthcare-digital-twin) |
