@@ -20,6 +20,54 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
     { sender: 'ai', text: 'Hello! I am your Clinical Optimization Assistant. How can I assist with hospital throughput or bed allocations today?' }
   ])
 
+  // Time Range Selector State: 'Today' | 'This Week' | 'This Month' | 'This Year'
+  const [timeRange, setTimeRange] = useState('This Month')
+
+  const rangeMetrics = {
+    'Today': {
+      surgePct: '12%',
+      cardioCapacity: '8%',
+      bedTurnover: '14%',
+      equipReduction: '20%',
+      admissionsDesc: 'Expecting 12% more admissions in next 8 hours based on real-time ER triage trends',
+      cardioDesc: 'Cardiology department has 8% available capacity for urgent overflow',
+      bedDesc: 'Predictive discharge modeling could improve bed turnover by 14% today',
+      equipDesc: 'Cross-department equipment sharing could reduce idle time by 20% today'
+    },
+    'This Week': {
+      surgePct: '22%',
+      cardioCapacity: '12%',
+      bedTurnover: '18%',
+      equipReduction: '28%',
+      admissionsDesc: 'Expecting 22% increase in weekly ER admissions based on 7-day trend analysis',
+      cardioDesc: 'Cardiology department has 12% underutilized capacity over this week',
+      bedDesc: 'Predictive discharge modeling could improve weekly bed turnover by 18%',
+      equipDesc: 'Cross-department equipment sharing could reduce idle time by 28% this week'
+    },
+    'This Month': {
+      surgePct: '30%',
+      cardioCapacity: '15%',
+      bedTurnover: '22%',
+      equipReduction: '35%',
+      admissionsDesc: 'Expecting 30% more admissions this evening based on ER trends',
+      cardioDesc: 'Cardiology department has 15% underutilized capacity',
+      bedDesc: 'Predictive discharge modeling could improve bed turnover by 22%.',
+      equipDesc: 'Cross-department equipment sharing could reduce idle time by 35%.'
+    },
+    'This Year': {
+      surgePct: '45%',
+      cardioCapacity: '22%',
+      bedTurnover: '28%',
+      equipReduction: '42%',
+      admissionsDesc: 'Annual telemetry projects 45% peak seasonal admission surge',
+      cardioDesc: 'Cardiology department has 22% annual average underutilized capacity',
+      bedDesc: 'Predictive discharge modeling could improve annual bed turnover by 28%',
+      equipDesc: 'Cross-department equipment sharing could reduce idle time by 42% annually'
+    }
+  }
+
+  const currentMetrics = rangeMetrics[timeRange] || rangeMetrics['This Month']
+
   const showToast = (msg) => {
     setToastMessage(msg)
     setTimeout(() => setToastMessage(null), 4000)
@@ -83,6 +131,55 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
         )}
       </AnimatePresence>
 
+      {/* Top Healthcare Digital Data Twin Header Banner with Time Range Dropdown Selector */}
+      <div className="p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-white">
+        <div>
+          <div className="flex items-center gap-2 text-[10px] font-mono text-slate-400 font-bold mb-1">
+            <span>Digital Twin</span>
+            <span>›</span>
+            <span className="text-cyan-400">Healthcare</span>
+          </div>
+          <h2 className="text-xl sm:text-2xl font-black text-white flex items-center gap-2 tracking-tight">
+            <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">Healthcare Digital Data Twin</span>
+          </h2>
+          <div className="flex items-center gap-3 mt-1.5 flex-wrap">
+            <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[10px] font-extrabold border border-blue-500/30 flex items-center gap-1">
+              <span>💙</span>
+              <span>AI Clinical Support Active</span>
+            </span>
+            <span className="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 text-[10px] font-extrabold border border-slate-700 flex items-center gap-1">
+              <span>🕒</span>
+              <span>Real-time Monitoring</span>
+            </span>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <select
+            value={timeRange}
+            onChange={(e) => {
+              const val = e.target.value
+              setTimeRange(val)
+              showToast(`✓ Healthcare Digital Data Twin metrics updated for ${val}`)
+            }}
+            className="bg-slate-950 border border-slate-800 text-xs font-bold text-slate-200 rounded-xl px-4 py-2 focus:outline-none focus:border-cyan-500 cursor-pointer shadow-md"
+          >
+            <option value="Today">Today</option>
+            <option value="This Week">This Week</option>
+            <option value="This Month">This Month</option>
+            <option value="This Year">This Year</option>
+          </select>
+          <button
+            type="button"
+            onClick={() => showToast('🛡 HIPAA Security Vault Active — Data Encrypted')}
+            className="p-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer transition-colors"
+            title="HIPAA Security Shield Verified"
+          >
+            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          </button>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
         {/* ========================================================= */}
@@ -95,7 +192,7 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
           <div className="flex items-center justify-between border-b border-slate-800 pb-3">
             <h3 className="text-base font-extrabold flex items-center gap-2 text-white">
               <HeartPulse className="w-5 h-5 text-cyan-400" />
-              <span>Clinical Insights</span>
+              <span>Clinical Insights ({timeRange})</span>
             </h3>
             <span className="px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-[10px] font-extrabold border border-cyan-500/20">
               Live AI Telemetry
@@ -110,11 +207,11 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                 <h4 className="text-xs font-extrabold text-white">Admission Surge Alert</h4>
               </div>
               <p className="text-xs text-slate-300 font-medium leading-relaxed">
-                Expecting 30% more admissions this evening based on ER trends
+                {currentMetrics.admissionsDesc}
               </p>
               <div className="flex items-center justify-between pt-1">
                 <span className="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-[11px] font-extrabold border border-rose-500/30">
-                  Impact: high
+                  Impact: high ({currentMetrics.surgePct})
                 </span>
                 <button
                   type="button"
@@ -133,11 +230,11 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                 <h4 className="text-xs font-extrabold text-white">Resource Allocation</h4>
               </div>
               <p className="text-xs text-slate-300 font-medium leading-relaxed">
-                Cardiology department has 15% underutilized capacity
+                {currentMetrics.cardioDesc}
               </p>
               <div className="flex items-center justify-between pt-1">
                 <span className="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-[11px] font-extrabold border border-cyan-500/30">
-                  Impact: medium
+                  Impact: medium ({currentMetrics.cardioCapacity})
                 </span>
                 <button
                   type="button"
@@ -162,7 +259,7 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
               <span className="px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-[11px] font-extrabold border border-indigo-500/30 flex items-center gap-1.5">
                 <Activity className="w-3.5 h-3.5 text-indigo-400 animate-pulse" />
-                Live Monitoring Mode
+                Live Monitoring Mode ({timeRange})
               </span>
 
               <div className="flex items-center gap-2 bg-slate-950 p-1 rounded-xl border border-slate-800">
@@ -201,7 +298,7 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                 <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-3 hover:border-indigo-500/40 transition-all">
                   <h4 className="text-xs font-extrabold text-white">Bed Management</h4>
                   <p className="text-xs text-slate-300 font-medium leading-relaxed">
-                    Predictive discharge modeling could improve bed turnover by 22%.
+                    {currentMetrics.bedDesc}
                   </p>
                   <button
                     type="button"
@@ -231,7 +328,7 @@ export default function ClinicalInsightsOptimizationHub({ onNavigateSimulation, 
                 <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-3 hover:border-indigo-500/40 transition-all">
                   <h4 className="text-xs font-extrabold text-white">Equipment Sharing</h4>
                   <p className="text-xs text-slate-300 font-medium leading-relaxed">
-                    Cross-department equipment sharing could reduce idle time by 35%.
+                    {currentMetrics.equipDesc}
                   </p>
                   <button
                     type="button"
