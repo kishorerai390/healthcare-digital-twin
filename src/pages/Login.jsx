@@ -140,14 +140,14 @@ export default function Login(){
         className="w-full max-w-md bg-white border border-slate-200 p-6 sm:p-8 rounded-3xl shadow-2xl shadow-slate-200/80 relative z-10 space-y-5"
       >
         {/* Top Header Row */}
-        <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3.5">
           <button
             type="button"
             onClick={() => nav('/')}
-            className="inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 text-xs font-bold transition-colors group cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-slate-600 hover:text-slate-900 text-xs font-bold transition-colors group cursor-pointer whitespace-nowrap flex-shrink-0"
             title="Return to Home Page"
           >
-            <Home className="w-4 h-4 text-cyan-600 group-hover:scale-110 transition-transform" />
+            <Home className="w-3.5 h-3.5 text-cyan-600 group-hover:scale-110 transition-transform" />
             <span>Back to Home</span>
           </button>
 

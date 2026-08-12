@@ -79,14 +79,14 @@ export default function Signup(){
     <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50 text-slate-900">
       <div className="w-full max-w-md bg-white border border-slate-200 p-8 rounded-3xl shadow-2xl shadow-slate-200/60 relative space-y-5">
         
-        <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3.5">
           <button
             type="button"
             onClick={() => nav('/')}
-            className="inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 text-xs transition-colors group cursor-pointer font-bold"
+            className="inline-flex items-center gap-1.5 text-slate-600 hover:text-slate-900 text-xs transition-colors group cursor-pointer font-bold whitespace-nowrap flex-shrink-0"
             title="Return to Home Page"
           >
-            <Home className="w-4 h-4 text-cyan-600 group-hover:scale-110 transition-transform" />
+            <Home className="w-3.5 h-3.5 text-cyan-600 group-hover:scale-110 transition-transform" />
             <span>Back to Home</span>
           </button>
 

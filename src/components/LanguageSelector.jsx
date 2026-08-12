@@ -33,15 +33,14 @@ export default function LanguageSelector(){
   const { lang, setLang } = useLanguage()
 
   return (
-    <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-3 py-1.5 shadow-sm text-xs font-bold">
-      <Globe className="w-4 h-4 text-cyan-600 flex-shrink-0" />
-      <span className="text-slate-500 hidden sm:inline">Translate Page:</span>
+    <div className="inline-flex items-center gap-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl px-2.5 py-1 shadow-2xs text-xs font-bold transition-colors flex-shrink-0">
+      <Globe className="w-3.5 h-3.5 text-cyan-600 flex-shrink-0" />
       
       {/* Custom Selector */}
       <select
         value={lang}
         onChange={(e) => setLang(e.target.value)}
-        className="bg-transparent text-slate-900 font-extrabold focus:outline-none cursor-pointer"
+        className="bg-transparent text-slate-800 font-bold focus:outline-none cursor-pointer text-xs pr-1"
       >
         {LANG_OPTIONS.map(l => (
           <option key={l.code} value={l.code}>
