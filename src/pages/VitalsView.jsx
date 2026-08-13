@@ -11,11 +11,11 @@ function generateVitalData(baseValue, variance, count = 24) {
 
 const vitalsConfig = [
   { id: 'heartRate', label: 'Heart Rate', unit: 'bpm', icon: '❤️', color: '#ef4444', base: 72, variance: 8, normal: '60-100 bpm' },
-  { id: 'bloodPressureSys', label: 'Blood Pressure (Systolic)', unit: 'mmHg', icon: '🩸', color: '#f97316', base: 120, variance: 10, normal: '90-120 mmHg' },
-  { id: 'spo2', label: 'Oxygen Saturation', unit: '%', icon: '🫁', color: '#22d3ee', base: 97, variance: 2, normal: '95-100%' },
-  { id: 'temperature', label: 'Body Temperature', unit: '°F', icon: '🌡️', color: '#a78bfa', base: 98.4, variance: 0.5, normal: '97.8-99.1°F' },
-  { id: 'respRate', label: 'Respiratory Rate', unit: '/min', icon: '💨', color: '#34d399', base: 16, variance: 3, normal: '12-20 /min' },
-  { id: 'glucose', label: 'Blood Glucose', unit: 'mg/dL', icon: '🍬', color: '#fbbf24', base: 95, variance: 15, normal: '70-100 mg/dL (fasting)' },
+  { id: 'bloodPressureSys', label: 'Blood Pressure (Systolic)', unit: 'mmHg', icon: '🩸', color: '#ea580c', base: 120, variance: 10, normal: '90-120 mmHg' },
+  { id: 'spo2', label: 'Oxygen Saturation', unit: '%', icon: '🫁', color: '#0284c7', base: 97, variance: 2, normal: '95-100%' },
+  { id: 'temperature', label: 'Body Temperature', unit: '°F', icon: '🌡️', color: '#7c3aed', base: 98.4, variance: 0.5, normal: '97.8-99.1°F' },
+  { id: 'respRate', label: 'Respiratory Rate', unit: '/min', icon: '💨', color: '#059669', base: 16, variance: 3, normal: '12-20 /min' },
+  { id: 'glucose', label: 'Blood Glucose', unit: 'mg/dL', icon: '🍬', color: '#d97706', base: 95, variance: 15, normal: '70-100 mg/dL (fasting)' },
 ]
 
 export default function VitalsView() {
@@ -54,14 +54,14 @@ export default function VitalsView() {
   const chartData = vitalsData[selectedVital] || []
 
   return (
-    <div className="min-h-screen p-6 md:p-8">
+    <div className="min-h-screen p-6 md:p-8 font-sans">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white flex items-center gap-3">
+          <h1 className="text-3xl font-extrabold text-slate-900 flex items-center gap-3">
             <span className="text-3xl">📊</span> Vitals Monitor
           </h1>
-          <p className="text-slate-400 mt-1 text-sm">Real-time vital signs tracking & historical trends</p>
+          <p className="text-slate-600 mt-1 text-sm font-semibold">Real-time vital signs tracking & historical trends</p>
         </div>
 
         {/* Live Vitals Grid */}
@@ -70,39 +70,38 @@ export default function VitalsView() {
             <button
               key={vital.id}
               onClick={() => setSelectedVital(vital.id)}
-              className={`glass rounded-xl p-4 text-center transition-all duration-300 border ${
+              className={`bg-white/95 rounded-2xl p-4 text-center transition-all duration-300 border cursor-pointer ${
                 selectedVital === vital.id
-                  ? 'border-white/15 scale-[1.03] shadow-lg'
-                  : 'border-transparent hover:border-white/10 hover:bg-white/5'
+                  ? 'border-cyan-500 scale-[1.03] shadow-md ring-2 ring-cyan-500/20'
+                  : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'
               }`}
-              style={selectedVital === vital.id ? { borderColor: `${vital.color}40`, boxShadow: `0 4px 20px ${vital.color}15` } : {}}
             >
-              <div className="text-xl mb-1">{vital.icon}</div>
-              <div className="text-lg font-bold text-white">{liveValues[vital.id] || vital.base}</div>
-              <div className="text-[9px] text-slate-500 font-semibold uppercase tracking-wider mt-0.5">{vital.unit}</div>
-              <div className="text-[10px] text-slate-400 mt-1 truncate">{vital.label.split('(')[0].trim()}</div>
+              <div className="text-2xl mb-1">{vital.icon}</div>
+              <div className="text-xl font-black text-slate-900">{liveValues[vital.id] || vital.base}</div>
+              <div className="text-[10px] text-slate-600 font-extrabold uppercase tracking-wider mt-0.5">{vital.unit}</div>
+              <div className="text-xs font-bold text-slate-800 mt-1 truncate">{vital.label.split('(')[0].trim()}</div>
             </button>
           ))}
         </div>
 
         {/* Chart Section */}
-        <div className="glass rounded-2xl p-6 border border-white/5 mb-6">
+        <div className="bg-white/95 rounded-2xl p-6 border border-slate-200 shadow-md mb-6">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-lg font-bold text-white flex items-center gap-2">
+              <h2 className="text-lg font-extrabold text-slate-900 flex items-center gap-2">
                 <span>{activeVital?.icon}</span> {activeVital?.label}
               </h2>
-              <p className="text-xs text-slate-500 mt-0.5">Normal range: {activeVital?.normal}</p>
+              <p className="text-xs text-slate-600 font-bold mt-0.5">Normal range: {activeVital?.normal}</p>
             </div>
             <div className="flex gap-1.5">
               {['6h', '12h', '24h', '7d'].map(range => (
                 <button
                   key={range}
                   onClick={() => setTimeRange(range)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-extrabold transition-all cursor-pointer border ${
                     timeRange === range
-                      ? 'bg-white/10 text-white'
-                      : 'text-slate-500 hover:text-slate-300'
+                      ? 'bg-slate-900 text-white border-slate-900 shadow-xs'
+                      : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
                   }`}
                 >
                   {range}
@@ -120,14 +119,14 @@ export default function VitalsView() {
                     <stop offset="95%" stopColor={activeVital?.color} stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
-                <XAxis dataKey="time" tick={{ fontSize: 10, fill: '#64748b' }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 10, fill: '#64748b' }} axisLine={false} tickLine={false} domain={['auto', 'auto']} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis dataKey="time" tick={{ fontSize: 11, fill: '#475569', fontWeight: 700 }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: '#475569', fontWeight: 700 }} axisLine={false} tickLine={false} domain={['auto', 'auto']} />
                 <Tooltip
-                  contentStyle={{ background: '#1e293b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '12px' }}
+                  contentStyle={{ background: '#0f172a', color: '#ffffff', border: '1px solid #334155', borderRadius: '12px', fontSize: '12px' }}
                   labelStyle={{ color: '#94a3b8' }}
                 />
-                <Area type="monotone" dataKey="value" stroke={activeVital?.color} fill="url(#vitalGradient)" strokeWidth={2.5} dot={false} activeDot={{ r: 5, fill: activeVital?.color }} />
+                <Area type="monotone" dataKey="value" stroke={activeVital?.color} fill="url(#vitalGradient)" strokeWidth={3} dot={false} activeDot={{ r: 6, fill: activeVital?.color }} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -141,9 +140,9 @@ export default function VitalsView() {
             { label: 'Min (24h)', value: Math.round((activeVital?.base - activeVital?.variance) * 10) / 10, suffix: activeVital?.unit },
             { label: 'Max (24h)', value: Math.round((activeVital?.base + activeVital?.variance) * 10) / 10, suffix: activeVital?.unit },
           ].map(stat => (
-            <div key={stat.label} className="glass rounded-xl p-4 border border-white/5">
-              <div className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">{stat.label}</div>
-              <div className="text-2xl font-bold text-white mt-1">{stat.value} <span className="text-sm text-slate-400 font-normal">{stat.suffix}</span></div>
+            <div key={stat.label} className="bg-white/95 rounded-2xl p-4 border border-slate-200 shadow-md">
+              <div className="text-[10px] text-slate-600 font-black uppercase tracking-wider">{stat.label}</div>
+              <div className="text-2xl font-black text-slate-900 mt-1">{stat.value} <span className="text-xs text-slate-600 font-extrabold">{stat.suffix}</span></div>
             </div>
           ))}
         </div>

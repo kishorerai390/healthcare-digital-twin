@@ -82,22 +82,22 @@ export default function Settings() {
   const section = settingsSections.find(s => s.id === activeSection)
 
   return (
-    <div className="min-h-screen p-6 md:p-8">
+    <div className="min-h-screen p-6 md:p-8 font-sans">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-white flex items-center gap-3">
+            <h1 className="text-3xl font-extrabold text-slate-900 flex items-center gap-3">
               <span className="text-3xl">⚙️</span> Settings & Profile
             </h1>
-            <p className="text-slate-400 mt-1 text-sm">Manage your account, devices, and preferences</p>
+            <p className="text-slate-600 mt-1 text-sm font-semibold">Manage your account, devices, and preferences</p>
           </div>
           <button
             onClick={handleSave}
-            className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 ${
+            className={`px-6 py-2.5 rounded-xl text-xs font-black transition-all cursor-pointer shadow-md ${
               saved
-                ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                : 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:shadow-lg hover:shadow-cyan-500/25 hover:-translate-y-0.5'
+                ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
+                : 'bg-cyan-600 hover:bg-cyan-700 text-white border border-cyan-500 hover:scale-105'
             }`}
           >
             {saved ? '✓ Saved!' : 'Save Changes'}
@@ -107,15 +107,15 @@ export default function Settings() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Sidebar Nav */}
           <div className="lg:col-span-1">
-            <div className="glass rounded-2xl p-3 border border-white/5 space-y-1">
+            <div className="bg-white/95 rounded-2xl p-3 border border-slate-200 shadow-md space-y-1">
               {settingsSections.map(s => (
                 <button
                   key={s.id}
                   onClick={() => setActiveSection(s.id)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-extrabold transition-all cursor-pointer border ${
                     activeSection === s.id
-                      ? 'bg-white/10 text-white'
-                      : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
+                      ? 'bg-slate-900 text-white border-slate-900 shadow-xs'
+                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 hover:text-slate-900'
                   }`}
                 >
                   <span className="text-lg">{s.icon}</span>
@@ -127,8 +127,8 @@ export default function Settings() {
 
           {/* Content */}
           <div className="lg:col-span-3">
-            <div className="glass rounded-2xl p-6 border border-white/5">
-              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+            <div className="bg-white/95 rounded-2xl p-6 border border-slate-200 shadow-md">
+              <h2 className="text-lg font-extrabold text-slate-900 mb-6 flex items-center gap-2 border-b border-slate-100 pb-3">
                 <span>{section.icon}</span> {section.title}
               </h2>
 
@@ -137,21 +137,21 @@ export default function Settings() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {section.fields.map(field => (
                     <div key={field.label}>
-                      <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 block">{field.label}</label>
+                      <label className="text-xs font-black text-slate-700 uppercase tracking-wider mb-1.5 block">{field.label}</label>
                       {field.type === 'select' ? (
                         <select
                           defaultValue={field.value}
-                          className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-cyan-500/50 transition-colors"
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs font-bold focus:outline-none focus:border-cyan-500 font-mono"
                         >
                           {field.options.map(opt => (
-                            <option key={opt} value={opt} className="bg-slate-800">{opt}</option>
+                            <option key={opt} value={opt} className="bg-white text-slate-900">{opt}</option>
                           ))}
                         </select>
                       ) : (
                         <input
                           type={field.type}
                           defaultValue={field.value}
-                          className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-cyan-500/50 transition-colors"
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs font-bold focus:outline-none focus:border-cyan-500 font-mono"
                         />
                       )}
                     </div>
@@ -163,29 +163,29 @@ export default function Settings() {
               {section.devices && (
                 <div className="space-y-3">
                   {section.devices.map(device => (
-                    <div key={device.name} className="flex items-center justify-between p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                    <div key={device.name} className="flex items-center justify-between p-4 rounded-xl bg-slate-50 border border-slate-200">
                       <div className="flex items-center gap-3">
                         <span className="text-2xl">{device.icon}</span>
                         <div>
-                          <div className="text-sm font-semibold text-white">{device.name}</div>
-                          <div className="text-[10px] text-slate-500">Last sync: {device.lastSync}</div>
+                          <div className="text-xs font-extrabold text-slate-900">{device.name}</div>
+                          <div className="text-[10px] text-slate-500 font-bold">Last sync: {device.lastSync}</div>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
-                        <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${
+                        <span className={`px-2.5 py-1 rounded-full text-[10px] font-black border ${
                           device.connected
-                            ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
-                            : 'bg-red-500/15 text-red-400 border border-red-500/30'
+                            ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                            : 'bg-rose-100 text-rose-800 border-rose-300'
                         }`}>
                           {device.status}
                         </span>
-                        <button className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white/5 text-slate-300 hover:bg-white/10 transition-colors">
+                        <button className="px-3 py-1.5 rounded-lg text-xs font-extrabold bg-white border border-slate-300 text-slate-800 hover:bg-slate-100 transition-colors cursor-pointer shadow-xs">
                           {device.connected ? 'Disconnect' : 'Connect'}
                         </button>
                       </div>
                     </div>
                   ))}
-                  <button className="w-full p-3 rounded-xl border-2 border-dashed border-white/10 text-sm text-slate-400 font-medium hover:border-cyan-500/30 hover:text-cyan-400 transition-colors">
+                  <button className="w-full p-3 rounded-xl border-2 border-dashed border-slate-300 text-xs text-slate-700 font-extrabold hover:border-cyan-500 hover:text-cyan-800 transition-colors cursor-pointer">
                     + Add New Device
                   </button>
                 </div>
@@ -195,15 +195,15 @@ export default function Settings() {
               {section.toggles && (
                 <div className="space-y-4">
                   {section.toggles.map(toggle => (
-                    <div key={toggle.label} className="flex items-center justify-between p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                    <div key={toggle.label} className="flex items-center justify-between p-4 rounded-xl bg-slate-50 border border-slate-200">
                       <div>
-                        <div className="text-sm font-semibold text-white">{toggle.label}</div>
-                        <div className="text-xs text-slate-500 mt-0.5">{toggle.desc}</div>
+                        <div className="text-xs font-extrabold text-slate-900">{toggle.label}</div>
+                        <div className="text-[11px] text-slate-600 font-bold mt-0.5">{toggle.desc}</div>
                       </div>
                       <button
                         onClick={() => handleToggle(section.id, toggle.label)}
-                        className={`w-12 h-7 rounded-full transition-all duration-300 relative ${
-                          isToggleOn(section.id, toggle.label, toggle.enabled) ? 'bg-cyan-500' : 'bg-white/10'
+                        className={`w-12 h-7 rounded-full transition-all duration-300 relative cursor-pointer ${
+                          isToggleOn(section.id, toggle.label, toggle.enabled) ? 'bg-cyan-600' : 'bg-slate-300'
                         }`}
                       >
                         <div className={`w-5 h-5 rounded-full bg-white absolute top-1 transition-all duration-300 shadow-md ${

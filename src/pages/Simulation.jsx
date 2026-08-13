@@ -34,7 +34,6 @@ export default function Simulation() {
     sliderConfigs.forEach(s => { init[s.id] = s.defaultVal })
     return init
   })
-  const [comparing, setComparing] = useState(false)
 
   const predictions = useMemo(() => computePredictions(values), [values])
 
@@ -48,23 +47,30 @@ export default function Simulation() {
     setValues(init)
   }
 
-  const riskColor = (risk) =>
-    risk === 'Low' ? '#34d399' : risk === 'Moderate' ? '#fbbf24' : '#ef4444'
+  const riskBadgeStyle = (risk) => {
+    if (risk === 'Low' || risk === 'Excellent' || risk === 'Normal range') {
+      return { color: '#047857', background: '#d1fae5', borderColor: '#6ee7b7' }
+    }
+    if (risk === 'Moderate' || risk === 'Good' || risk === 'Overweight risk' || risk === 'Underweight risk') {
+      return { color: '#b45309', background: '#fef3c7', borderColor: '#fde68a' }
+    }
+    return { color: '#b91c1c', background: '#fee2e2', borderColor: '#fca5a5' }
+  }
 
   return (
-    <div className="min-h-screen p-6 md:p-8">
+    <div className="min-h-screen p-6 md:p-8 font-sans">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-white flex items-center gap-3">
+            <h1 className="text-3xl font-extrabold text-slate-900 flex items-center gap-3">
               <span className="text-3xl">🔮</span> Future Health Simulator
             </h1>
-            <p className="text-slate-400 mt-1 text-sm">Adjust lifestyle parameters and see predicted health outcomes in real-time</p>
+            <p className="text-slate-600 mt-1 text-sm font-semibold">Adjust lifestyle parameters and see predicted health outcomes in real-time</p>
           </div>
           <button
             onClick={handleReset}
-            className="px-4 py-2 rounded-xl bg-white/5 text-sm font-semibold text-slate-400 hover:bg-white/10 transition-colors"
+            className="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-extrabold text-xs transition-colors border border-slate-300 shadow-xs cursor-pointer"
           >
             ↺ Reset All
           </button>
@@ -73,16 +79,16 @@ export default function Simulation() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
           {/* Left: Sliders */}
           <div className="lg:col-span-3 space-y-4">
-            <div className="glass rounded-2xl p-6 border border-white/5">
-              <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-5">Lifestyle Parameters</h3>
+            <div className="bg-white/95 rounded-2xl p-6 border border-slate-200 shadow-lg">
+              <h3 className="text-xs font-black text-slate-700 uppercase tracking-wider mb-5">Lifestyle Parameters</h3>
               <div className="space-y-6">
                 {sliderConfigs.map(config => (
                   <div key={config.id}>
                     <div className="flex items-center justify-between mb-2">
-                      <label className="text-sm font-medium text-white flex items-center gap-2">
+                      <label className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
                         <span>{config.icon}</span> {config.label}
                       </label>
-                      <span className="px-3 py-1 rounded-lg bg-white/5 text-sm font-bold text-cyan-400">
+                      <span className="px-3 py-1 rounded-lg bg-cyan-100 text-cyan-950 border border-cyan-300 text-xs font-black">
                         {values[config.id]} {config.unit}
                       </span>
                     </div>
@@ -93,14 +99,11 @@ export default function Simulation() {
                       step={config.step}
                       value={values[config.id]}
                       onChange={(e) => handleSliderChange(config.id, e.target.value)}
-                      className="w-full h-2 rounded-full appearance-none cursor-pointer"
-                      style={{
-                        background: `linear-gradient(to right, #22d3ee ${((values[config.id] - config.min) / (config.max - config.min)) * 100}%, rgba(255,255,255,0.05) ${((values[config.id] - config.min) / (config.max - config.min)) * 100}%)`,
-                      }}
+                      className="w-full h-2.5 rounded-full appearance-none cursor-pointer accent-cyan-600 bg-slate-200 border border-slate-300"
                     />
                     <div className="flex justify-between mt-1">
-                      <span className="text-[10px] text-slate-600">{config.min} {config.unit}</span>
-                      <span className="text-[10px] text-slate-600">{config.max} {config.unit}</span>
+                      <span className="text-[11px] font-bold text-slate-600">{config.min} {config.unit}</span>
+                      <span className="text-[11px] font-bold text-slate-600">{config.max} {config.unit}</span>
                     </div>
                   </div>
                 ))}
@@ -111,20 +114,20 @@ export default function Simulation() {
           {/* Right: Predictions */}
           <div className="lg:col-span-2 space-y-5">
             {/* Health Score */}
-            <div className="glass rounded-2xl p-6 border border-white/5 flex flex-col items-center">
-              <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">Predicted Health Score</h3>
-              <div className="relative w-32 h-32 mb-3">
+            <div className="bg-white/95 rounded-2xl p-6 border border-slate-200 shadow-lg flex flex-col items-center">
+              <h3 className="text-xs font-black text-slate-700 uppercase tracking-wider mb-4">Predicted Health Score</h3>
+              <div className="relative w-36 h-36 mb-3">
                 <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
-                  <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="10" />
+                  <circle cx="60" cy="60" r="52" fill="none" stroke="#e2e8f0" strokeWidth="10" />
                   <circle cx="60" cy="60" r="52" fill="none" strokeWidth="10" strokeLinecap="round"
-                    stroke={predictions.healthScore >= 80 ? '#34d399' : predictions.healthScore >= 60 ? '#fbbf24' : '#ef4444'}
+                    stroke={predictions.healthScore >= 80 ? '#10b981' : predictions.healthScore >= 60 ? '#f59e0b' : '#ef4444'}
                     strokeDasharray={`${(predictions.healthScore / 100) * 327} 327`}
                     style={{ transition: 'stroke-dasharray 0.6s ease, stroke 0.6s ease' }}
                   />
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-3xl font-black text-white">{predictions.healthScore}</span>
-                  <span className="text-[10px] text-slate-400">/ 100</span>
+                  <span className="text-4xl font-black text-slate-900">{predictions.healthScore}</span>
+                  <span className="text-xs font-extrabold text-slate-600">/ 100</span>
                 </div>
               </div>
             </div>
@@ -137,26 +140,30 @@ export default function Simulation() {
                 { label: '⏳ Est. Life Expectancy', value: predictions.lifeExpectancy },
                 { label: '⚖️ BMI Prediction', value: predictions.bmi },
                 { label: '😴 Sleep Quality', value: predictions.sleepQuality },
-              ].map(pred => (
-                <div key={pred.label} className="glass rounded-xl p-4 border border-white/5 flex items-center justify-between">
-                  <span className="text-sm text-slate-300">{pred.label}</span>
-                  <span className="text-sm font-bold px-3 py-1 rounded-lg" style={{
-                    color: riskColor(pred.value),
-                    background: `${riskColor(pred.value)}15`
-                  }}>
-                    {pred.value}
-                  </span>
-                </div>
-              ))}
+              ].map(pred => {
+                const style = riskBadgeStyle(pred.value)
+                return (
+                  <div key={pred.label} className="bg-white/95 rounded-2xl p-4 border border-slate-200 shadow-sm flex items-center justify-between">
+                    <span className="text-sm font-extrabold text-slate-900">{pred.label}</span>
+                    <span className="text-xs font-black px-3 py-1 rounded-xl border shadow-xs" style={{
+                      color: style.color,
+                      backgroundColor: style.background,
+                      borderColor: style.borderColor
+                    }}>
+                      {pred.value}
+                    </span>
+                  </div>
+                )
+              })}
             </div>
 
             {/* AI Insight */}
-            <div className="glass rounded-2xl p-4 border border-cyan-500/15">
+            <div className="bg-cyan-50/90 rounded-2xl p-4 border border-cyan-200 shadow-sm">
               <div className="flex items-start gap-3">
-                <span className="text-lg">🤖</span>
+                <span className="text-xl">🤖</span>
                 <div>
-                  <h4 className="text-xs font-bold text-white mb-1">AI Recommendation</h4>
-                  <p className="text-xs text-slate-400 leading-relaxed">
+                  <h4 className="text-xs font-black text-cyan-950 mb-1 uppercase tracking-wider">AI Recommendation</h4>
+                  <p className="text-xs text-slate-800 font-bold leading-relaxed">
                     {predictions.healthScore >= 80
                       ? 'Excellent lifestyle choices! Maintain your current routine for optimal long-term health.'
                       : predictions.healthScore >= 60
