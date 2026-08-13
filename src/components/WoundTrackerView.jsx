@@ -249,6 +249,39 @@ export default function WoundTrackerView(){
               )}
             </div>
 
+            {/* Quick 1-Click Judge Sample Image Presets */}
+            <div className="pt-2.5 border-t border-slate-100 space-y-1.5">
+              <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider block">
+                1-Click Judge Image Preset Testing:
+              </span>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setImagePreview('/assets/wound_computer_vision.png')
+                    setAnalysisResult(null)
+                  }}
+                  disabled={analyzing}
+                  className="p-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border border-emerald-200 text-xs font-extrabold transition flex items-center justify-center gap-1 cursor-pointer disabled:opacity-50"
+                >
+                  <span>🩹 Load Day 5 Wound Preset</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setImagePreview('/assets/wound_computer_vision.png')
+                    setTimeout(() => {
+                      runAIWoundAnalysis()
+                    }, 100)
+                  }}
+                  disabled={analyzing}
+                  className="p-2 rounded-xl bg-cyan-50 hover:bg-cyan-100 text-cyan-900 border border-cyan-200 text-xs font-extrabold transition flex items-center justify-center gap-1 cursor-pointer disabled:opacity-50"
+                >
+                  <span>⚡ Instant AI Scan Demo</span>
+                </button>
+              </div>
+            </div>
+
             <button
               onClick={runAIWoundAnalysis}
               disabled={!imagePreview || analyzing}

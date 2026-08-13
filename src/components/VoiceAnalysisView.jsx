@@ -114,6 +114,67 @@ export default function VoiceAnalysisView(){
   const [ehrSyncStep, setEhrSyncStep] = useState(0)
   const [ehrSyncDetails, setEhrSyncDetails] = useState(null)
 
+  const loadPresetSample = (presetType) => {
+    setAnalyzing(true)
+    setTimeout(() => {
+      setAnalyzing(false)
+      const currentLangObj = LANGUAGES.find(l => l.code === selectedLanguage) || LANGUAGES[0]
+      if (presetType === 'cardiac') {
+        const scanData = {
+          cardiacRiskProb: 48,
+          riskLevel: 'High Risk',
+          languageUsed: `${currentLangObj.flag} ${currentLangObj.name} (Sample Preset)`,
+          vocalJitter: '1.82% (Elevated)',
+          acousticShimmer: '4.5% (High)',
+          fundamentalFreq: '198 Hz (Unstable)',
+          harmonicToNoiseRatio: '14.2 dB (Subglottic Turbulence)',
+          vocalFoldPerfusion: '62/100 (Compromised)',
+          subglotticPressure: '11.8 cm H2O (Elevated)',
+          vocalStrainIndex: 'High Micro-Tremor Index',
+          oxygenationMarker: 'Borderline (93%)',
+          coronaryIschemiaRisk: '48% (High Risk)',
+          pulmonaryFluidAccumulation: 'Mild Congestion (18%)',
+          arrhythmiaMicroTremor: '0.28 (Micro-Fibrillation Risk)',
+          vagalToneBalance: 'Sympathetic Dominance (Stress State)',
+          formantSpectrum: 'F1: 610Hz | F2: 1820Hz | F3: 2890Hz (Shifted)',
+          aiConfidenceScore: '99.1%',
+          aiModelVersion: 'v3.4 Universal Micro-Tremor Neural Net',
+          timestamp: new Date().toLocaleTimeString(),
+          verdict: 'CRITICAL WARNING: Acoustic biomarkers of acute myocardial ischemia & vocal fold micro-tremors detected.',
+          recommendation: 'Immediate cardiology consultation and 12-lead ECG recommended. Restrict physical exertion.',
+          physicianSummary: 'Elevated spectral jitter (1.82%) and subglottic pressure turbulence indicating acute coronary microvascular strain.'
+        }
+        setResult(scanData)
+      } else {
+        const scanData = {
+          cardiacRiskProb: 12,
+          riskLevel: 'Low Risk',
+          languageUsed: `${currentLangObj.flag} ${currentLangObj.name} (Sample Preset)`,
+          vocalJitter: '0.38% (Optimal)',
+          acousticShimmer: '1.2% (Normal)',
+          fundamentalFreq: '142 Hz (Stable)',
+          harmonicToNoiseRatio: '22.4 dB (High Spectral Clarity)',
+          vocalFoldPerfusion: '94/100 (Optimal Micro-circulation)',
+          subglotticPressure: '7.2 cm H2O (Normal)',
+          vocalStrainIndex: 'Minimal / Normal',
+          oxygenationMarker: 'Optimal (98%)',
+          coronaryIschemiaRisk: '9% (Low Risk)',
+          pulmonaryFluidAccumulation: 'None Detected (< 5%)',
+          arrhythmiaMicroTremor: '0.04 (Sinus Rhythm Correlation)',
+          vagalToneBalance: 'Balanced (Sympathetic / Parasympathetic)',
+          formantSpectrum: 'F1: 520Hz | F2: 1480Hz | F3: 2510Hz',
+          aiConfidenceScore: '98.6%',
+          aiModelVersion: 'v3.4 Universal Micro-Tremor Neural Net',
+          timestamp: new Date().toLocaleTimeString(),
+          verdict: 'No acoustic biomarkers of acute myocardial ischemia, coronary artery blockage, or imminent cardiac event detected.',
+          recommendation: 'Your voice acoustic features indicate healthy subglottic pressure and normal vocal fold perfusion.',
+          physicianSummary: 'Acoustic voice telemetry reveals stable subglottic pressure with low pitch instability (Jitter 0.38%).'
+        }
+        setResult(scanData)
+      }
+    }, 1200)
+  }
+
   const handleEhrClick = () => {
     if (!result) return
     const now = new Date()
@@ -426,6 +487,31 @@ export default function VoiceAnalysisView(){
           <p className="text-[11px] text-slate-500">
             💡 Our AI analyzes subglottic vocal fold micro-tremors and acoustic resonances, which are 100% universal across all human languages, dialects, and accents.
           </p>
+
+          {/* Quick Judge 1-Click Audio Sample Presets */}
+          <div className="pt-2.5 border-t border-slate-100 space-y-1.5">
+            <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider block">
+              1-Click Judge Sample Testing:
+            </span>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => loadPresetSample('healthy')}
+                disabled={recording || analyzing}
+                className="p-2 rounded-xl bg-cyan-50 hover:bg-cyan-100 text-cyan-900 border border-cyan-200 text-xs font-extrabold transition flex items-center justify-center gap-1 cursor-pointer disabled:opacity-50"
+              >
+                <span>🎙️ Healthy Voice Preset</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => loadPresetSample('cardiac')}
+                disabled={recording || analyzing}
+                className="p-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-900 border border-rose-200 text-xs font-extrabold transition flex items-center justify-center gap-1 cursor-pointer disabled:opacity-50"
+              >
+                <span>🚨 Cardiac Ischemia Preset</span>
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* 30-Second Recording Box with Prominent Center Icon & Pause Support */}
