@@ -123,7 +123,7 @@ export default function Landing(){
 
     saveHealthProfile(demoProfile)
     setHealthProfile?.(demoProfile)
-    const destination = typeof targetPath === 'string' && targetPath !== '/dashboard' ? targetPath : '/onboarding'
+    const destination = typeof targetPath === 'string' ? targetPath : '/dashboard'
     nav(destination)
   }
 
