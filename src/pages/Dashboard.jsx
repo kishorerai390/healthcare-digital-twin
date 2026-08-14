@@ -746,7 +746,7 @@ export default function Dashboard() {
                     <HeartPulse className="w-3.5 h-3.5 text-rose-500" />
                     <span>Blood Group:</span>
                   </span>
-                  <span className="font-black text-rose-600 text-xs px-2 py-0.5 rounded-md bg-rose-50 border border-rose-200">{p.bloodGroup || 'O+'}</span>
+                  <span className="font-black text-white text-xs px-2 py-0.5 rounded-md bg-rose-500 border border-rose-600">{p.bloodGroup || 'O+'}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-slate-500 font-medium flex items-center gap-1.5">
@@ -809,7 +809,7 @@ export default function Dashboard() {
 
               <button
                 onClick={() => { clearHealthProfile(); nav('/') }}
-                className="w-full py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs border border-rose-200 flex items-center justify-center gap-1.5 transition-colors"
+                className="w-full py-2 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-bold text-xs border border-rose-600 flex items-center justify-center gap-1.5 transition-colors"
               >
                 <Trash2 className="w-3.5 h-3.5" />
                 <span>Clear Profile Data</span>
